@@ -381,14 +381,8 @@ class Document extends AbstractHtmlElement
         $this->enableIntegrityOnPreload = $value;
     }
 
-    /**
-    * @return string[]
-    */
-    public function GetPossibleHeaders() : array
+    protected function GetPossibleHeadersMapper(string $url) : string
     {
-        $out = (
-            array_map(
-                function (string $url) : string {
                     $as = $this->preloads[$url];
 
                     $out = sprintf(
@@ -404,7 +398,16 @@ class Document extends AbstractHtmlElement
                     }
 
                     return $out;
-                },
+    }
+
+    /**
+    * @return string[]
+    */
+    public function GetPossibleHeaders() : array
+    {
+        $out = (
+            array_map(
+                [$this, 'GetPossibleHeadersMapper'],
                 array_keys($this->preloads)
             )
         );
