@@ -84,13 +84,8 @@ class Markup
     /**
     * @param array<int|string, mixed> $markup
     */
-    public function MarkupArrayToMarkupString(
-        array $markup,
-        bool $xml_style = false,
-        int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
-        string $encoding = 'UTF-8',
-        bool $double_encode = false
-    ) : string {
+    protected function MarkupArrayToMarkupStringValidateMarkup(array $markup) : void
+    {
         if ( ! array_key_exists('!element', $markup)) {
             throw new InvalidArgumentException('Element not specified!');
         } elseif ( ! is_string($markup['!element'])) {
@@ -102,8 +97,41 @@ class Markup
                 'Element not valid! (%s)',
                 $markup['!element']
             ));
+        } elseif (isset($markup['!content'])) {
+            if ( ! is_array($markup['!content'])) {
+                throw new InvalidArgumentException(
+                    'Element content must be specified as an array!'
+                );
+            }
+
+            /**
+            * @var array<int|string, mixed> $markupContent
+            */
+            $markupContent = $markup['!content'];
+
+            foreach (array_keys($markupContent) as $key) {
+                if ( ! is_scalar($markupContent[$key]) && ! is_array($markupContent[$key])) {
+                    throw new InvalidArgumentException(
+                        'Element content must be scalar or an array!'
+                    );
+                }
+            }
         }
 
+        foreach (array_keys($markup) as $k) {
+            if ( ! in_array($k, self::SUPPORTED_ARRAY_ATTRIBUTES, true)) {
+                throw new InvalidArgumentException(sprintf('Unsupported array key! (%s)', $k));
+            }
+        }
+    }
+
+    /**
+    * @param array<int|string, mixed> $markup
+    *
+    * @return array<string, scalar|scalar[]>
+    */
+    protected function MarkupArrayToMarkupStringValidateMarkupAttributes(array $markup) : array
+    {
         if (isset($markup['!attributes'])) {
             if ( ! is_array($markup['!attributes'])) {
                 throw new InvalidArgumentException('Attributes not specified as an array!');
@@ -141,42 +169,37 @@ class Markup
                     ));
                 }
             }
-        }
 
-        if (isset($markup['!content'])) {
-            if ( ! is_array($markup['!content'])) {
-                throw new InvalidArgumentException(
-                    'Element content must be specified as an array!'
-                );
-            }
-
-            /**
-            * @var array<int|string, mixed> $markupContent
-            */
-            $markupContent = $markup['!content'];
-
-            foreach (array_keys($markupContent) as $key) {
-                if ( ! is_scalar($markupContent[$key]) && ! is_array($markupContent[$key])) {
-                    throw new InvalidArgumentException(
-                        'Element content must be scalar or an array!'
-                    );
-                }
-            }
-        }
-
-        foreach (array_keys($markup) as $k) {
-            if ( ! in_array($k, self::SUPPORTED_ARRAY_ATTRIBUTES, true)) {
-                throw new InvalidArgumentException(sprintf('Unsupported array key! (%s)', $k));
-            }
-        }
-
-        $out = '<' . $markup['!element'];
-
-        if (isset($markup['!attributes'])) {
             /**
             * @var array<string, scalar|scalar[]> $attributes
             */
-            $attributes = $markup['!attributes'];
+            $attributes = $attributes;
+
+            return $attributes;
+        }
+
+        return [];
+    }
+
+    /**
+    * @param array<int|string, mixed> $markup
+    */
+    public function MarkupArrayToMarkupString(
+        array $markup,
+        bool $xml_style = false,
+        int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
+        string $encoding = 'UTF-8',
+        bool $double_encode = false
+    ) : string {
+        $this->MarkupArrayToMarkupStringValidateMarkup($markup);
+        $attributes = $this->MarkupArrayToMarkupStringValidateMarkupAttributes($markup);
+
+        /**
+        * @var string $element
+        */
+        $element = $markup['!element'];
+
+        $out = '<' . $element;
 
             foreach ($attributes as $attr => $val) {
                 if (false === $val) {
@@ -193,11 +216,10 @@ class Markup
                         '"';
                 }
             }
-        }
 
         if (
             ( ! isset($markup['!content']) || empty($markup['!content'])) &&
-            in_array($markup['!element'], self::SELF_CLOSING_ELEMENTS, true)
+            in_array($element, self::SELF_CLOSING_ELEMENTS, true)
         ) {
             if ($xml_style) {
                 $out .= '/';
@@ -220,7 +242,7 @@ class Markup
                 );
             }
 
-            $out .= '</' . $markup['!element'] . '>';
+            $out .= '</' . $element . '>';
         }
 
         return $out;
