@@ -112,19 +112,19 @@ abstract class AbstractHtmlElement
                     }
                 );
             },
-        [
-            $this->nullableStringAttributes,
-            $this->stringArrayAttributes,
-            $this->nullableBooleanAttributes,
+            [
+                $this->nullableStringAttributes,
+                $this->stringArrayAttributes,
+                $this->nullableBooleanAttributes,
             ]
         );
 
         foreach ($groupedAttributes as $group) {
             foreach ($group as $attribute => $value) {
-                    $out[$attribute] = $value;
-                    if (in_array($attribute, self::ENUMERATED_BOOLEANS, true) && is_bool($value)) {
-                        $out[$attribute] = $value ? 'true' : 'false';
-                    }
+                $out[$attribute] = $value;
+                if (in_array($attribute, self::ENUMERATED_BOOLEANS, true) && is_bool($value)) {
+                    $out[$attribute] = $value ? 'true' : 'false';
+                }
             }
         }
 
