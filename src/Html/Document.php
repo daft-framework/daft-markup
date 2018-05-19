@@ -142,10 +142,7 @@ class Document extends AbstractHtmlElement
     */
     public function ToMarkupArray(array $content = null) : array
     {
-        $bodyContent = array_merge(
-            $content ?? [],
-            $this->ScriptsToMarkupArray()
-        );
+        $bodyContent = array_merge(($content ?? []), $this->ScriptsToMarkupArray());
 
         $content = [
             [
