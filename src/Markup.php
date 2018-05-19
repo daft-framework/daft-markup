@@ -301,56 +301,56 @@ class Markup
     ) {
         $out = [];
 
-                if (
-                    (count($keepElements) > 0 && ! isset($keepElements[$node->nodeName])) ||
-                    isset($excludeElements[$node->nodeName])
-                ) {
-                    $out[] = $node->textContent;
+        if (
+            (count($keepElements) > 0 && ! isset($keepElements[$node->nodeName])) ||
+            isset($excludeElements[$node->nodeName])
+        ) {
+            $out[] = $node->textContent;
 
-                    return $out;
-                }
-                $out['!element'] = $node->nodeName;
-                if ($node->hasAttributes()) {
-                    $out['!attributes'] = [];
-                }
-                $i = 0;
-                while (($attr = $node->attributes->item($i++)) instanceof DOMAttr) {
-                    if (
-                        (
-                            isset($keepElements[$node->nodeName]) &&
-                            ! in_array($attr->name, $keepElements[$node->nodeName], true)
-                        ) ||
-                        (
-                            count($generalAttrWhitelist) > 0 &&
-                            ! in_array($attr->name, $generalAttrWhitelist, true)
-                        )
-                    ) {
-                        continue;
-                    }
-                    $out['!attributes'][$attr->name] = $attr->value;
+            return $out;
+        }
+        $out['!element'] = $node->nodeName;
+        if ($node->hasAttributes()) {
+            $out['!attributes'] = [];
+        }
+        $i = 0;
+        while (($attr = $node->attributes->item($i++)) instanceof DOMAttr) {
+            if (
+                (
+                    isset($keepElements[$node->nodeName]) &&
+                    ! in_array($attr->name, $keepElements[$node->nodeName], true)
+                ) ||
+                (
+                    count($generalAttrWhitelist) > 0 &&
+                    ! in_array($attr->name, $generalAttrWhitelist, true)
+                )
+            ) {
+                continue;
+            }
+            $out['!attributes'][$attr->name] = $attr->value;
 
-                    if (in_array($attr->name, self::BOOLEAN_ELEMENT_ATTRIBUTES, true)) {
-                        $out['!attributes'][$attr->name] = '' === $attr->value;
-                    }
-                }
-                if ($node->hasChildNodes()) {
-                    $out['!content'] = [];
-                    $i = 0;
-                    while (($child = $node->childNodes->item($i++)) instanceof DOMNode) {
-                        /*
-                        These args aren't indented like I'd normally indent them due to xdebug coverage
-                        */
-                        $childOut = $this->NodeToMarkupArray(
-                            $child, $excludeElements, $keepElements, $generalAttrWhitelist
-                        );
+            if (in_array($attr->name, self::BOOLEAN_ELEMENT_ATTRIBUTES, true)) {
+                $out['!attributes'][$attr->name] = '' === $attr->value;
+            }
+        }
+        if ($node->hasChildNodes()) {
+            $out['!content'] = [];
+            $i = 0;
+            while (($child = $node->childNodes->item($i++)) instanceof DOMNode) {
+                /*
+                These args aren't indented like I'd normally indent them due to xdebug coverage
+                */
+                $childOut = $this->NodeToMarkupArray(
+                    $child, $excludeElements, $keepElements, $generalAttrWhitelist
+                );
 
-                        if ( ! isset($childOut['!element'])) {
-                            $out['!content'] = array_merge($out['!content'], $childOut);
-                        } else {
-                            $out['!content'][] = $childOut;
-                        }
-                    }
+                if ( ! isset($childOut['!element'])) {
+                    $out['!content'] = array_merge($out['!content'], $childOut);
+                } else {
+                    $out['!content'][] = $childOut;
                 }
+            }
+        }
 
         return $out;
     }
