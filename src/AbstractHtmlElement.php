@@ -93,9 +93,9 @@ abstract class AbstractHtmlElement
         ksort($out);
 
         if (false === ($out['translate'] ?? null)) {
-                $out['translate'] = 'no';
+            $out['translate'] = 'no';
         } else {
-                unset($out['translate']);
+            unset($out['translate']);
         }
 
         return $out;
