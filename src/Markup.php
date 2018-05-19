@@ -260,21 +260,21 @@ class Markup
     ) : array {
         $out = [];
 
-            $i = 0;
-            while (($child = $nodes->item($i++)) instanceof DOMNode) {
-                /*
-                These args aren't indented like I'd normally indent them due to xdebug coverage
-                */
-                $childOut = $this->NodeToMarkupArray(
-                    $child, $excludeElements, $keepElements, $generalAttrWhitelist
-                );
+        $i = 0;
+        while (($child = $nodes->item($i++)) instanceof DOMNode) {
+            /*
+            These args aren't indented like I'd normally indent them due to xdebug coverage
+            */
+            $childOut = $this->NodeToMarkupArray(
+                $child, $excludeElements, $keepElements, $generalAttrWhitelist
+            );
 
-                if ( ! isset($childOut['!element'])) {
-                    $out = array_merge($out, $childOut);
-                } else {
-                    $out[] = $childOut;
-                }
+            if ( ! isset($childOut['!element'])) {
+                $out = array_merge($out, $childOut);
+            } else {
+                $out[] = $childOut;
             }
+        }
 
         return $out;
     }
