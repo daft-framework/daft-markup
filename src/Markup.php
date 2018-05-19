@@ -104,21 +104,12 @@ class Markup
 
         $out = '<' . $element;
 
-        foreach ($attributes as $attr => $val) {
-            if (false === $val) {
-                continue;
-            } elseif (is_array($val)) {
-                $val = implode(' ', array_map('strval', $val));
-            }
-            $out .= ' ' . htmlentities($attr, $flags, $encoding, $double_encode);
-
-            if (true !== $val) {
-                $out .=
-                    '="' .
-                    htmlentities((string) $val, (int) ($flags ^ ENT_HTML5), $encoding, false) .
-                    '"';
-            }
-        }
+        $out .= $this->MarkupAttributesArrayToMarkupString(
+            $attributes,
+            $flags,
+            $encoding,
+            $double_encode
+        );
 
         if (
             ( ! isset($markup['!content']) || empty($markup['!content'])) &&
@@ -146,6 +137,36 @@ class Markup
             }
 
             $out .= '</' . $element . '>';
+        }
+
+        return $out;
+    }
+
+    /**
+    * @param array<string, scalar|scalar[]> $attributes
+    */
+    protected function MarkupAttributesArrayToMarkupString(
+        array $attributes,
+        int $flags,
+        string $encoding,
+        bool $double_encode
+    ) : string {
+        $out = '';
+
+        foreach ($attributes as $attr => $val) {
+            if (false === $val) {
+                continue;
+            } elseif (is_array($val)) {
+                $val = implode(' ', array_map('strval', $val));
+            }
+            $out .= ' ' . htmlentities($attr, $flags, $encoding, $double_encode);
+
+            if (true !== $val) {
+                $out .=
+                    '="' .
+                    htmlentities((string) $val, (int) ($flags ^ ENT_HTML5), $encoding, false) .
+                    '"';
+            }
         }
 
         return $out;
