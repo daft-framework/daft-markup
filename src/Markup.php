@@ -201,21 +201,21 @@ class Markup
 
         $out = '<' . $element;
 
-            foreach ($attributes as $attr => $val) {
-                if (false === $val) {
-                    continue;
-                } elseif (is_array($val)) {
-                    $val = implode(' ', array_map('strval', $val));
-                }
-                $out .= ' ' . htmlentities($attr, $flags, $encoding, $double_encode);
-
-                if (true !== $val) {
-                    $out .=
-                        '="' .
-                        htmlentities((string) $val, (int) ($flags ^ ENT_HTML5), $encoding, false) .
-                        '"';
-                }
+        foreach ($attributes as $attr => $val) {
+            if (false === $val) {
+                continue;
+            } elseif (is_array($val)) {
+                $val = implode(' ', array_map('strval', $val));
             }
+            $out .= ' ' . htmlentities($attr, $flags, $encoding, $double_encode);
+
+            if (true !== $val) {
+                $out .=
+                    '="' .
+                    htmlentities((string) $val, (int) ($flags ^ ENT_HTML5), $encoding, false) .
+                    '"';
+            }
+        }
 
         if (
             ( ! isset($markup['!content']) || empty($markup['!content'])) &&
