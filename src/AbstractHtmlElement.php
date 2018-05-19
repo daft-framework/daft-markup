@@ -72,12 +72,10 @@ abstract class AbstractHtmlElement
     }
 
     /**
-    * @return array<string, scalar|array<int, scalar>>
+    * @var array<int, array<string, bool|scalar|array<int, scalar>>> $groupedAttributes
     */
-    public function MarkupAttributes() : array
+    protected function GroupedAttributes() : array
     {
-        $out = [];
-
         /**
         * @var array<int, array<string, bool|scalar|array<int, scalar>>> $groupedAttributes
         */
@@ -100,7 +98,20 @@ abstract class AbstractHtmlElement
             ]
         );
 
-        foreach ($groupedAttributes as $group) {
+        return $groupedAttributes;
+    }
+
+    /**
+    * @return array<string, scalar|array<int, scalar>>
+    */
+    public function MarkupAttributes() : array
+    {
+        $out = [];
+
+        /**
+        * @var array<string, bool|scalar|array<int, scalar>> $group
+        */
+        foreach ($this->GroupedAttributes() as $group) {
             foreach ($group as $attribute => $value) {
                 $out[$attribute] = $value;
                 if (in_array($attribute, self::ENUMERATED_BOOLEANS, true) && is_bool($value)) {
