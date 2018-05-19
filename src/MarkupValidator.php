@@ -100,23 +100,23 @@ class MarkupValidator
     */
     protected static function ValidateContent($markupContent) : void
     {
-            if ( ! is_array($markupContent)) {
+        if ( ! is_array($markupContent)) {
+            throw new InvalidArgumentException(
+                'Element content must be specified as an array!'
+            );
+        }
+
+        /**
+        * @var array<int|string, mixed> $markupContent
+        */
+        $markupContent = $markupContent;
+
+        foreach (array_keys($markupContent) as $key) {
+            if ( ! is_scalar($markupContent[$key]) && ! is_array($markupContent[$key])) {
                 throw new InvalidArgumentException(
-                    'Element content must be specified as an array!'
+                    'Element content must be scalar or an array!'
                 );
             }
-
-            /**
-            * @var array<int|string, mixed> $markupContent
-            */
-            $markupContent = $markupContent;
-
-            foreach (array_keys($markupContent) as $key) {
-                if ( ! is_scalar($markupContent[$key]) && ! is_array($markupContent[$key])) {
-                    throw new InvalidArgumentException(
-                        'Element content must be scalar or an array!'
-                    );
-                }
-            }
+        }
     }
 }
