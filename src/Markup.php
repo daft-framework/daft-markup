@@ -323,14 +323,14 @@ class Markup
                 return
                     ($attr instanceof DOMAttr) &&
                     ! (
-                    (
-                    isset($keepElements[$node->nodeName]) &&
-                    ! in_array($attr->name, $keepElements[$node->nodeName], true)
-                    ) ||
-                    (
-                    count($generalAttrWhitelist) > 0 &&
-                    ! in_array($attr->name, $generalAttrWhitelist, true)
-                    )
+                        (
+                            isset($keepElements[$node->nodeName]) &&
+                            ! in_array($attr->name, $keepElements[$node->nodeName], true)
+                        ) ||
+                        (
+                            count($generalAttrWhitelist) > 0 &&
+                            ! in_array($attr->name, $generalAttrWhitelist, true)
+                        )
                     );
             }
         );
