@@ -305,6 +305,42 @@ class Markup
     /**
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
+    *
+    * @return DOMAttr[]
+    */
+    protected function FilteredArrayFromDOMNamedNodeMap(
+        DOMElement $node,
+        DOMNamedNodeMap $attributes,
+        array $keepElements = [],
+        array $generalAttrWhitelist = []
+    ) : array {
+        /**
+        * @var DOMAttr[]
+        */
+        $attrs = array_filter(
+            iterator_to_array($attributes),
+            function (DOMNode $attr) use ($node, $keepElements, $generalAttrWhitelist) : bool {
+                return
+                    ($attr instanceof DOMAttr) &&
+                    ! (
+                    (
+                    isset($keepElements[$node->nodeName]) &&
+                    ! in_array($attr->name, $keepElements[$node->nodeName], true)
+                    ) ||
+                    (
+                    count($generalAttrWhitelist) > 0 &&
+                    ! in_array($attr->name, $generalAttrWhitelist, true)
+                    )
+                    );
+            }
+        );
+
+        return $attrs;
+    }
+
+    /**
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
     */
     protected function ObtainAttributesFromDOMNamedNodeMap(
         DOMElement $node,
@@ -314,20 +350,14 @@ class Markup
     ) : array {
         $out = [];
 
-        $i = 0;
-        while (($attr = $attributes->item($i++)) instanceof DOMAttr) {
-            if (
-                (
-                    isset($keepElements[$node->nodeName]) &&
-                    ! in_array($attr->name, $keepElements[$node->nodeName], true)
-                ) ||
-                (
-                    count($generalAttrWhitelist) > 0 &&
-                    ! in_array($attr->name, $generalAttrWhitelist, true)
-                )
-            ) {
-                continue;
-            }
+        $attrs = $this->FilteredArrayFromDOMNamedNodeMap(
+            $node,
+            $attributes,
+            $keepElements,
+            $generalAttrWhitelist
+        );
+
+        foreach ($attrs as $attr) {
             $out[$attr->name] = $attr->value;
 
             if (in_array($attr->name, self::BOOLEAN_ELEMENT_ATTRIBUTES, true)) {
