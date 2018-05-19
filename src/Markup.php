@@ -8,9 +8,9 @@ namespace SignpostMarv\DaftMarkup;
 
 use DOMAttr;
 use DOMElement;
+use DOMNamedNodeMap;
 use DOMNode;
 use DOMNodeList;
-use DOMNamedNodeMap;
 use DOMText;
 use InvalidArgumentException;
 use Masterminds\HTML5;
@@ -144,36 +144,6 @@ class Markup
     }
 
     /**
-    * @param array<string, scalar|scalar[]> $attributes
-    */
-    protected function MarkupAttributesArrayToMarkupString(
-        array $attributes,
-        int $flags,
-        string $encoding,
-        bool $double_encode
-    ) : string {
-        $out = '';
-
-        foreach ($attributes as $attr => $val) {
-            if (false === $val) {
-                continue;
-            } elseif (is_array($val)) {
-                $val = implode(' ', array_map('strval', $val));
-            }
-            $out .= ' ' . htmlentities($attr, $flags, $encoding, $double_encode);
-
-            if (true !== $val) {
-                $out .=
-                    '="' .
-                    htmlentities((string) $val, (int) ($flags ^ ENT_HTML5), $encoding, false) .
-                    '"';
-            }
-        }
-
-        return $out;
-    }
-
-    /**
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
@@ -255,42 +225,6 @@ class Markup
     }
 
     /**
-    * @param array<string, string[]> $keepElements
-    * @param array<int, string> $generalAttrWhitelist
-    */
-    protected function ObtainAttributesFromDOMNamedNodeMap(
-        DOMElement $node,
-        DOMNamedNodeMap $attributes,
-        array $keepElements = [],
-        array $generalAttrWhitelist = []
-    ) : array {
-        $out = [];
-
-        $i = 0;
-        while (($attr = $attributes->item($i++)) instanceof DOMAttr) {
-            if (
-                (
-                    isset($keepElements[$node->nodeName]) &&
-                    ! in_array($attr->name, $keepElements[$node->nodeName], true)
-                ) ||
-                (
-                    count($generalAttrWhitelist) > 0 &&
-                    ! in_array($attr->name, $generalAttrWhitelist, true)
-                )
-            ) {
-                continue;
-            }
-            $out[$attr->name] = $attr->value;
-
-            if (in_array($attr->name, self::BOOLEAN_ELEMENT_ATTRIBUTES, true)) {
-                $out[$attr->name] = '' === $attr->value;
-            }
-        }
-
-        return $out;
-    }
-
-    /**
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
@@ -333,6 +267,72 @@ class Markup
 
         if (isset($out['!attributes']) && empty($out['!attributes'])) {
             unset($out['!attributes']);
+        }
+
+        return $out;
+    }
+
+    /**
+    * @param array<string, scalar|scalar[]> $attributes
+    */
+    protected function MarkupAttributesArrayToMarkupString(
+        array $attributes,
+        int $flags,
+        string $encoding,
+        bool $double_encode
+    ) : string {
+        $out = '';
+
+        foreach ($attributes as $attr => $val) {
+            if (false === $val) {
+                continue;
+            } elseif (is_array($val)) {
+                $val = implode(' ', array_map('strval', $val));
+            }
+            $out .= ' ' . htmlentities($attr, $flags, $encoding, $double_encode);
+
+            if (true !== $val) {
+                $out .=
+                    '="' .
+                    htmlentities((string) $val, (int) ($flags ^ ENT_HTML5), $encoding, false) .
+                    '"';
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
+    */
+    protected function ObtainAttributesFromDOMNamedNodeMap(
+        DOMElement $node,
+        DOMNamedNodeMap $attributes,
+        array $keepElements = [],
+        array $generalAttrWhitelist = []
+    ) : array {
+        $out = [];
+
+        $i = 0;
+        while (($attr = $attributes->item($i++)) instanceof DOMAttr) {
+            if (
+                (
+                    isset($keepElements[$node->nodeName]) &&
+                    ! in_array($attr->name, $keepElements[$node->nodeName], true)
+                ) ||
+                (
+                    count($generalAttrWhitelist) > 0 &&
+                    ! in_array($attr->name, $generalAttrWhitelist, true)
+                )
+            ) {
+                continue;
+            }
+            $out[$attr->name] = $attr->value;
+
+            if (in_array($attr->name, self::BOOLEAN_ELEMENT_ATTRIBUTES, true)) {
+                $out[$attr->name] = '' === $attr->value;
+            }
         }
 
         return $out;
