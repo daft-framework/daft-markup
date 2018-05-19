@@ -9,6 +9,7 @@ namespace SignpostMarv\DaftMarkup;
 use DOMAttr;
 use DOMElement;
 use DOMNode;
+use DOMNodeList;
 use DOMText;
 use InvalidArgumentException;
 use Masterminds\HTML5;
@@ -235,9 +236,32 @@ class Markup
             }
         }
         if ($node->hasChildNodes()) {
-            $out['!content'] = [];
+            $out['!content'] = $this->NodeListToContent(
+                $node->childNodes,
+                $excludeElements,
+                $keepElements,
+                $generalAttrWhitelist
+            );
+        }
+
+        return $out;
+    }
+
+    /**
+    * @param array<string, string[]> $excludeElements
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
+    */
+    protected function NodeListToContent(
+        DOMNodeList $nodes,
+        array $excludeElements = [],
+        array $keepElements = [],
+        array $generalAttrWhitelist = []
+    ) : array {
+        $out = [];
+
             $i = 0;
-            while (($child = $node->childNodes->item($i++)) instanceof DOMNode) {
+            while (($child = $nodes->item($i++)) instanceof DOMNode) {
                 /*
                 These args aren't indented like I'd normally indent them due to xdebug coverage
                 */
@@ -246,12 +270,11 @@ class Markup
                 );
 
                 if ( ! isset($childOut['!element'])) {
-                    $out['!content'] = array_merge($out['!content'], $childOut);
+                    $out = array_merge($out, $childOut);
                 } else {
-                    $out['!content'][] = $childOut;
+                    $out[] = $childOut;
                 }
             }
-        }
 
         return $out;
     }
