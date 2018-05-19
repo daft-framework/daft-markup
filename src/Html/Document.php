@@ -383,21 +383,21 @@ class Document extends AbstractHtmlElement
 
     protected function GetPossibleHeadersMapper(string $url) : string
     {
-                    $as = $this->preloads[$url];
+        $as = $this->preloads[$url];
 
-                    $out = sprintf(
-                        'Link: <%s>; rel=%s; as=%s',
-                        /*
-                        These args aren't indented like I'd normally indent them due to xdebug coverage
-                        */
-                        $url, ('module' !== $as) ? 'preload' : 'modulepreload', $as
-                    );
+        $out = sprintf(
+            'Link: <%s>; rel=%s; as=%s',
+            /*
+            These args aren't indented like I'd normally indent them due to xdebug coverage
+            */
+            $url, ('module' !== $as) ? 'preload' : 'modulepreload', $as
+        );
 
-                    if ($this->GetEnableIntegrityOnPreload() && isset($this->integrity[$url])) {
-                        $out .= '; integrity=' . $this->integrity[$url];
-                    }
+        if ($this->GetEnableIntegrityOnPreload() && isset($this->integrity[$url])) {
+            $out .= '; integrity=' . $this->integrity[$url];
+        }
 
-                    return $out;
+        return $out;
     }
 
     /**
@@ -405,14 +405,7 @@ class Document extends AbstractHtmlElement
     */
     public function GetPossibleHeaders() : array
     {
-        $out = (
-            array_map(
-                [$this, 'GetPossibleHeadersMapper'],
-                array_keys($this->preloads)
-            )
-        );
-
-        return $out;
+        return array_map([$this, 'GetPossibleHeadersMapper'], array_keys($this->preloads));
     }
 
     public function ClearPossibleHeaderSources() : void
