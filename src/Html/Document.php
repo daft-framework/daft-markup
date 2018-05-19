@@ -8,10 +8,12 @@ namespace SignpostMarv\DaftMarkup\Html;
 
 use BadMethodCallException;
 use SignpostMarv\DaftMarkup\AbstractHtmlElement;
+use SignpostMarv\DaftMarkup\HtmlAttributeTrait;
 use SignpostMarv\DaftMarkup\MarkupConverterTrait;
 
 class Document extends AbstractHtmlElement
 {
+    use HtmlAttributeTrait;
     use MarkupConverterTrait;
 
     /**
