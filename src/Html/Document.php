@@ -281,34 +281,20 @@ class Document extends AbstractHtmlElement
             throw new BadMethodCallException('Document title must not be empty!');
         }
 
-        $headContent = [];
-
-        $headContent[] = [
-            '!element' => 'meta',
-            '!attributes' => [
-                'charset' => $this->GetCharset(),
+        return array_merge(
+            [
+                ['!element' => 'meta', '!attributes' => ['charset' => $this->GetCharset()]],
+                ['!element' => 'title', '!content' => [$title]],
             ],
-        ];
-
-        $headContent[] = [
-            '!element' => 'title',
-            '!content' => [$title],
-        ];
-
-        $headContent = array_merge(
-            $headContent,
             $this->PreloadsToMarkupArray(),
-            $this->StylesheetsToMarkupArray()
+            $this->StylesheetsToMarkupArray(),
+            array_map(
+                function (array $meta) : array {
+                    return ['!element' => 'meta', '!attributes' => $meta];
+                },
+                $this->metas
+            )
         );
-
-        foreach ($this->metas as $meta) {
-            $headContent[] = [
-                '!element' => 'meta',
-                '!attributes' => $meta,
-            ];
-        }
-
-        return $headContent;
     }
 
     protected function PreloadsToMarkupArray() : array
