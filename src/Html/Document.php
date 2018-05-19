@@ -142,7 +142,10 @@ class Document extends AbstractHtmlElement
     */
     public function ToMarkupArray(array $content = null) : array
     {
-        $bodyContent = $content ?? [];
+        $bodyContent = array_merge(
+            $content ?? [],
+            $this->ScriptsToMarkupArray()
+        );
 
         $content = [
             [
@@ -150,11 +153,6 @@ class Document extends AbstractHtmlElement
                 '!content' => $this->HeadContentMarkupArray(),
             ],
         ];
-
-        $bodyContent = array_merge(
-            $bodyContent,
-            $this->ScriptsToMarkupArray()
-        );
 
         if (count($bodyContent) > 0) {
             $content[] = [
