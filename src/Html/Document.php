@@ -157,93 +157,6 @@ class Document extends AbstractHtmlElement
         return parent::ToMarkupArray($content);
     }
 
-    protected function PreloadsToMarkupArray() : array
-    {
-        $headContent = [];
-
-        foreach ($this->preloads as $url => $as) {
-            $attrs = [
-                'rel' => 'preload',
-                'href' => $url,
-                'as' => $as,
-            ];
-            if ('module' === $as) {
-                $attrs['rel'] = 'modulepreload';
-                unset($attrs['as']);
-            }
-            if (isset($this->crossOrigin[$url])) {
-                $attrs['crossorigin'] = $this->crossOrigin[$url];
-            }
-            if (isset($this->integrity[$url]) && $this->GetEnableIntegrityOnPreload()) {
-                $attrs['integrity'] = $this->integrity[$url];
-            }
-            $headContent[] = [
-                '!element' => 'link',
-                '!attributes' => $attrs,
-            ];
-        }
-
-        return $headContent;
-    }
-
-    protected function StylesheetsToMarkupArray() : array
-    {
-        $headContent = [];
-
-        foreach ($this->stylesheets as $url) {
-            $attrs = [
-                'rel' => 'stylesheet',
-                'href' => $url,
-            ];
-            if (isset($this->crossOrigin[$url])) {
-                $attrs['crossorigin'] = $this->crossOrigin[$url];
-            }
-            if (isset($this->integrity[$url])) {
-                $attrs['integrity'] = $this->integrity[$url];
-            }
-            $headContent[] = [
-                '!element' => 'link',
-                '!attributes' => $attrs,
-            ];
-        }
-
-        return $headContent;
-    }
-
-    protected function ScriptsToMarkupArray() : array
-    {
-        $bodyContent = [];
-
-        foreach ($this->scripts as $url) {
-            $attrs = [
-                'src' => $url,
-            ];
-
-            $attrs['async'] = in_array($url, $this->async, true);
-            $attrs['defer'] = in_array($url, $this->defer, true);
-
-            if (isset($this->crossOrigin[$url])) {
-                $attrs['crossorigin'] = $this->crossOrigin[$url];
-            }
-            if (isset($this->integrity[$url])) {
-                $attrs['integrity'] = $this->integrity[$url];
-            }
-
-            if (in_array($url, $this->modules, true)) {
-                $attrs['type'] = 'module';
-            } elseif (in_array($url, $this->noModules, true)) {
-                $attrs['nomodule'] = true;
-            }
-
-            $bodyContent[] = [
-                '!element' => 'script',
-                '!attributes' => $attrs,
-            ];
-        }
-
-        return $bodyContent;
-    }
-
     public function GetTitle() : string
     {
         return trim((string) ($this->title ?? null));
@@ -381,6 +294,106 @@ class Document extends AbstractHtmlElement
         $this->enableIntegrityOnPreload = $value;
     }
 
+    /**
+    * @return string[]
+    */
+    public function GetPossibleHeaders() : array
+    {
+        return array_map([$this, 'GetPossibleHeadersMapper'], array_keys($this->preloads));
+    }
+
+    public function ClearPossibleHeaderSources() : void
+    {
+        $this->preloads = [];
+    }
+
+    protected function PreloadsToMarkupArray() : array
+    {
+        $headContent = [];
+
+        foreach ($this->preloads as $url => $as) {
+            $attrs = [
+                'rel' => 'preload',
+                'href' => $url,
+                'as' => $as,
+            ];
+            if ('module' === $as) {
+                $attrs['rel'] = 'modulepreload';
+                unset($attrs['as']);
+            }
+            if (isset($this->crossOrigin[$url])) {
+                $attrs['crossorigin'] = $this->crossOrigin[$url];
+            }
+            if (isset($this->integrity[$url]) && $this->GetEnableIntegrityOnPreload()) {
+                $attrs['integrity'] = $this->integrity[$url];
+            }
+            $headContent[] = [
+                '!element' => 'link',
+                '!attributes' => $attrs,
+            ];
+        }
+
+        return $headContent;
+    }
+
+    protected function StylesheetsToMarkupArray() : array
+    {
+        $headContent = [];
+
+        foreach ($this->stylesheets as $url) {
+            $attrs = [
+                'rel' => 'stylesheet',
+                'href' => $url,
+            ];
+            if (isset($this->crossOrigin[$url])) {
+                $attrs['crossorigin'] = $this->crossOrigin[$url];
+            }
+            if (isset($this->integrity[$url])) {
+                $attrs['integrity'] = $this->integrity[$url];
+            }
+            $headContent[] = [
+                '!element' => 'link',
+                '!attributes' => $attrs,
+            ];
+        }
+
+        return $headContent;
+    }
+
+    protected function ScriptsToMarkupArray() : array
+    {
+        $bodyContent = [];
+
+        foreach ($this->scripts as $url) {
+            $attrs = [
+                'src' => $url,
+            ];
+
+            $attrs['async'] = in_array($url, $this->async, true);
+            $attrs['defer'] = in_array($url, $this->defer, true);
+
+            if (isset($this->crossOrigin[$url])) {
+                $attrs['crossorigin'] = $this->crossOrigin[$url];
+            }
+            if (isset($this->integrity[$url])) {
+                $attrs['integrity'] = $this->integrity[$url];
+            }
+
+            if (in_array($url, $this->modules, true)) {
+                $attrs['type'] = 'module';
+            } elseif (in_array($url, $this->noModules, true)) {
+                $attrs['nomodule'] = true;
+            }
+
+            $bodyContent[] = [
+                '!element' => 'script',
+                '!attributes' => $attrs,
+            ];
+        }
+
+        return $bodyContent;
+    }
+
     protected function GetPossibleHeadersMapper(string $url) : string
     {
         $as = $this->preloads[$url];
@@ -398,18 +411,5 @@ class Document extends AbstractHtmlElement
         }
 
         return $out;
-    }
-
-    /**
-    * @return string[]
-    */
-    public function GetPossibleHeaders() : array
-    {
-        return array_map([$this, 'GetPossibleHeadersMapper'], array_keys($this->preloads));
-    }
-
-    public function ClearPossibleHeaderSources() : void
-    {
-        $this->preloads = [];
     }
 }
