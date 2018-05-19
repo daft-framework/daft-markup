@@ -14,11 +14,6 @@ abstract class AbstractHtmlElement
     ];
 
     /**
-    * @var Markup|null
-    */
-    protected $markup;
-
-    /**
     * @var array<string, string>
     */
     protected $nullableStringAttributes = [];
@@ -44,20 +39,6 @@ abstract class AbstractHtmlElement
     * @param null|array<int|string, mixed> $markup
     */
     abstract public function MarkupContentToDocumentString(array $markup = null) : string;
-
-    public function GetMarkupConverter() : Markup
-    {
-        if ( ! isset($this->markup)) {
-            $this->markup = new Markup();
-        }
-
-        return $this->markup;
-    }
-
-    public function SetMarkupConverter(Markup $converter) : void
-    {
-        $this->markup = $converter;
-    }
 
     abstract public static function MarkupElementName() : string;
 
