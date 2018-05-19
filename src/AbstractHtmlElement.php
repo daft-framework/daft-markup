@@ -97,20 +97,34 @@ abstract class AbstractHtmlElement
     {
         $out = [];
 
-        $groupedAttributes = [
+        /**
+        * @var array<int, array<string, bool|scalar|array<int, scalar>>> $groupedAttributes
+        */
+        $groupedAttributes = array_map(
+            function (array $group) : array {
+                return array_filter(
+                    $group,
+                    /**
+                    * @param mixed $value
+                    */
+                    function ($value) : bool {
+                        return ! is_null($value);
+                    }
+                );
+            },
+        [
             $this->nullableStringAttributes,
             $this->stringArrayAttributes,
             $this->nullableBooleanAttributes,
-        ];
+            ]
+        );
 
         foreach ($groupedAttributes as $group) {
             foreach ($group as $attribute => $value) {
-                if ( ! is_null($value)) {
                     $out[$attribute] = $value;
                     if (in_array($attribute, self::ENUMERATED_BOOLEANS, true) && is_bool($value)) {
                         $out[$attribute] = $value ? 'true' : 'false';
                     }
-                }
             }
         }
 
