@@ -81,10 +81,23 @@ abstract class AbstractHtmlElement
         foreach ($this->GroupedAttributes() as $group) {
             foreach ($group as $attribute => $value) {
                 $out[$attribute] = $value;
+            }
+        }
+
+        return self::MarkupAttributesPostProcess($out);
+    }
+
+    /**
+    * @param array<string, scalar|bool|array<int, scalar>> $out
+    *
+    * @return array<string, scalar|array<int, scalar>>
+    */
+    protected static function MarkupAttributesPostProcess(array $out) : array
+    {
+        foreach ($out as $attribute => $value) {
                 if (in_array($attribute, self::ENUMERATED_BOOLEANS, true) && is_bool($value)) {
                     $out[$attribute] = $value ? 'true' : 'false';
                 }
-            }
         }
 
         ksort($out);
