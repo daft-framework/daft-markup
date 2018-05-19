@@ -10,6 +10,7 @@ use DOMAttr;
 use DOMElement;
 use DOMNode;
 use DOMNodeList;
+use DOMNamedNodeMap;
 use DOMText;
 use InvalidArgumentException;
 use Masterminds\HTML5;
@@ -234,10 +235,39 @@ class Markup
         }
         $out['!element'] = $node->nodeName;
         if ($node->hasAttributes()) {
-            $out['!attributes'] = [];
+            $out['!attributes'] = $this->ObtainAttributesFromDOMNamedNodeMap(
+                $node,
+                $node->attributes,
+                $keepElements,
+                $generalAttrWhitelist
+            );
         }
+        if ($node->hasChildNodes()) {
+            $out['!content'] = $this->NodeListToContent(
+                $node->childNodes,
+                $excludeElements,
+                $keepElements,
+                $generalAttrWhitelist
+            );
+        }
+
+        return $out;
+    }
+
+    /**
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
+    */
+    protected function ObtainAttributesFromDOMNamedNodeMap(
+        DOMElement $node,
+        DOMNamedNodeMap $attributes,
+        array $keepElements = [],
+        array $generalAttrWhitelist = []
+    ) : array {
+        $out = [];
+
         $i = 0;
-        while (($attr = $node->attributes->item($i++)) instanceof DOMAttr) {
+        while (($attr = $attributes->item($i++)) instanceof DOMAttr) {
             if (
                 (
                     isset($keepElements[$node->nodeName]) &&
@@ -250,19 +280,11 @@ class Markup
             ) {
                 continue;
             }
-            $out['!attributes'][$attr->name] = $attr->value;
+            $out[$attr->name] = $attr->value;
 
             if (in_array($attr->name, self::BOOLEAN_ELEMENT_ATTRIBUTES, true)) {
-                $out['!attributes'][$attr->name] = '' === $attr->value;
+                $out[$attr->name] = '' === $attr->value;
             }
-        }
-        if ($node->hasChildNodes()) {
-            $out['!content'] = $this->NodeListToContent(
-                $node->childNodes,
-                $excludeElements,
-                $keepElements,
-                $generalAttrWhitelist
-            );
         }
 
         return $out;
