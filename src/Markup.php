@@ -113,37 +113,6 @@ class Markup
         return $out;
     }
 
-    protected function MarkupArrayContentToMarkupString(
-        string $element,
-        array $content,
-        bool $xml_style = false,
-        int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
-        string $encoding = 'UTF-8',
-        bool $double = false
-    ) : string {
-        $emptyContent = empty($content);
-        $out = '';
-
-        if ($emptyContent && in_array($element, self::SELF_CLOSING_ELEMENTS, true)) {
-            $out .= $xml_style ? '/>' : '>';
-        } else {
-            $out .= '>';
-
-            if ( ! $emptyContent) {
-                /*
-                These args aren't indented like I'd normally indent them due to xdebug coverage
-                */
-                $out .= $this->MarkupCollectionToMarkupString(
-                    $content, $xml_style, $flags, $encoding, $double
-                );
-            }
-
-            $out .= '</' . $element . '>';
-        }
-
-        return $out;
-    }
-
     /**
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
@@ -268,6 +237,37 @@ class Markup
 
         if (isset($out['!attributes']) && empty($out['!attributes'])) {
             unset($out['!attributes']);
+        }
+
+        return $out;
+    }
+
+    protected function MarkupArrayContentToMarkupString(
+        string $element,
+        array $content,
+        bool $xml_style = false,
+        int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
+        string $encoding = 'UTF-8',
+        bool $double = false
+    ) : string {
+        $emptyContent = empty($content);
+        $out = '';
+
+        if ($emptyContent && in_array($element, self::SELF_CLOSING_ELEMENTS, true)) {
+            $out .= $xml_style ? '/>' : '>';
+        } else {
+            $out .= '>';
+
+            if ( ! $emptyContent) {
+                /*
+                These args aren't indented like I'd normally indent them due to xdebug coverage
+                */
+                $out .= $this->MarkupCollectionToMarkupString(
+                    $content, $xml_style, $flags, $encoding, $double
+                );
+            }
+
+            $out .= '</' . $element . '>';
         }
 
         return $out;
