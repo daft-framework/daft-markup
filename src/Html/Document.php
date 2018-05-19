@@ -144,12 +144,12 @@ class Document extends AbstractHtmlElement
     {
         $bodyContent = $content ?? [];
 
-        $content = [];
-
-            $content[] = [
+        $content = [
+            [
                 '!element' => 'head',
                 '!content' => $this->HeadContentMarkupArray(),
-            ];
+            ],
+        ];
 
         $bodyContent = array_merge(
             $bodyContent,
