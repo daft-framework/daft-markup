@@ -122,6 +122,45 @@ class Document extends AbstractHtmlElement
             '!content' => [$this->GetTitle()],
         ];
 
+        $headContent = array_merge(
+            $headContent,
+            $this->PreloadsToMarkupArray(),
+            $this->StylesheetsToMarkupArray()
+        );
+
+        foreach ($this->metas as $meta) {
+            $headContent[] = [
+                '!element' => 'meta',
+                '!attributes' => $meta,
+            ];
+        }
+
+        if (count($headContent) > 0) {
+            $content[] = [
+                '!element' => 'head',
+                '!content' => $headContent,
+            ];
+        }
+
+        $bodyContent = array_merge(
+            $bodyContent,
+            $this->ScriptsToMarkupArray()
+        );
+
+        if (count($bodyContent) > 0) {
+            $content[] = [
+                '!element' => 'body',
+                '!content' => $bodyContent,
+            ];
+        }
+
+        return parent::ToMarkupArray($content);
+    }
+
+    protected function PreloadsToMarkupArray() : array
+    {
+        $headContent = [];
+
         foreach ($this->preloads as $url => $as) {
             $attrs = [
                 'rel' => 'preload',
@@ -144,6 +183,13 @@ class Document extends AbstractHtmlElement
             ];
         }
 
+        return $headContent;
+    }
+
+    protected function StylesheetsToMarkupArray() : array
+    {
+        $headContent = [];
+
         foreach ($this->stylesheets as $url) {
             $attrs = [
                 'rel' => 'stylesheet',
@@ -161,21 +207,13 @@ class Document extends AbstractHtmlElement
             ];
         }
 
-        foreach ($this->metas as $meta) {
-            $headContent[] = [
-                '!element' => 'meta',
-                '!attributes' => $meta,
-            ];
-        }
+        return $headContent;
+    }
 
-        if (count($headContent) > 0) {
-            $content[] = [
-                '!element' => 'head',
-                '!content' => $headContent,
-            ];
-        }
+    protected function ScriptsToMarkupArray() : array
+    {
+        $bodyContent = [];
 
-        if (count($this->scripts) > 0) {
             foreach ($this->scripts as $url) {
                 $attrs = [
                     'src' => $url,
@@ -202,16 +240,8 @@ class Document extends AbstractHtmlElement
                     '!attributes' => $attrs,
                 ];
             }
-        }
 
-        if (count($bodyContent) > 0) {
-            $content[] = [
-                '!element' => 'body',
-                '!content' => $bodyContent,
-            ];
-        }
-
-        return parent::ToMarkupArray($content);
+        return $bodyContent;
     }
 
     public function GetTitle() : string
