@@ -57,7 +57,8 @@ class MarkupValidator
             $attributes = $markup['!attributes'];
 
             foreach (array_keys($attributes) as $attr) {
-                self::ValidateMarkupAttribute($attr, $attributes[$attr]);
+                self::ValidateMarkupAttributeName($attr);
+                self::ValidateMarkupAttributeValue((string) $attr, $attributes[$attr]);
             }
 
             /**
@@ -73,9 +74,8 @@ class MarkupValidator
 
     /**
     * @param mixed $attr
-    * @param mixed $value
     */
-    protected static function ValidateMarkupAttribute($attr, $value) : void
+    protected static function ValidateMarkupAttributeName($attr) : void
     {
         if ( ! is_string($attr)) {
             throw new InvalidArgumentException('Attribute keys must be strings!');
@@ -84,7 +84,15 @@ class MarkupValidator
                 'Attribute name invalid! (%s)',
                 $attr
             ));
-        } elseif (is_array($value)) {
+        }
+    }
+
+    /**
+    * @param mixed $value
+    */
+    protected static function ValidateMarkupAttributeValue(string $attr, $value) : void
+    {
+        if (is_array($value)) {
             /**
             * @var int $key
             */
