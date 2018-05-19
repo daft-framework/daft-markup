@@ -77,31 +77,31 @@ class MarkupValidator
     */
     protected static function ValidateMarkupAttribute($attr, $value) : void
     {
-                if ( ! is_string($attr)) {
-                    throw new InvalidArgumentException('Attribute keys must be strings!');
-                } elseif ( ! preg_match(Markup::REGEX_ATTRIBUTE_NAME, $attr)) {
+        if ( ! is_string($attr)) {
+            throw new InvalidArgumentException('Attribute keys must be strings!');
+        } elseif ( ! preg_match(Markup::REGEX_ATTRIBUTE_NAME, $attr)) {
+            throw new InvalidArgumentException(sprintf(
+                'Attribute name invalid! (%s)',
+                $attr
+            ));
+        } elseif (is_array($value)) {
+            /**
+            * @var int $key
+            */
+            foreach (array_keys($value) as $key) {
+                if ( ! is_scalar($value[$key])) {
                     throw new InvalidArgumentException(sprintf(
-                        'Attribute name invalid! (%s)',
-                        $attr
-                    ));
-                } elseif (is_array($value)) {
-                    /**
-                    * @var int $key
-                    */
-                    foreach (array_keys($value) as $key) {
-                        if ( ! is_scalar($value[$key])) {
-                            throw new InvalidArgumentException(sprintf(
-                                'Attribute %s contained non-scalar array value!',
-                                $attr
-                            ));
-                        }
-                    }
-                } elseif ( ! is_scalar($value)) {
-                    throw new InvalidArgumentException(sprintf(
-                        'Attribute %s contained non-scalar value!',
+                        'Attribute %s contained non-scalar array value!',
                         $attr
                     ));
                 }
+            }
+        } elseif ( ! is_scalar($value)) {
+            throw new InvalidArgumentException(sprintf(
+                'Attribute %s contained non-scalar value!',
+                $attr
+            ));
+        }
     }
 
     /**
