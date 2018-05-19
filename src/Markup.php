@@ -113,7 +113,7 @@ class Markup
         );
 
         if (
-            ( ! isset($markup['!content']) || empty($markup['!content'])) &&
+            empty($markup['!content'] ?? []) &&
             in_array($element, self::SELF_CLOSING_ELEMENTS, true)
         ) {
             $out .= $xml_style ? '/>' : '>';
