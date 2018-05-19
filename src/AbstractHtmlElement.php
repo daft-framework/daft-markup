@@ -95,9 +95,9 @@ abstract class AbstractHtmlElement
     protected static function MarkupAttributesPostProcess(array $out) : array
     {
         foreach ($out as $attribute => $value) {
-                if (in_array($attribute, self::ENUMERATED_BOOLEANS, true) && is_bool($value)) {
-                    $out[$attribute] = $value ? 'true' : 'false';
-                }
+            if (in_array($attribute, self::ENUMERATED_BOOLEANS, true) && is_bool($value)) {
+                $out[$attribute] = $value ? 'true' : 'false';
+            }
         }
 
         ksort($out);
