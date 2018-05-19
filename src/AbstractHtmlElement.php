@@ -8,6 +8,8 @@ namespace SignpostMarv\DaftMarkup;
 
 abstract class AbstractHtmlElement
 {
+    use TabIndexAttributeTrait;
+
     const ENUMERATED_BOOLEANS = [
         'draggable',
         'spellcheck',
@@ -29,11 +31,6 @@ abstract class AbstractHtmlElement
     protected $nullableBooleanAttributes = [
         'translate' => true,
     ];
-
-    /**
-    * @var int|null
-    */
-    protected $tabindex = null;
 
     /**
     * @param null|array<int|string, mixed> $markup
@@ -99,11 +96,6 @@ abstract class AbstractHtmlElement
         }
 
         return $out;
-    }
-
-    public function GetTabIndex() : ? int
-    {
-        return $this->tabindex;
     }
 
     /**
