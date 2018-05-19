@@ -90,11 +90,6 @@ abstract class AbstractHtmlElement
             }
         }
 
-        $maybeTabindex = $this->GetTabIndex();
-        if (is_int($maybeTabindex)) {
-            $out['tabindex'] = $maybeTabindex;
-        }
-
         ksort($out);
 
         if (isset($out['translate'])) {
@@ -392,6 +387,9 @@ abstract class AbstractHtmlElement
                 $this->nullableStringAttributes,
                 $this->stringArrayAttributes,
                 $this->nullableBooleanAttributes,
+                [
+                    'tabindex' => $this->GetTabIndex(),
+                ],
             ]
         );
 
