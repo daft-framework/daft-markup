@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace SignpostMarv\DaftMarkup;
 
 use DOMAttr;
+use DOMElement;
 use DOMNode;
 use DOMText;
 use InvalidArgumentException;
@@ -292,22 +293,21 @@ class Markup
     *
     * @return array<int|string, mixed>
     */
-    public function NodeToMarkupArray(
-        DOMNode $node,
+    public function ElementNodeToMarkupArray(
+        DOMElement $node,
         array $excludeElements = [],
         array $keepElements = [],
         array $generalAttrWhitelist = []
-    ) : array {
+    ) {
         $out = [];
 
-        switch ($node->nodeType) {
-            case XML_ELEMENT_NODE:
                 if (
                     (count($keepElements) > 0 && ! isset($keepElements[$node->nodeName])) ||
                     isset($excludeElements[$node->nodeName])
                 ) {
                     $out[] = $node->textContent;
-                    break;
+
+                    return $out;
                 }
                 $out['!element'] = $node->nodeName;
                 if ($node->hasAttributes()) {
@@ -351,6 +351,38 @@ class Markup
                         }
                     }
                 }
+
+        return $out;
+    }
+
+    /**
+    * @param array<string, string[]> $excludeElements
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
+    *
+    * @return array<int|string, mixed>
+    */
+    public function NodeToMarkupArray(
+        DOMNode $node,
+        array $excludeElements = [],
+        array $keepElements = [],
+        array $generalAttrWhitelist = []
+    ) : array {
+        $out = [];
+
+        switch ($node->nodeType) {
+            case XML_ELEMENT_NODE:
+                /**
+                * @var DOMElement $node
+                */
+                $node = $node;
+
+                $out = $this->ElementNodeToMarkupArray(
+                    $node,
+                    $excludeElements,
+                    $keepElements,
+                    $generalAttrWhitelist
+                );
             break;
             case XML_TEXT_NODE:
                 if ($node instanceof DOMText) {
