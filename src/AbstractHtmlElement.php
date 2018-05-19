@@ -72,36 +72,6 @@ abstract class AbstractHtmlElement
     }
 
     /**
-    * @var array<int, array<string, bool|scalar|array<int, scalar>>> $groupedAttributes
-    */
-    protected function GroupedAttributes() : array
-    {
-        /**
-        * @var array<int, array<string, bool|scalar|array<int, scalar>>> $groupedAttributes
-        */
-        $groupedAttributes = array_map(
-            function (array $group) : array {
-                return array_filter(
-                    $group,
-                    /**
-                    * @param mixed $value
-                    */
-                    function ($value) : bool {
-                        return ! is_null($value);
-                    }
-                );
-            },
-            [
-                $this->nullableStringAttributes,
-                $this->stringArrayAttributes,
-                $this->nullableBooleanAttributes,
-            ]
-        );
-
-        return $groupedAttributes;
-    }
-
-    /**
     * @return array<string, scalar|array<int, scalar>>
     */
     public function MarkupAttributes() : array
@@ -396,6 +366,36 @@ abstract class AbstractHtmlElement
     public function SetTranslate(bool $value) : void
     {
         $this->ApplyBooleanAttributeValue('translate', $value);
+    }
+
+    /**
+    * @var array<int, array<string, bool|scalar|array<int, scalar>>> $groupedAttributes
+    */
+    protected function GroupedAttributes() : array
+    {
+        /**
+        * @var array<int, array<string, bool|scalar|array<int, scalar>>> $groupedAttributes
+        */
+        $groupedAttributes = array_map(
+            function (array $group) : array {
+                return array_filter(
+                    $group,
+                    /**
+                    * @param mixed $value
+                    */
+                    function ($value) : bool {
+                        return ! is_null($value);
+                    }
+                );
+            },
+            [
+                $this->nullableStringAttributes,
+                $this->stringArrayAttributes,
+                $this->nullableBooleanAttributes,
+            ]
+        );
+
+        return $groupedAttributes;
     }
 
     protected function RetrieveNullableStringAttribute(string $attribute) : ? string
