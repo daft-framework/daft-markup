@@ -55,8 +55,13 @@ class Markup
         '/^(?:[a-z]+[a-z0-9]*(?:\-[a-z0-9]+)*(?:\:[a-z]+[a-z0-9]*(?:\-[a-z0-9]+)*){0,1})$/';
 
     /**
-    * @param array<int, scalar|array<int|string, mixed>> $markupContent
+    * @param mixed $content
     */
+    protected function MarkupCollectionFilter($content) : bool
+    {
+        return is_scalar($content) || is_array($content);
+    }
+
     public function MarkupCollectionToMarkupString(
         array $markupContent,
         bool $xml_style = false,
@@ -66,16 +71,21 @@ class Markup
     ) : string {
         $out = '';
 
+        /**
+        * @var array<int, scalar|array<int|string, mixed>> $markupContent
+        */
+        $markupContent = array_filter($markupContent, [$this, 'MarkupCollectionFilter']);
+
         foreach ($markupContent as $content) {
-            if (is_scalar($content)) {
-                $out .= htmlentities((string) $content, $flags, $encoding, $double_encode);
-            } elseif (is_array($content)) {
+            if (is_array($content)) {
                 /*
                 These args aren't indented like I'd normally indent them due to xdebug coverage
                 */
                 $out .= $this->MarkupArrayToMarkupString(
                     $content, $xml_style, $flags, $encoding, $double_encode
                 );
+            } else {
+                $out .= htmlentities((string) $content, $flags, $encoding, $double_encode);
             }
         }
 
