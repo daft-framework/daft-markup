@@ -121,16 +121,11 @@ class Markup
             $out .= '>';
 
             if (isset($markup['!content'])) {
-                /**
-                * @var array<int, scalar|array<int|string, mixed>> $markupContent
-                */
-                $markupContent = $markup['!content'];
-
                 /*
                 These args aren't indented like I'd normally indent them due to xdebug coverage
                 */
                 $out .= $this->MarkupCollectionToMarkupString(
-                    $markupContent, $xml_style, $flags, $encoding, $double_encode
+                    (array) $markup['!content'], $xml_style, $flags, $encoding, $double_encode
                 );
             }
 
