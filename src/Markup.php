@@ -112,15 +112,17 @@ class Markup
             $double_encode
         );
 
+        $emptyContent = empty($markup['!content'] ?? []);
+
         if (
-            empty($markup['!content'] ?? []) &&
+            $emptyContent &&
             in_array($element, self::SELF_CLOSING_ELEMENTS, true)
         ) {
             $out .= $xml_style ? '/>' : '>';
         } else {
             $out .= '>';
 
-            if (isset($markup['!content'])) {
+            if ( ! $emptyContent) {
                 /*
                 These args aren't indented like I'd normally indent them due to xdebug coverage
                 */
