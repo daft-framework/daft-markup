@@ -97,12 +97,7 @@ class Document extends AbstractHtmlElement
             $this->GetMarkupConverter()->MarkupArrayToMarkupString($this->ToMarkupArray($content));
     }
 
-    /**
-    * @param null|array<int|string, mixed> $content
-    *
-    * @return array<int|string, mixed>
-    */
-    public function ToMarkupArray(array $content = null) : array
+    protected function HeadContentMarkupArray() : array
     {
         $title = $this->GetTitle();
 
@@ -111,9 +106,6 @@ class Document extends AbstractHtmlElement
         }
 
         $headContent = [];
-        $bodyContent = $content ?? [];
-
-        $content = [];
 
         $headContent[] = [
             '!element' => 'meta',
@@ -140,12 +132,24 @@ class Document extends AbstractHtmlElement
             ];
         }
 
-        if (count($headContent) > 0) {
+        return $headContent;
+    }
+
+    /**
+    * @param null|array<int|string, mixed> $content
+    *
+    * @return array<int|string, mixed>
+    */
+    public function ToMarkupArray(array $content = null) : array
+    {
+        $bodyContent = $content ?? [];
+
+        $content = [];
+
             $content[] = [
                 '!element' => 'head',
-                '!content' => $headContent,
+                '!content' => $this->HeadContentMarkupArray(),
             ];
-        }
 
         $bodyContent = array_merge(
             $bodyContent,
