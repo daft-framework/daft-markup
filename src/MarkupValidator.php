@@ -27,24 +27,7 @@ class MarkupValidator
                 $markup['!element']
             ));
         } elseif (isset($markup['!content'])) {
-            if ( ! is_array($markup['!content'])) {
-                throw new InvalidArgumentException(
-                    'Element content must be specified as an array!'
-                );
-            }
-
-            /**
-            * @var array<int|string, mixed> $markupContent
-            */
-            $markupContent = $markup['!content'];
-
-            foreach (array_keys($markupContent) as $key) {
-                if ( ! is_scalar($markupContent[$key]) && ! is_array($markupContent[$key])) {
-                    throw new InvalidArgumentException(
-                        'Element content must be scalar or an array!'
-                    );
-                }
-            }
+            self::ValidateContent($markup['!content']);
         }
 
         foreach (array_keys($markup) as $k) {
@@ -110,5 +93,30 @@ class MarkupValidator
         }
 
         return [];
+    }
+
+    /**
+    * @param mixed $markupContent
+    */
+    protected static function ValidateContent($markupContent) : void
+    {
+            if ( ! is_array($markupContent)) {
+                throw new InvalidArgumentException(
+                    'Element content must be specified as an array!'
+                );
+            }
+
+            /**
+            * @var array<int|string, mixed> $markupContent
+            */
+            $markupContent = $markupContent;
+
+            foreach (array_keys($markupContent) as $key) {
+                if ( ! is_scalar($markupContent[$key]) && ! is_array($markupContent[$key])) {
+                    throw new InvalidArgumentException(
+                        'Element content must be scalar or an array!'
+                    );
+                }
+            }
     }
 }
