@@ -94,9 +94,9 @@ class Markup
         bool $xml_style = false,
         int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
         string $encoding = 'UTF-8',
-        bool $double_encode = false
+        bool $double = false
     ) : string {
-        $attributes = MarkupValidator::ValidateMarkupAttributes($markup);
+        $attrs = MarkupValidator::ValidateMarkupAttributes($markup);
 
         /**
         * @var string $element
@@ -105,19 +105,11 @@ class Markup
 
         $out = '<' . $element;
 
-        $out .= $this->MarkupAttributesArrayToMarkupString(
-            $attributes,
-            $flags,
-            $encoding,
-            $double_encode
-        );
+        $out .= $this->MarkupAttributesArrayToMarkupString($attrs, $flags, $encoding, $double);
 
         $emptyContent = empty($markup['!content'] ?? []);
 
-        if (
-            $emptyContent &&
-            in_array($element, self::SELF_CLOSING_ELEMENTS, true)
-        ) {
+        if ($emptyContent && in_array($element, self::SELF_CLOSING_ELEMENTS, true)) {
             $out .= $xml_style ? '/>' : '>';
         } else {
             $out .= '>';
@@ -127,7 +119,7 @@ class Markup
                 These args aren't indented like I'd normally indent them due to xdebug coverage
                 */
                 $out .= $this->MarkupCollectionToMarkupString(
-                    (array) $markup['!content'], $xml_style, $flags, $encoding, $double_encode
+                    (array) $markup['!content'], $xml_style, $flags, $encoding, $double
                 );
             }
 
