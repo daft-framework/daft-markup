@@ -97,44 +97,6 @@ class Document extends AbstractHtmlElement
             $this->GetMarkupConverter()->MarkupArrayToMarkupString($this->ToMarkupArray($content));
     }
 
-    protected function HeadContentMarkupArray() : array
-    {
-        $title = $this->GetTitle();
-
-        if ('' === $title) {
-            throw new BadMethodCallException('Document title must not be empty!');
-        }
-
-        $headContent = [];
-
-        $headContent[] = [
-            '!element' => 'meta',
-            '!attributes' => [
-                'charset' => $this->GetCharset(),
-            ],
-        ];
-
-        $headContent[] = [
-            '!element' => 'title',
-            '!content' => [$this->GetTitle()],
-        ];
-
-        $headContent = array_merge(
-            $headContent,
-            $this->PreloadsToMarkupArray(),
-            $this->StylesheetsToMarkupArray()
-        );
-
-        foreach ($this->metas as $meta) {
-            $headContent[] = [
-                '!element' => 'meta',
-                '!attributes' => $meta,
-            ];
-        }
-
-        return $headContent;
-    }
-
     /**
     * @param null|array<int|string, mixed> $content
     *
@@ -309,6 +271,44 @@ class Document extends AbstractHtmlElement
     public function ClearPossibleHeaderSources() : void
     {
         $this->preloads = [];
+    }
+
+    protected function HeadContentMarkupArray() : array
+    {
+        $title = $this->GetTitle();
+
+        if ('' === $title) {
+            throw new BadMethodCallException('Document title must not be empty!');
+        }
+
+        $headContent = [];
+
+        $headContent[] = [
+            '!element' => 'meta',
+            '!attributes' => [
+                'charset' => $this->GetCharset(),
+            ],
+        ];
+
+        $headContent[] = [
+            '!element' => 'title',
+            '!content' => [$this->GetTitle()],
+        ];
+
+        $headContent = array_merge(
+            $headContent,
+            $this->PreloadsToMarkupArray(),
+            $this->StylesheetsToMarkupArray()
+        );
+
+        foreach ($this->metas as $meta) {
+            $headContent[] = [
+                '!element' => 'meta',
+                '!attributes' => $meta,
+            ];
+        }
+
+        return $headContent;
     }
 
     protected function PreloadsToMarkupArray() : array
