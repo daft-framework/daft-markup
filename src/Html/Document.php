@@ -292,7 +292,7 @@ class Document extends AbstractHtmlElement
 
         $headContent[] = [
             '!element' => 'title',
-            '!content' => [$this->GetTitle()],
+            '!content' => [$title],
         ];
 
         $headContent = array_merge(
