@@ -251,38 +251,6 @@ class Markup
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
-    */
-    protected function NodeListToContent(
-        DOMNodeList $nodes,
-        array $excludeElements = [],
-        array $keepElements = [],
-        array $generalAttrWhitelist = []
-    ) : array {
-        $out = [];
-
-        $i = 0;
-        while (($child = $nodes->item($i++)) instanceof DOMNode) {
-            /*
-            These args aren't indented like I'd normally indent them due to xdebug coverage
-            */
-            $childOut = $this->NodeToMarkupArray(
-                $child, $excludeElements, $keepElements, $generalAttrWhitelist
-            );
-
-            if ( ! isset($childOut['!element'])) {
-                $out = array_merge($out, $childOut);
-            } else {
-                $out[] = $childOut;
-            }
-        }
-
-        return $out;
-    }
-
-    /**
-    * @param array<string, string[]> $excludeElements
-    * @param array<string, string[]> $keepElements
-    * @param array<int, string> $generalAttrWhitelist
     *
     * @return array<int|string, mixed>
     */
@@ -322,6 +290,38 @@ class Markup
 
         if (isset($out['!attributes']) && empty($out['!attributes'])) {
             unset($out['!attributes']);
+        }
+
+        return $out;
+    }
+
+    /**
+    * @param array<string, string[]> $excludeElements
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
+    */
+    protected function NodeListToContent(
+        DOMNodeList $nodes,
+        array $excludeElements = [],
+        array $keepElements = [],
+        array $generalAttrWhitelist = []
+    ) : array {
+        $out = [];
+
+        $i = 0;
+        while (($child = $nodes->item($i++)) instanceof DOMNode) {
+            /*
+            These args aren't indented like I'd normally indent them due to xdebug coverage
+            */
+            $childOut = $this->NodeToMarkupArray(
+                $child, $excludeElements, $keepElements, $generalAttrWhitelist
+            );
+
+            if ( ! isset($childOut['!element'])) {
+                $out = array_merge($out, $childOut);
+            } else {
+                $out[] = $childOut;
+            }
         }
 
         return $out;
