@@ -106,8 +106,23 @@ class Markup
         $out = '<' . $element;
 
         $out .= $this->MarkupAttributesArrayToMarkupString($attrs, $flags, $encoding, $double);
+        $out .= $this->MarkupArrayContentToMarkupString(
+            $element, ((array) ($markup['!content'] ?? [])), $xml_style, $flags, $encoding, $double
+        );
 
-        $emptyContent = empty($markup['!content'] ?? []);
+        return $out;
+    }
+
+    protected function MarkupArrayContentToMarkupString(
+        string $element,
+        array $content,
+        bool $xml_style = false,
+        int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
+        string $encoding = 'UTF-8',
+        bool $double = false
+    ) : string {
+        $emptyContent = empty($content);
+        $out = '';
 
         if ($emptyContent && in_array($element, self::SELF_CLOSING_ELEMENTS, true)) {
             $out .= $xml_style ? '/>' : '>';
@@ -119,7 +134,7 @@ class Markup
                 These args aren't indented like I'd normally indent them due to xdebug coverage
                 */
                 $out .= $this->MarkupCollectionToMarkupString(
-                    (array) $markup['!content'], $xml_style, $flags, $encoding, $double
+                    $content, $xml_style, $flags, $encoding, $double
                 );
             }
 
