@@ -54,7 +54,7 @@ class Markup
         '/^(?:[a-z]+[a-z0-9]*(?:\-[a-z0-9]+)*(?:\:[a-z]+[a-z0-9]*(?:\-[a-z0-9]+)*){0,1})$/';
 
     const REGEX_ATTRIBUTE_NAME =
-        '/^(?:[a-z]+[a-z0-9]*(?:\-[a-z0-9]+)*(?:\:[a-z]+[a-z0-9]*(?:\-[a-z0-9]+)*){0,1})$/';
+        '/^(?:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*(?:\:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*){0,1})$/';
 
     public function MarkupCollectionToMarkupString(
         array $markupContent,
@@ -290,7 +290,7 @@ class Markup
             } elseif (is_array($val)) {
                 $val = implode(' ', array_map('strval', $val));
             }
-            $out .= ' ' . htmlentities($attr, $flags, $encoding, $double_encode);
+            $out .= ' ' . htmlentities($attr, ($flags ^ ENT_HTML5), $encoding, $double_encode);
 
             if (true !== $val) {
                 $out .=

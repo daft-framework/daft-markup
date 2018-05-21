@@ -229,6 +229,17 @@ class ConverterTest extends TestCase
                     ],
                 ],
             ],
+            [
+                '<a-b-c-d data-efg_hij="klm"></a-b-c-d>',
+                [
+                    [
+                        '!element' => 'a-b-c-d',
+                        '!attributes' => [
+                            'data-efg_hij' => 'klm',
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 
