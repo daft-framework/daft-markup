@@ -357,8 +357,8 @@ class Document extends AbstractHtmlElement
             '!element' => 'link',
             '!attributes' => $this->MaybeDecorateAttrs(
                 [
-                'rel' => 'stylesheet',
-                'href' => $url,
+                    'rel' => 'stylesheet',
+                    'href' => $url,
                 ],
                 $url
             ),
@@ -374,12 +374,7 @@ class Document extends AbstractHtmlElement
     {
         return [
             '!element' => 'script',
-            '!attributes' => $this->MaybeDecorateAttrs(
-                [],
-                $url,
-                false,
-                true
-            ),
+            '!attributes' => $this->MaybeDecorateAttrs([], $url, false, true),
         ];
     }
 
