@@ -298,7 +298,7 @@ class Document extends AbstractHtmlElement
             [
                 'rel' => 'preload',
                 'href' => $url,
-                'as' => $this->preloads[$url]
+                'as' => $this->preloads[$url],
             ],
             $url,
             true
