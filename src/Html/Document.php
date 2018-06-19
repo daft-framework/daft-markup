@@ -312,8 +312,11 @@ class Document extends AbstractHtmlElement
         return ['!element' => 'link', '!attributes' => $attrs];
     }
 
-    protected function MaybeDecorateScriptAttrs(array $attrs, string $url) : array
-    {
+    protected function MaybeDecorateScriptAttrs(
+        array $attrs,
+        string $url,
+        bool $checkPreload
+    ) : array {
         $attrs['src'] = $url;
         $attrs['async'] = in_array($url, $this->async, true);
         $attrs['defer'] = in_array($url, $this->defer, true);
@@ -323,19 +326,15 @@ class Document extends AbstractHtmlElement
             $attrs['nomodule'] = true;
         }
 
-        return $attrs;
+        return $this->MaybeDecorateAttrs($attrs, $url);
     }
 
     protected function MaybeDecorateAttrs(
         array $attrs,
         string $url,
-        bool $checkPreload = false,
-        bool $checkAsScript = false
+        bool $checkPreload = false
     ) : array {
         $checkIntegrity = ( ! $checkPreload || $this->GetEnableIntegrityOnPreload());
-        if ($checkAsScript) {
-            $attrs = $this->MaybeDecorateScriptAttrs($attrs, $url);
-        }
         if (isset($this->crossOrigin[$url])) {
             $attrs['crossorigin'] = $this->crossOrigin[$url];
         }
@@ -374,7 +373,7 @@ class Document extends AbstractHtmlElement
     {
         return [
             '!element' => 'script',
-            '!attributes' => $this->MaybeDecorateAttrs([], $url, false, true),
+            '!attributes' => $this->MaybeDecorateScriptAttrs([], $url, false),
         ];
     }
 
