@@ -81,17 +81,17 @@ class MarkupValidator
 
     protected static function ValidateMarkupAttributeArrayValue(string $attr, array $value) : void
     {
-            /**
-            * @var int $key
-            */
-            foreach (array_keys($value) as $key) {
-                if ( ! is_scalar($value[$key])) {
-                    throw new InvalidArgumentException(sprintf(
-                        'Attribute %s contained non-scalar array value!',
-                        $attr
-                    ));
-                }
+        /**
+        * @var int $key
+        */
+        foreach (array_keys($value) as $key) {
+            if ( ! is_scalar($value[$key])) {
+                throw new InvalidArgumentException(sprintf(
+                    'Attribute %s contained non-scalar array value!',
+                    $attr
+                ));
             }
+        }
     }
 
     /**
