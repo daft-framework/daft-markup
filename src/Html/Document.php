@@ -294,6 +294,11 @@ class Document extends AbstractHtmlElement
 
     protected function PreloadsToMarkupArrayMapper(string $url) : array
     {
+        return ['!element' => 'link', '!attributes' => $this->MaybeDecoratePreloadAttrs($url)];
+    }
+
+    protected function MaybeDecoratePreloadAttrs(string $url) : array
+    {
         $attrs = $this->MaybeDecorateAttrs(
             [
                 'rel' => 'preload',
@@ -301,7 +306,7 @@ class Document extends AbstractHtmlElement
                 'as' => $this->preloads[$url],
             ],
             $url,
-            true
+            $this->GetEnableIntegrityOnPreload()
         );
 
         if ('module' === $attrs['as']) {
@@ -309,7 +314,7 @@ class Document extends AbstractHtmlElement
             unset($attrs['as']);
         }
 
-        return ['!element' => 'link', '!attributes' => $attrs];
+        return $attrs;
     }
 
     protected function MaybeDecorateScriptAttrs(
@@ -332,13 +337,12 @@ class Document extends AbstractHtmlElement
     protected function MaybeDecorateAttrs(
         array $attrs,
         string $url,
-        bool $checkPreload = false
+        bool $checkIntegrity = true
     ) : array {
-        $checkIntegrity = ( ! $checkPreload || $this->GetEnableIntegrityOnPreload());
         if (isset($this->crossOrigin[$url])) {
             $attrs['crossorigin'] = $this->crossOrigin[$url];
         }
-        if (isset($this->integrity[$url]) && $checkIntegrity) {
+        if ($checkIntegrity && isset($this->integrity[$url])) {
             $attrs['integrity'] = $this->integrity[$url];
         }
 
