@@ -295,7 +295,11 @@ class Document extends AbstractHtmlElement
     protected function PreloadsToMarkupArrayMapper(string $url) : array
     {
         $attrs = $this->MaybeDecorateAttrs(
-            ['rel' => 'preload', 'href' => $url, 'as' => $this->preloads[$url]],
+            [
+                'rel' => 'preload',
+                'href' => $url,
+                'as' => $this->preloads[$url]
+            ],
             $url,
             true
         );
@@ -344,17 +348,15 @@ class Document extends AbstractHtmlElement
 
     protected function StylesheetsToMarkupArrayMapper(string $url) : array
     {
-        $attrs = $this->MaybeDecorateAttrs(
-            [
-            'rel' => 'stylesheet',
-            'href' => $url,
-            ],
-            $url
-        );
-
         return [
             '!element' => 'link',
-            '!attributes' => $attrs,
+            '!attributes' => $this->MaybeDecorateAttrs(
+                [
+                'rel' => 'stylesheet',
+                'href' => $url,
+                ],
+                $url
+            ),
         ];
     }
 
@@ -365,16 +367,14 @@ class Document extends AbstractHtmlElement
 
     protected function ScriptsToMarkupArrayMapper(string $url) : array
     {
-        $attrs = $this->MaybeDecorateAttrs(
-            [],
-            $url,
-            false,
-            true
-        );
-
         return [
             '!element' => 'script',
-            '!attributes' => $attrs,
+            '!attributes' => $this->MaybeDecorateAttrs(
+                [],
+                $url,
+                false,
+                true
+            ),
         ];
     }
 
