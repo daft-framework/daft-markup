@@ -72,11 +72,12 @@ class Markup
 
         foreach ($markupContent as $content) {
             if (is_array($content)) {
-                /*
-                These args aren't indented like I'd normally indent them due to xdebug coverage
-                */
                 $out .= $this->MarkupArrayToMarkupString(
-                    $content, $xml_style, $flags, $encoding, $double_encode
+                    $content,
+                    $xml_style,
+                    $flags,
+                    $encoding,
+                    $double_encode
                 );
             } else {
                 $out .= htmlentities((string) $content, $flags, $encoding, $double_encode);
@@ -133,11 +134,11 @@ class Markup
 
         $i = 0;
         while (($node = $frag->childNodes->item($i++)) instanceof DOMNode) {
-            /*
-            These args aren't indented like I'd normally indent them due to xdebug coverage
-            */
             $markupArray = $this->NodeToMarkupArray(
-                $node, $excludeElements, $keepElements, $generalAttrWhitelist
+                $node,
+                $excludeElements,
+                $keepElements,
+                $generalAttrWhitelist
             );
 
             if ( ! isset($markupArray['!element'])) {
@@ -259,11 +260,12 @@ class Markup
             $out .= '>';
 
             if ( ! $emptyContent) {
-                /*
-                These args aren't indented like I'd normally indent them due to xdebug coverage
-                */
                 $out .= $this->MarkupCollectionToMarkupString(
-                    $content, $xml_style, $flags, $encoding, $double
+                    $content,
+                    $xml_style,
+                    $flags,
+                    $encoding,
+                    $double
                 );
             }
 
@@ -384,11 +386,11 @@ class Markup
 
         $i = 0;
         while (($child = $nodes->item($i++)) instanceof DOMNode) {
-            /*
-            These args aren't indented like I'd normally indent them due to xdebug coverage
-            */
             $childOut = $this->NodeToMarkupArray(
-                $child, $excludeElements, $keepElements, $generalAttrWhitelist
+                $child,
+                $excludeElements,
+                $keepElements,
+                $generalAttrWhitelist
             );
 
             if ( ! isset($childOut['!element'])) {

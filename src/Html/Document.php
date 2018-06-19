@@ -389,10 +389,9 @@ class Document extends AbstractHtmlElement
 
         $out = sprintf(
             'Link: <%s>; rel=%s; as=%s',
-            /*
-            These args aren't indented like I'd normally indent them due to xdebug coverage
-            */
-            $url, ('module' !== $as) ? 'preload' : 'modulepreload', $as
+            $url,
+            (('module' !== $as) ? 'preload' : 'modulepreload'),
+            $as
         );
 
         if ($this->GetEnableIntegrityOnPreload() && isset($this->integrity[$url])) {
