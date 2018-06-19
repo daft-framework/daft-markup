@@ -137,9 +137,12 @@ class Document extends AbstractHtmlElement
 
     public function Preload(string $as, string ...$urls) : void
     {
-        foreach ($urls as $url) {
-            $this->preloads[$url] = $as;
-        }
+        /**
+        * @var array<string, string> $pl
+        */
+        $pl = array_merge($this->preloads, array_combine($urls, array_fill(0, count($urls), $as)));
+
+        $this->preloads = $pl;
     }
 
     public function IncludeCss(string ...$urls) : void
