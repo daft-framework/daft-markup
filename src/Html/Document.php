@@ -350,18 +350,14 @@ class Document extends AbstractHtmlElement
         return array_map([$this, 'PreloadsToMarkupArrayMapper'], array_keys($this->preloads));
     }
 
+    protected function MaybeDecorateAttrsStylesheet(string $url) : array
+    {
+        return $this->MaybeDecorateAttrs(['rel' => 'stylesheet', 'href' => $url], $url);
+    }
+
     protected function StylesheetsToMarkupArrayMapper(string $url) : array
     {
-        return [
-            '!element' => 'link',
-            '!attributes' => $this->MaybeDecorateAttrs(
-                [
-                    'rel' => 'stylesheet',
-                    'href' => $url,
-                ],
-                $url
-            ),
-        ];
+        return ['!element' => 'link', '!attributes' => $this->MaybeDecorateAttrsStylesheet($url)];
     }
 
     protected function StylesheetsToMarkupArray() : array
