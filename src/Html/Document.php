@@ -314,14 +314,14 @@ class Document extends AbstractHtmlElement
 
     protected function MaybeDecorateScriptAttrs(array $attrs, string $url) : array
     {
-            $attrs['src'] = $url;
-            $attrs['async'] = in_array($url, $this->async, true);
-            $attrs['defer'] = in_array($url, $this->defer, true);
-            if (in_array($url, $this->modules, true)) {
-                $attrs['type'] = 'module';
-            } elseif (in_array($url, $this->noModules, true)) {
-                $attrs['nomodule'] = true;
-            }
+        $attrs['src'] = $url;
+        $attrs['async'] = in_array($url, $this->async, true);
+        $attrs['defer'] = in_array($url, $this->defer, true);
+        if (in_array($url, $this->modules, true)) {
+            $attrs['type'] = 'module';
+        } elseif (in_array($url, $this->noModules, true)) {
+            $attrs['nomodule'] = true;
+        }
 
         return $attrs;
     }
