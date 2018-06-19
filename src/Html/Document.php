@@ -104,7 +104,10 @@ class Document extends AbstractHtmlElement
     */
     public function ToMarkupArray(array $content = null) : array
     {
-        $bodyContent = array_merge(($content ?? []), $this->ScriptsToMarkupArray());
+        $bodyContent = array_merge(
+            ($content ?? []),
+            array_map([$this, 'ScriptsToMarkupArrayMapper'], $this->scripts)
+        );
 
         $content = [['!element' => 'head', '!content' => $this->HeadContentMarkupArray()]];
 
@@ -281,8 +284,8 @@ class Document extends AbstractHtmlElement
                 ['!element' => 'meta', '!attributes' => ['charset' => $this->GetCharset()]],
                 ['!element' => 'title', '!content' => [$title]],
             ],
-            $this->PreloadsToMarkupArray(),
-            $this->StylesheetsToMarkupArray(),
+            array_map([$this, 'PreloadsToMarkupArrayMapper'], array_keys($this->preloads)),
+            array_map([$this, 'StylesheetsToMarkupArrayMapper'], $this->stylesheets),
             array_map(
                 function (array $meta) : array {
                     return ['!element' => 'meta', '!attributes' => $meta];
@@ -338,11 +341,6 @@ class Document extends AbstractHtmlElement
         return $attrs;
     }
 
-    protected function PreloadsToMarkupArray() : array
-    {
-        return array_map([$this, 'PreloadsToMarkupArrayMapper'], array_keys($this->preloads));
-    }
-
     protected function MaybeDecorateAttrsStylesheet(string $url) : array
     {
         return $this->MaybeDecorateAttrs(['rel' => 'stylesheet', 'href' => $url], $url);
@@ -353,22 +351,12 @@ class Document extends AbstractHtmlElement
         return ['!element' => 'link', '!attributes' => $this->MaybeDecorateAttrsStylesheet($url)];
     }
 
-    protected function StylesheetsToMarkupArray() : array
-    {
-        return array_map([$this, 'StylesheetsToMarkupArrayMapper'], $this->stylesheets);
-    }
-
     protected function ScriptsToMarkupArrayMapper(string $url) : array
     {
         return [
             '!element' => 'script',
             '!attributes' => $this->MaybeDecorateScriptAttrs([], $url),
         ];
-    }
-
-    protected function ScriptsToMarkupArray() : array
-    {
-        return array_map([$this, 'ScriptsToMarkupArrayMapper'], $this->scripts);
     }
 
     protected function GetPossibleHeadersMapper(string $url) : string
