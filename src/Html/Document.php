@@ -304,11 +304,8 @@ class Document extends AbstractHtmlElement
     {
         $as = $this->preloads[$url];
 
-        $attrs = [
-            'rel' => 'preload',
-            'href' => $url,
-            'as' => $as,
-        ];
+        $attrs = ['rel' => 'preload', 'href' => $url, 'as' => $as];
+
         if ('module' === $as) {
             $attrs['rel'] = 'modulepreload';
             unset($attrs['as']);
@@ -320,10 +317,7 @@ class Document extends AbstractHtmlElement
             $attrs['integrity'] = $this->integrity[$url];
         }
 
-        return [
-            '!element' => 'link',
-            '!attributes' => $attrs,
-        ];
+        return ['!element' => 'link', '!attributes' => $attrs];
     }
 
     protected function PreloadsToMarkupArray() : array
