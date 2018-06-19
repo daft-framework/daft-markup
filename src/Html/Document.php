@@ -304,26 +304,26 @@ class Document extends AbstractHtmlElement
     {
         $as = $this->preloads[$url];
 
-            $attrs = [
-                'rel' => 'preload',
-                'href' => $url,
-                'as' => $as,
-            ];
-            if ('module' === $as) {
-                $attrs['rel'] = 'modulepreload';
-                unset($attrs['as']);
-            }
-            if (isset($this->crossOrigin[$url])) {
-                $attrs['crossorigin'] = $this->crossOrigin[$url];
-            }
-            if (isset($this->integrity[$url]) && $this->GetEnableIntegrityOnPreload()) {
-                $attrs['integrity'] = $this->integrity[$url];
-            }
+        $attrs = [
+            'rel' => 'preload',
+            'href' => $url,
+            'as' => $as,
+        ];
+        if ('module' === $as) {
+            $attrs['rel'] = 'modulepreload';
+            unset($attrs['as']);
+        }
+        if (isset($this->crossOrigin[$url])) {
+            $attrs['crossorigin'] = $this->crossOrigin[$url];
+        }
+        if (isset($this->integrity[$url]) && $this->GetEnableIntegrityOnPreload()) {
+            $attrs['integrity'] = $this->integrity[$url];
+        }
 
         return [
-                '!element' => 'link',
-                '!attributes' => $attrs,
-            ];
+            '!element' => 'link',
+            '!attributes' => $attrs,
+        ];
     }
 
     protected function PreloadsToMarkupArray() : array
