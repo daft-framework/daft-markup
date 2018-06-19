@@ -302,11 +302,9 @@ class Document extends AbstractHtmlElement
 
     protected function PreloadsToMarkupArrayMapper(string $url) : array
     {
-        $as = $this->preloads[$url];
+        $attrs = ['rel' => 'preload', 'href' => $url, 'as' => $this->preloads[$url]];
 
-        $attrs = ['rel' => 'preload', 'href' => $url, 'as' => $as];
-
-        if ('module' === $as) {
+        if ('module' === $attrs['as']) {
             $attrs['rel'] = 'modulepreload';
             unset($attrs['as']);
         }
