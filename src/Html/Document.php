@@ -300,11 +300,10 @@ class Document extends AbstractHtmlElement
         );
     }
 
-    protected function PreloadsToMarkupArray() : array
+    protected function PreloadsToMarkupArrayMapper(string $url) : array
     {
-        $headContent = [];
+        $as = $this->preloads[$url];
 
-        foreach ($this->preloads as $url => $as) {
             $attrs = [
                 'rel' => 'preload',
                 'href' => $url,
@@ -320,13 +319,16 @@ class Document extends AbstractHtmlElement
             if (isset($this->integrity[$url]) && $this->GetEnableIntegrityOnPreload()) {
                 $attrs['integrity'] = $this->integrity[$url];
             }
-            $headContent[] = [
+
+        return [
                 '!element' => 'link',
                 '!attributes' => $attrs,
             ];
-        }
+    }
 
-        return $headContent;
+    protected function PreloadsToMarkupArray() : array
+    {
+        return array_map([$this, 'PreloadsToMarkupArrayMapper'], array_keys($this->preloads));
     }
 
     protected function StylesheetsToMarkupArray() : array
