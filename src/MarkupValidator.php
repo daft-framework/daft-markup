@@ -19,13 +19,8 @@ class MarkupValidator
             throw new InvalidArgumentException('Element not specified!');
         } elseif ( ! is_string($markup['!element'])) {
             throw new InvalidArgumentException('Element not specified as string!');
-        } elseif (
-            ! preg_match(Markup::REGEX_ELEMENT_NAME, $markup['!element'])
-        ) {
-            throw new InvalidArgumentException(sprintf(
-                'Element not valid! (%s)',
-                $markup['!element']
-            ));
+        } elseif ( ! preg_match(Markup::REGEX_ELEMENT_NAME, $markup['!element'])) {
+            throw new InvalidArgumentException('Element not valid! (' . $markup['!element'] . ')');
         } elseif (isset($markup['!content'])) {
             self::ValidateContent($markup['!content']);
         }
@@ -80,19 +75,12 @@ class MarkupValidator
         if ( ! is_string($attr)) {
             throw new InvalidArgumentException('Attribute keys must be strings!');
         } elseif ( ! preg_match(Markup::REGEX_ATTRIBUTE_NAME, $attr)) {
-            throw new InvalidArgumentException(sprintf(
-                'Attribute name invalid! (%s)',
-                $attr
-            ));
+            throw new InvalidArgumentException(sprintf('Attribute name invalid! (%s)', $attr));
         }
     }
 
-    /**
-    * @param mixed $value
-    */
-    protected static function ValidateMarkupAttributeValue(string $attr, $value) : void
+    protected static function ValidateMarkupAttributeArrayValue(string $attr, array $value) : void
     {
-        if (is_array($value)) {
             /**
             * @var int $key
             */
@@ -104,6 +92,15 @@ class MarkupValidator
                     ));
                 }
             }
+    }
+
+    /**
+    * @param mixed $value
+    */
+    protected static function ValidateMarkupAttributeValue(string $attr, $value) : void
+    {
+        if (is_array($value)) {
+            static::ValidateMarkupAttributeArrayValue($attr, $value);
         } elseif ( ! is_scalar($value)) {
             throw new InvalidArgumentException(sprintf(
                 'Attribute %s contained non-scalar value!',
@@ -118,9 +115,7 @@ class MarkupValidator
     protected static function ValidateContent($markupContent) : void
     {
         if ( ! is_array($markupContent)) {
-            throw new InvalidArgumentException(
-                'Element content must be specified as an array!'
-            );
+            throw new InvalidArgumentException('Element content must be specified as an array!');
         }
 
         /**
@@ -130,9 +125,7 @@ class MarkupValidator
 
         foreach (array_keys($markupContent) as $key) {
             if ( ! is_scalar($markupContent[$key]) && ! is_array($markupContent[$key])) {
-                throw new InvalidArgumentException(
-                    'Element content must be scalar or an array!'
-                );
+                throw new InvalidArgumentException('Element content must be scalar or an array!');
             }
         }
     }
