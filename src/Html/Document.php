@@ -309,11 +309,8 @@ class Document extends AbstractHtmlElement
         return $this->MaybeDecorateAttrs($attrs, $url, $this->GetEnableIntegrityOnPreload());
     }
 
-    protected function MaybeDecorateScriptAttrs(
-        array $attrs,
-        string $url,
-        bool $checkPreload
-    ) : array {
+    protected function MaybeDecorateScriptAttrs(array $attrs, string $url) : array
+    {
         $attrs['src'] = $url;
         $attrs['async'] = in_array($url, $this->async, true);
         $attrs['defer'] = in_array($url, $this->defer, true);
@@ -365,7 +362,7 @@ class Document extends AbstractHtmlElement
     {
         return [
             '!element' => 'script',
-            '!attributes' => $this->MaybeDecorateScriptAttrs([], $url, false),
+            '!attributes' => $this->MaybeDecorateScriptAttrs([], $url),
         ];
     }
 
