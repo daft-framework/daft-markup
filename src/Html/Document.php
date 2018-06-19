@@ -299,22 +299,22 @@ class Document extends AbstractHtmlElement
 
     protected function MaybeDecoratePreloadAttrs(string $url) : array
     {
-        $attrs = $this->MaybeDecorateAttrs(
-            [
+        $attrs = [
                 'rel' => 'preload',
                 'href' => $url,
                 'as' => $this->preloads[$url],
-            ],
-            $url,
-            $this->GetEnableIntegrityOnPreload()
-        );
+        ];
 
         if ('module' === $attrs['as']) {
             $attrs['rel'] = 'modulepreload';
             unset($attrs['as']);
         }
 
-        return $attrs;
+        return $this->MaybeDecorateAttrs(
+            $attrs,
+            $url,
+            $this->GetEnableIntegrityOnPreload()
+        );
     }
 
     protected function MaybeDecorateScriptAttrs(
