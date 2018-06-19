@@ -302,20 +302,49 @@ class Document extends AbstractHtmlElement
 
     protected function PreloadsToMarkupArrayMapper(string $url) : array
     {
-        $attrs = ['rel' => 'preload', 'href' => $url, 'as' => $this->preloads[$url]];
+        $attrs = $this->MaybeDecorateAttrs(
+            ['rel' => 'preload', 'href' => $url, 'as' => $this->preloads[$url]],
+            $url,
+            true
+        );
 
         if ('module' === $attrs['as']) {
             $attrs['rel'] = 'modulepreload';
             unset($attrs['as']);
         }
+
+        return ['!element' => 'link', '!attributes' => $attrs];
+    }
+
+    protected function MaybeDecorateAttrs(
+        array $attrs,
+        string $url,
+        bool $checkPreload = false,
+        bool $checkAsScript = false
+    ) : array {
+        if ($checkAsScript) {
+            $attrs['src'] = $url;
+                $attrs['async'] = in_array($url, $this->async, true);
+                $attrs['defer'] = in_array($url, $this->defer, true);
+        }
         if (isset($this->crossOrigin[$url])) {
             $attrs['crossorigin'] = $this->crossOrigin[$url];
         }
-        if (isset($this->integrity[$url]) && $this->GetEnableIntegrityOnPreload()) {
+        if (
+            isset($this->integrity[$url]) &&
+            ( ! $checkPreload || $this->GetEnableIntegrityOnPreload())
+        ) {
             $attrs['integrity'] = $this->integrity[$url];
         }
+        if ($checkAsScript) {
+            if (in_array($url, $this->modules, true)) {
+                $attrs['type'] = 'module';
+            } elseif (in_array($url, $this->noModules, true)) {
+                $attrs['nomodule'] = true;
+            }
+        }
 
-        return ['!element' => 'link', '!attributes' => $attrs];
+        return $attrs;
     }
 
     protected function PreloadsToMarkupArray() : array
@@ -323,62 +352,45 @@ class Document extends AbstractHtmlElement
         return array_map([$this, 'PreloadsToMarkupArrayMapper'], array_keys($this->preloads));
     }
 
-    protected function StylesheetsToMarkupArray() : array
+    protected function StylesheetsToMarkupArrayMapper(string $url) : array
     {
-        $headContent = [];
-
-        foreach ($this->stylesheets as $url) {
-            $attrs = [
+            $attrs = $this->MaybeDecorateAttrs(
+                [
                 'rel' => 'stylesheet',
                 'href' => $url,
-            ];
-            if (isset($this->crossOrigin[$url])) {
-                $attrs['crossorigin'] = $this->crossOrigin[$url];
-            }
-            if (isset($this->integrity[$url])) {
-                $attrs['integrity'] = $this->integrity[$url];
-            }
-            $headContent[] = [
+                ],
+                $url
+            );
+
+        return [
                 '!element' => 'link',
                 '!attributes' => $attrs,
-            ];
-        }
+        ];
+    }
 
-        return $headContent;
+    protected function StylesheetsToMarkupArray() : array
+    {
+        return array_map([$this, 'StylesheetsToMarkupArrayMapper'], $this->stylesheets);
+    }
+
+    protected function ScriptsToMarkupArrayMapper(string $url) : array
+    {
+        $attrs = $this->MaybeDecorateAttrs(
+            [],
+            $url,
+            false,
+            true
+        );
+
+        return [
+                '!element' => 'script',
+                '!attributes' => $attrs,
+        ];
     }
 
     protected function ScriptsToMarkupArray() : array
     {
-        $bodyContent = [];
-
-        foreach ($this->scripts as $url) {
-            $attrs = [
-                'src' => $url,
-            ];
-
-            $attrs['async'] = in_array($url, $this->async, true);
-            $attrs['defer'] = in_array($url, $this->defer, true);
-
-            if (isset($this->crossOrigin[$url])) {
-                $attrs['crossorigin'] = $this->crossOrigin[$url];
-            }
-            if (isset($this->integrity[$url])) {
-                $attrs['integrity'] = $this->integrity[$url];
-            }
-
-            if (in_array($url, $this->modules, true)) {
-                $attrs['type'] = 'module';
-            } elseif (in_array($url, $this->noModules, true)) {
-                $attrs['nomodule'] = true;
-            }
-
-            $bodyContent[] = [
-                '!element' => 'script',
-                '!attributes' => $attrs,
-            ];
-        }
-
-        return $bodyContent;
+        return array_map([$this, 'ScriptsToMarkupArrayMapper'], $this->scripts);
     }
 
     protected function GetPossibleHeadersMapper(string $url) : string
