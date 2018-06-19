@@ -106,18 +106,10 @@ class Document extends AbstractHtmlElement
     {
         $bodyContent = array_merge(($content ?? []), $this->ScriptsToMarkupArray());
 
-        $content = [
-            [
-                '!element' => 'head',
-                '!content' => $this->HeadContentMarkupArray(),
-            ],
-        ];
+        $content = [['!element' => 'head', '!content' => $this->HeadContentMarkupArray()]];
 
         if (count($bodyContent) > 0) {
-            $content[] = [
-                '!element' => 'body',
-                '!content' => $bodyContent,
-            ];
+            $content[] = ['!element' => 'body', '!content' => $bodyContent];
         }
 
         return parent::ToMarkupArray($content);
@@ -322,18 +314,16 @@ class Document extends AbstractHtmlElement
         bool $checkPreload = false,
         bool $checkAsScript = false
     ) : array {
+        $checkIntegrity = ( ! $checkPreload || $this->GetEnableIntegrityOnPreload());
         if ($checkAsScript) {
             $attrs['src'] = $url;
-                $attrs['async'] = in_array($url, $this->async, true);
-                $attrs['defer'] = in_array($url, $this->defer, true);
+            $attrs['async'] = in_array($url, $this->async, true);
+            $attrs['defer'] = in_array($url, $this->defer, true);
         }
         if (isset($this->crossOrigin[$url])) {
             $attrs['crossorigin'] = $this->crossOrigin[$url];
         }
-        if (
-            isset($this->integrity[$url]) &&
-            ( ! $checkPreload || $this->GetEnableIntegrityOnPreload())
-        ) {
+        if (isset($this->integrity[$url]) && $checkIntegrity) {
             $attrs['integrity'] = $this->integrity[$url];
         }
         if ($checkAsScript) {
@@ -354,17 +344,17 @@ class Document extends AbstractHtmlElement
 
     protected function StylesheetsToMarkupArrayMapper(string $url) : array
     {
-            $attrs = $this->MaybeDecorateAttrs(
-                [
-                'rel' => 'stylesheet',
-                'href' => $url,
-                ],
-                $url
-            );
+        $attrs = $this->MaybeDecorateAttrs(
+            [
+            'rel' => 'stylesheet',
+            'href' => $url,
+            ],
+            $url
+        );
 
         return [
-                '!element' => 'link',
-                '!attributes' => $attrs,
+            '!element' => 'link',
+            '!attributes' => $attrs,
         ];
     }
 
@@ -383,8 +373,8 @@ class Document extends AbstractHtmlElement
         );
 
         return [
-                '!element' => 'script',
-                '!attributes' => $attrs,
+            '!element' => 'script',
+            '!attributes' => $attrs,
         ];
     }
 
