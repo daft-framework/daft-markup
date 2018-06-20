@@ -351,22 +351,26 @@ class Markup
         array $keepElements = [],
         array $generalAttrWhitelist = []
     ) : array {
-        $out = [];
-
-        $attrs = $this->FilteredArrayFromDOMNamedNodeMap(
+        /**
+        * @var array<string, scalar> $out
+        */
+        $out = array_reduce(
+            $this->FilteredArrayFromDOMNamedNodeMap(
             $node,
             $attributes,
             $keepElements,
             $generalAttrWhitelist
-        );
-
-        foreach ($attrs as $attr) {
+            ),
+            function (array $out, DOMAttr $attr) : array {
             $out[$attr->name] = $attr->value;
 
             if (in_array($attr->name, self::BOOLEAN_ELEMENT_ATTRIBUTES, true)) {
                 $out[$attr->name] = '' === $attr->value;
             }
-        }
+                return $out;
+            },
+            []
+        );
 
         return $out;
     }
