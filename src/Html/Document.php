@@ -140,14 +140,24 @@ class Document extends AbstractHtmlElement
         $this->stylesheets = array_unique(array_merge($this->stylesheets, $urls));
     }
 
+    /**
+    * @return array<int, string>
+    */
+    protected function ExcludeUrls(array $existing, string ...$urls) : array
+    {
+        /**
+        * @var array<int, string> $out
+        */
+        $out = array_filter($existing, function (string $url) use ($urls) : bool {
+                return ! in_array($url, $urls, true);
+        });
+
+        return $out;
+    }
+
     public function ExcludeCss(string ...$urls) : void
     {
-        $this->stylesheets = array_filter(
-            $this->stylesheets,
-            function (string $url) use ($urls) : bool {
-                return ! in_array($url, $urls, true);
-            }
-        );
+        $this->stylesheets = $this->ExcludeUrls($this->stylesheets, ...$urls);
     }
 
     public function GetCharset() : string
@@ -189,9 +199,7 @@ class Document extends AbstractHtmlElement
 
     public function ExcludeJs(string ...$urls) : void
     {
-        $this->scripts = array_filter($this->scripts, function (string $url) use ($urls) : bool {
-            return ! in_array($url, $urls, true);
-        });
+        $this->scripts = $this->ExcludeUrls($this->scripts, ...$urls);
     }
 
     public function IncludeModules(string ...$urls) : void
