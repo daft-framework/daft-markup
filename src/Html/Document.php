@@ -216,21 +216,6 @@ class Document extends AbstractHtmlElement
         $this->noModules = $urls;
     }
 
-    /**
-    * @param array<string, string> $existing
-    *
-    * @return array<string, string>
-    */
-    protected function MergeSetting(array $existing, string $setting, string ...$urls) : array
-    {
-        /**
-        * @var array<string, string> $fresh
-        */
-        $fresh = array_combine($urls, array_fill(0, count($urls), $setting));
-
-        return array_merge($existing, $fresh);
-    }
-
     public function CrossOrigin(string $setting, string ...$urls) : void
     {
         $this->crossOrigin = $this->MergeSetting($this->crossOrigin, $setting, ...$urls);
@@ -277,6 +262,21 @@ class Document extends AbstractHtmlElement
     public function ClearPossibleHeaderSources() : void
     {
         $this->preloads = [];
+    }
+
+    /**
+    * @param array<string, string> $existing
+    *
+    * @return array<string, string>
+    */
+    protected function MergeSetting(array $existing, string $setting, string ...$urls) : array
+    {
+        /**
+        * @var array<string, string> $fresh
+        */
+        $fresh = array_combine($urls, array_fill(0, count($urls), $setting));
+
+        return array_merge($existing, $fresh);
     }
 
     protected function HeadContentMarkupArray() : array
