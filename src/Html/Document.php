@@ -223,9 +223,11 @@ class Document extends AbstractHtmlElement
 
     public function CrossOrigin(string $setting, string ...$urls) : void
     {
-        foreach ($urls as $url) {
-            $this->crossOrigin[$url] = $setting;
-        }
+        /**
+        * @var array<string, string> $freshCrossOrigin
+        */
+        $freshCrossOrigin = array_combine($urls, array_fill(0, count($urls), $setting));
+        $this->crossOrigin = array_merge($this->crossOrigin, $freshCrossOrigin);
     }
 
     public function ConfigureIntegrity(string $url, string $integrity) : void
