@@ -221,17 +221,18 @@ class Document extends AbstractHtmlElement
 
     public function AppendMeta(string $name, string $content) : void
     {
+        $key = 'name';
+        $val = $name;
+
         if (preg_match('/^http:(.+)$/', $name, $matches)) {
-            $this->metas[] = [
-                'http-equiv' => (string) $matches[1],
-                'content' => $content,
-            ];
-        } else {
-            $this->metas[] = [
-                'name' => $name,
-                'content' => $content,
-            ];
+            $key = 'http-equiv';
+            $val = (string) $matches[1];
         }
+
+        $this->metas[] = [
+            $key => $val,
+                'content' => $content,
+            ];
     }
 
     public function GetEnableIntegrityOnPreload() : bool
