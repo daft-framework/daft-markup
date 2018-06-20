@@ -218,11 +218,13 @@ class Document extends AbstractHtmlElement
 
     /**
     * @param array<string, string> $existing
+    *
+    * @return array<string, string>
     */
     protected function MergeSetting(array $existing, string $setting, string ...$urls) : array
     {
         /**
-        * @var array<string, string> $freshCrossOrigin
+        * @var array<string, string> $fresh
         */
         $fresh = array_combine($urls, array_fill(0, count($urls), $setting));
 
