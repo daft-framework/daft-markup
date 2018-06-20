@@ -231,8 +231,8 @@ class Document extends AbstractHtmlElement
 
         $this->metas[] = [
             $key => $val,
-                'content' => $content,
-            ];
+            'content' => $content,
+        ];
     }
 
     public function GetEnableIntegrityOnPreload() : bool
