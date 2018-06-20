@@ -132,12 +132,7 @@ class Document extends AbstractHtmlElement
 
     public function Preload(string $as, string ...$urls) : void
     {
-        /**
-        * @var array<string, string> $pl
-        */
-        $pl = array_merge($this->preloads, array_combine($urls, array_fill(0, count($urls), $as)));
-
-        $this->preloads = $pl;
+        $this->preloads = $this->MergeSetting($this->preloads, $as, ...$urls);
     }
 
     public function IncludeCss(string ...$urls) : void
@@ -221,13 +216,22 @@ class Document extends AbstractHtmlElement
         $this->noModules = $urls;
     }
 
-    public function CrossOrigin(string $setting, string ...$urls) : void
+    /**
+    * @param array<string, string> $existing
+    */
+    protected function MergeSetting(array $existing, string $setting, string ...$urls) : array
     {
         /**
         * @var array<string, string> $freshCrossOrigin
         */
-        $freshCrossOrigin = array_combine($urls, array_fill(0, count($urls), $setting));
-        $this->crossOrigin = array_merge($this->crossOrigin, $freshCrossOrigin);
+        $fresh = array_combine($urls, array_fill(0, count($urls), $setting));
+
+        return array_merge($existing, $fresh);
+    }
+
+    public function CrossOrigin(string $setting, string ...$urls) : void
+    {
+        $this->crossOrigin = $this->MergeSetting($this->crossOrigin, $setting, ...$urls);
     }
 
     public function ConfigureIntegrity(string $url, string $integrity) : void
