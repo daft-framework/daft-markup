@@ -191,41 +191,6 @@ class Markup
     }
 
     /**
-    * @param array<int|string, mixed> $out
-    * @param array<string, string[]> $excludeElements
-    * @param array<string, string[]> $keepElements
-    * @param array<int, string> $generalAttrWhitelist
-    *
-    * @return array<int|string, mixed>
-    */
-    protected function ElementNodeToMarkupArrayIfPassedFilter(
-        DOMElement $node,
-        array $out,
-        array $excludeElements = [],
-        array $keepElements = [],
-        array $generalAttrWhitelist = []
-    ) : array {
-        if ($node->hasAttributes()) {
-            $out['!attributes'] = $this->ObtainAttributesFromDOMNamedNodeMap(
-                $node,
-                $node->attributes,
-                $keepElements,
-                $generalAttrWhitelist
-            );
-        }
-        if ($node->hasChildNodes()) {
-            $out['!content'] = $this->NodeListToContent(
-                $node->childNodes,
-                $excludeElements,
-                $keepElements,
-                $generalAttrWhitelist
-            );
-        }
-
-        return $out;
-    }
-
-    /**
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
@@ -274,6 +239,41 @@ class Markup
             )
         ) {
             unset($out['!attributes']);
+        }
+
+        return $out;
+    }
+
+    /**
+    * @param array<int|string, mixed> $out
+    * @param array<string, string[]> $excludeElements
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
+    *
+    * @return array<int|string, mixed>
+    */
+    protected function ElementNodeToMarkupArrayIfPassedFilter(
+        DOMElement $node,
+        array $out,
+        array $excludeElements = [],
+        array $keepElements = [],
+        array $generalAttrWhitelist = []
+    ) : array {
+        if ($node->hasAttributes()) {
+            $out['!attributes'] = $this->ObtainAttributesFromDOMNamedNodeMap(
+                $node,
+                $node->attributes,
+                $keepElements,
+                $generalAttrWhitelist
+            );
+        }
+        if ($node->hasChildNodes()) {
+            $out['!content'] = $this->NodeListToContent(
+                $node->childNodes,
+                $excludeElements,
+                $keepElements,
+                $generalAttrWhitelist
+            );
         }
 
         return $out;
