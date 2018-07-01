@@ -231,6 +231,16 @@ class Markup
                 ));
         }
 
+        return $this->NodeToMarkupArrayStripEmptyAttributes($out);
+    }
+
+    /**
+    * @param array<int|string, mixed> $out
+    *
+    * @return array<int|string, mixed>
+    */
+    protected function NodeToMarkupArrayStripEmptyAttributes(array $out) : array
+    {
         if (
             isset($out['!attributes']) &&
             (
