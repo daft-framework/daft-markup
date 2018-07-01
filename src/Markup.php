@@ -6,9 +6,7 @@ declare(strict_types=1);
 
 namespace SignpostMarv\DaftMarkup;
 
-use DOMAttr;
 use DOMElement;
-use DOMNamedNodeMap;
 use DOMNode;
 use DOMNodeList;
 use DOMText;
