@@ -13,22 +13,6 @@ class MarkupValidator
     /**
     * @param array<int|string, mixed> $markup
     */
-    final protected static function MaybeThrowWhenValidatingMarkup(array $markup) : void
-    {
-        if ( ! array_key_exists('!element', $markup)) {
-            throw new InvalidArgumentException('Element not specified!');
-        } elseif ( ! is_string($markup['!element'])) {
-            throw new InvalidArgumentException('Element not specified as string!');
-        } elseif (preg_match(Markup::REGEX_ELEMENT_NAME, $markup['!element']) < 1) {
-            throw new InvalidArgumentException('Element not valid! (' . $markup['!element'] . ')');
-        } elseif (isset($markup['!content'])) {
-            self::ValidateContent($markup['!content']);
-        }
-    }
-
-    /**
-    * @param array<int|string, mixed> $markup
-    */
     public static function ValidateMarkup(array $markup) : void
     {
         self::MaybeThrowWhenValidatingMarkup($markup);
@@ -73,6 +57,22 @@ class MarkupValidator
         }
 
         return [];
+    }
+
+    /**
+    * @param array<int|string, mixed> $markup
+    */
+    final protected static function MaybeThrowWhenValidatingMarkup(array $markup) : void
+    {
+        if ( ! array_key_exists('!element', $markup)) {
+            throw new InvalidArgumentException('Element not specified!');
+        } elseif ( ! is_string($markup['!element'])) {
+            throw new InvalidArgumentException('Element not specified as string!');
+        } elseif (preg_match(Markup::REGEX_ELEMENT_NAME, $markup['!element']) < 1) {
+            throw new InvalidArgumentException('Element not valid! (' . $markup['!element'] . ')');
+        } elseif (isset($markup['!content'])) {
+            self::ValidateContent($markup['!content']);
+        }
     }
 
     /**
