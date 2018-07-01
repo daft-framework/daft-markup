@@ -40,14 +40,6 @@ class Markup
         'wbr',
     ];
 
-    const BOOLEAN_ELEMENT_ATTRIBUTES = [
-        'contenteditable',
-        'draggable',
-        'hidden',
-        'itemscope',
-        'spellcheck',
-    ];
-
     const REGEX_ELEMENT_NAME =
         '/^(?:[a-z]+[a-z0-9]*(?:\-[a-z0-9]+)*(?:\:[a-z]+[a-z0-9]*(?:\-[a-z0-9]+)*){0,1})$/';
 
