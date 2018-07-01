@@ -132,7 +132,6 @@ class Markup
 
         $out = [];
 
-        $i = 0;
         /**
         * @var DOMNode|null $node
         */
@@ -401,7 +400,6 @@ class Markup
     ) : array {
         $out = [];
 
-        $i = 0;
         /**
         * @var DOMNode|null $child
         */
