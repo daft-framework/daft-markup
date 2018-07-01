@@ -106,7 +106,12 @@ class Markup
 
         $out = '<' . $element;
 
-        $out .= $this->MarkupAttributesArrayToMarkupString($attrs, $flags, $encoding, $double);
+        $out .= MarkupUtilities::MarkupAttributesArrayToMarkupString(
+            $attrs,
+            $flags,
+            $encoding,
+            $double
+        );
         $out .= $this->MarkupArrayContentToMarkupString(
             $element, ((array) ($markup['!content'] ?? [])), $xml_style, $flags, $encoding, $double
         );
@@ -231,27 +236,7 @@ class Markup
                 ));
         }
 
-        return $this->NodeToMarkupArrayStripEmptyAttributes($out);
-    }
-
-    /**
-    * @param array<int|string, mixed> $out
-    *
-    * @return array<int|string, mixed>
-    */
-    protected function NodeToMarkupArrayStripEmptyAttributes(array $out) : array
-    {
-        if (
-            isset($out['!attributes']) &&
-            (
-                ! is_array($out['!attributes']) ||
-                [] === $out['!attributes']
-            )
-        ) {
-            unset($out['!attributes']);
-        }
-
-        return $out;
+        return MarkupUtilities::NodeToMarkupArrayStripEmptyAttributes($out);
     }
 
     /**
@@ -270,7 +255,7 @@ class Markup
         array $generalAttrWhitelist = []
     ) : array {
         if ($node->hasAttributes()) {
-            $out['!attributes'] = $this->ObtainAttributesFromDOMNamedNodeMap(
+            $out['!attributes'] = MarkupUtilities::ObtainAttributesFromDOMNamedNodeMap(
                 $node,
                 $node->attributes,
                 $keepElements,
@@ -317,107 +302,6 @@ class Markup
 
             $out .= '</' . $element . '>';
         }
-
-        return $out;
-    }
-
-    /**
-    * @param array<string, scalar|scalar[]> $attributes
-    */
-    protected function MarkupAttributesArrayToMarkupString(
-        array $attributes,
-        int $flags,
-        string $encoding,
-        bool $double_encode
-    ) : string {
-        $out = '';
-
-        foreach ($attributes as $attr => $val) {
-            if (false === $val) {
-                continue;
-            } elseif (is_array($val)) {
-                $val = implode(' ', array_map('strval', $val));
-            }
-            $out .= ' ' . htmlentities($attr, ($flags ^ ENT_HTML5), $encoding, $double_encode);
-
-            if (true !== $val) {
-                $out .=
-                    '="' .
-                    htmlentities((string) $val, ($flags ^ ENT_HTML5), $encoding, false) .
-                    '"';
-            }
-        }
-
-        return $out;
-    }
-
-    /**
-    * @param array<string, string[]> $keepElements
-    * @param array<int, string> $generalAttrWhitelist
-    *
-    * @return DOMAttr[]
-    */
-    protected function FilteredArrayFromDOMNamedNodeMap(
-        DOMElement $node,
-        DOMNamedNodeMap $attributes,
-        array $keepElements = [],
-        array $generalAttrWhitelist = []
-    ) : array {
-        /**
-        * @var DOMAttr[]
-        */
-        $attrs = array_filter(
-            iterator_to_array($attributes),
-            function (DOMNode $attr) use ($node, $keepElements, $generalAttrWhitelist) : bool {
-                return
-                    ($attr instanceof DOMAttr) &&
-                    ! (
-                        (
-                            isset($keepElements[$node->nodeName]) &&
-                            ! in_array($attr->name, $keepElements[$node->nodeName], true)
-                        ) ||
-                        (
-                            count($generalAttrWhitelist) > 0 &&
-                            ! in_array($attr->name, $generalAttrWhitelist, true)
-                        )
-                    );
-            }
-        );
-
-        return $attrs;
-    }
-
-    /**
-    * @param array<string, string[]> $keepElements
-    * @param array<int, string> $generalAttrWhitelist
-    */
-    protected function ObtainAttributesFromDOMNamedNodeMap(
-        DOMElement $node,
-        DOMNamedNodeMap $attributes,
-        array $keepElements = [],
-        array $generalAttrWhitelist = []
-    ) : array {
-        /**
-        * @var array<string, scalar> $out
-        */
-        $out = array_reduce(
-            $this->FilteredArrayFromDOMNamedNodeMap(
-                $node,
-                $attributes,
-                $keepElements,
-                $generalAttrWhitelist
-            ),
-            function (array $out, DOMAttr $attr) : array {
-                $out[$attr->name] = $attr->value;
-
-                if (in_array($attr->name, self::BOOLEAN_ELEMENT_ATTRIBUTES, true)) {
-                    $out[$attr->name] = '' === $attr->value;
-                }
-
-                return $out;
-            },
-            []
-        );
 
         return $out;
     }
