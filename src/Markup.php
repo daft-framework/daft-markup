@@ -196,7 +196,7 @@ class Markup
         array $excludeElements = [],
         array $keepElements = [],
         array $generalAttrWhitelist = []
-    ) {
+    ) : array {
         if ($node->hasAttributes()) {
             $out['!attributes'] = $this->ObtainAttributesFromDOMNamedNodeMap(
                 $node,
