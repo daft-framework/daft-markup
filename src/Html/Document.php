@@ -224,7 +224,7 @@ class Document extends AbstractHtmlElement
         $key = 'name';
         $val = $name;
 
-        if (preg_match('/^http:(.+)$/', $name, $matches)) {
+        if (preg_match('/^http:(.+)$/', $name, $matches) > 0) {
             $key = 'http-equiv';
             $val = (string) $matches[1];
         }

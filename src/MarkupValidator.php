@@ -19,7 +19,7 @@ class MarkupValidator
             throw new InvalidArgumentException('Element not specified!');
         } elseif ( ! is_string($markup['!element'])) {
             throw new InvalidArgumentException('Element not specified as string!');
-        } elseif ( ! preg_match(Markup::REGEX_ELEMENT_NAME, $markup['!element'])) {
+        } elseif (preg_match(Markup::REGEX_ELEMENT_NAME, $markup['!element']) < 1) {
             throw new InvalidArgumentException('Element not valid! (' . $markup['!element'] . ')');
         } elseif (isset($markup['!content'])) {
             self::ValidateContent($markup['!content']);
@@ -74,7 +74,7 @@ class MarkupValidator
     {
         if ( ! is_string($attr)) {
             throw new InvalidArgumentException('Attribute keys must be strings!');
-        } elseif ( ! preg_match(Markup::REGEX_ATTRIBUTE_NAME, $attr)) {
+        } elseif (preg_match(Markup::REGEX_ATTRIBUTE_NAME, $attr) < 1) {
             throw new InvalidArgumentException(sprintf('Attribute name invalid! (%s)', $attr));
         }
     }

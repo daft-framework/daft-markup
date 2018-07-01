@@ -133,7 +133,13 @@ class Markup
         $out = [];
 
         $i = 0;
-        while (($node = $frag->childNodes->item($i++)) instanceof DOMNode) {
+        /**
+        * @var DOMNode|null $node
+        */
+        foreach ($frag->childNodes as $node) {
+            if ( ! ($node instanceof DOMNode)) {
+                continue;
+            }
             $markupArray = $this->NodeToMarkupArray(
                 $node,
                 $excludeElements,
@@ -236,7 +242,13 @@ class Markup
                 ));
         }
 
-        if (isset($out['!attributes']) && empty($out['!attributes'])) {
+        if (
+            isset($out['!attributes']) &&
+            (
+                ! is_array($out['!attributes']) ||
+                [] === $out['!attributes']
+            )
+        ) {
             unset($out['!attributes']);
         }
 
@@ -251,7 +263,7 @@ class Markup
         string $encoding = 'UTF-8',
         bool $double = false
     ) : string {
-        $emptyContent = empty($content);
+        $emptyContent = [] === $content;
         $out = '';
 
         if ($emptyContent && in_array($element, self::SELF_CLOSING_ELEMENTS, true)) {
@@ -297,7 +309,7 @@ class Markup
             if (true !== $val) {
                 $out .=
                     '="' .
-                    htmlentities((string) $val, (int) ($flags ^ ENT_HTML5), $encoding, false) .
+                    htmlentities((string) $val, ($flags ^ ENT_HTML5), $encoding, false) .
                     '"';
             }
         }
@@ -390,7 +402,13 @@ class Markup
         $out = [];
 
         $i = 0;
-        while (($child = $nodes->item($i++)) instanceof DOMNode) {
+        /**
+        * @var DOMNode|null $child
+        */
+        foreach ($nodes as $child) {
+            if ( ! ($child instanceof DOMNode)) {
+                continue;
+            }
             $childOut = $this->NodeToMarkupArray(
                 $child,
                 $excludeElements,

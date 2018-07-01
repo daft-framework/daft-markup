@@ -673,7 +673,7 @@ class ConverterTest extends TestCase
             list($class, $ctorargs) = $markupArgs;
 
             foreach ($this->dataProviderBadMarkupArrayToMarkupString() as $markupArgs) {
-                yield array_merge([$class, $ctorargs], $markupArgs);
+                yield array_merge([$class, $ctorargs], (array) $markupArgs);
             }
         }
     }
@@ -743,7 +743,7 @@ class ConverterTest extends TestCase
         * @var Markup $converter
         */
         $converter = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
-        $this->assertSame(
+        static::assertSame(
             $expected,
             $converter->MarkupCollectionToMarkupString(
                 $markup,
@@ -783,7 +783,7 @@ class ConverterTest extends TestCase
         * @var Markup $converter
         */
         $converter = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
-        $this->assertSame(
+        static::assertSame(
             $expected,
             $converter->MarkupStringToMarkupArray(
                 $markup,

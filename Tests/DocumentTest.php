@@ -143,7 +143,7 @@ class DocumentTest extends TestCase
                     $doc->Preload('script', './foo.js');
                     $doc->ConfigureIntegrity('./foo.js', 'example');
 
-                    $test->assertSame(
+                    $test::assertSame(
                         [
                             'Link: <./foo.js>; rel=preload; as=script',
                         ],
@@ -173,7 +173,7 @@ class DocumentTest extends TestCase
                     $doc->ConfigureIntegrity('./foo.js', 'example');
                     $doc->SetEnableIntegrityOnPreload(true);
 
-                    $test->assertSame(
+                    $test::assertSame(
                         [
                             'Link: <./foo.js>; rel=preload; as=script; integrity=example',
                         ],
@@ -205,7 +205,7 @@ class DocumentTest extends TestCase
                     $doc->SetEnableIntegrityOnPreload(true);
                     $doc->ClearPossibleHeaderSources();
 
-                    $test->assertSame([], $doc->GetPossibleHeaders());
+                    $test::assertSame([], $doc->GetPossibleHeaders());
                 },
                 (
                     '<!DOCTYPE html>' .
@@ -536,7 +536,7 @@ class DocumentTest extends TestCase
     */
     public function testIsAbstractHtmlElement(string $class) : void
     {
-        $this->assertTrue(is_a($class, AbstractHtmlElement::class, true));
+        static::assertTrue(is_a($class, AbstractHtmlElement::class, true));
     }
 
     /**
@@ -546,7 +546,7 @@ class DocumentTest extends TestCase
     */
     public function testValidElementName(string $class) : void
     {
-        $this->assertRegExp(Markup::REGEX_ELEMENT_NAME, (string) ($class::MarkupElementName()));
+        static::assertRegExp(Markup::REGEX_ELEMENT_NAME, (string) ($class::MarkupElementName()));
     }
 
     /**
@@ -567,9 +567,9 @@ class DocumentTest extends TestCase
 
         if ($doc instanceof Document) {
             $doc->ApplyValueForDataAttribute('foo', 'bar');
-            $this->assertSame('bar', $doc->RetrieveDataAttribute('foo'));
+            static::assertSame('bar', $doc->RetrieveDataAttribute('foo'));
             $doc->ApplyValueForDataAttribute('foo', null);
-            $this->assertNull($doc->RetrieveDataAttribute('foo'));
+            static::assertNull($doc->RetrieveDataAttribute('foo'));
 
             $doc = $this->AbstractHtmlElementFromCtorArgs($class, $ctorargs);
         }
@@ -578,7 +578,7 @@ class DocumentTest extends TestCase
             $decorateDocument($doc, $this);
         }
 
-        $this->assertSame(
+        static::assertSame(
             $expected,
             $doc->MarkupContentToDocumentString($content)
         );
@@ -641,30 +641,30 @@ class DocumentTest extends TestCase
         $appendMethod = 'Append' . $methodSuffix;
         $clearMethod = 'Clear' . $methodSuffix;
 
-        $this->assertTrue(method_exists($doc, $getMethod));
-        $this->assertTrue(method_exists($doc, $setMethod));
-        $this->assertTrue(method_exists($doc, $appendMethod));
-        $this->assertTrue(method_exists($doc, $clearMethod));
+        static::assertTrue(method_exists($doc, $getMethod));
+        static::assertTrue(method_exists($doc, $setMethod));
+        static::assertTrue(method_exists($doc, $appendMethod));
+        static::assertTrue(method_exists($doc, $clearMethod));
 
-        $this->assertEmpty($doc->$getMethod());
+        static::assertEmpty($doc->$getMethod());
 
         $doc->$setMethod(...$firstSet);
-        $this->assertSame($assertSameFirstSetExpected, $doc->$getMethod());
+        static::assertSame($assertSameFirstSetExpected, $doc->$getMethod());
 
         $doc->$appendMethod(...$append);
-        $this->assertSame($assertSameAppendExpected, $doc->$getMethod());
+        static::assertSame($assertSameAppendExpected, $doc->$getMethod());
 
         /**
         * @var string[] $val
         */
         $val = $doc->$getMethod();
         sort($val);
-        $this->assertSame($assertSameSortExpected, $doc->$getMethod());
+        static::assertSame($assertSameSortExpected, $doc->$getMethod());
         $doc->$setMethod(...$val);
-        $this->assertSame($assertSameSortSetExpected, $doc->$getMethod());
+        static::assertSame($assertSameSortSetExpected, $doc->$getMethod());
 
         $doc->$clearMethod();
-        $this->assertEmpty($doc->$getMethod());
+        static::assertEmpty($doc->$getMethod());
     }
 
     /**
@@ -681,9 +681,9 @@ class DocumentTest extends TestCase
         $method = 'Get' . $methodSuffix;
 
         if ( ! method_exists($doc, $method)) {
-            $this->markTestSkipped(sprintf('%s does not implement method "%s"', $class, $method));
+            static::markTestSkipped(sprintf('%s does not implement method "%s"', $class, $method));
         } else {
-            $this->assertSame($expected, $doc->$method());
+            static::assertSame($expected, $doc->$method());
         }
     }
 
