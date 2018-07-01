@@ -13,7 +13,7 @@ class MarkupValidator
     /**
     * @param array<int|string, mixed> $markup
     */
-    public static function ValidateMarkup(array $markup) : void
+    final protected static function MaybeThrowWhenValidatingMarkup(array $markup) : void
     {
         if ( ! array_key_exists('!element', $markup)) {
             throw new InvalidArgumentException('Element not specified!');
@@ -24,6 +24,14 @@ class MarkupValidator
         } elseif (isset($markup['!content'])) {
             self::ValidateContent($markup['!content']);
         }
+    }
+
+    /**
+    * @param array<int|string, mixed> $markup
+    */
+    public static function ValidateMarkup(array $markup) : void
+    {
+        self::MaybeThrowWhenValidatingMarkup($markup);
 
         foreach (array_keys($markup) as $k) {
             if ( ! in_array($k, Markup::SUPPORTED_ARRAY_ATTRIBUTES, true)) {
