@@ -180,6 +180,23 @@ class Markup
             return $out;
         }
         $out['!element'] = $node->nodeName;
+
+        return $this->ElementNodeToMarkupArrayIfPassedFilter(
+            $node,
+            $out,
+            $excludeElements,
+            $keepElements,
+            $generalAttrWhitelist
+        );
+    }
+
+    protected function ElementNodeToMarkupArrayIfPassedFilter(
+        DOMElement $node,
+        array $out,
+        array $excludeElements = [],
+        array $keepElements = [],
+        array $generalAttrWhitelist = []
+    ) {
         if ($node->hasAttributes()) {
             $out['!attributes'] = $this->ObtainAttributesFromDOMNamedNodeMap(
                 $node,
