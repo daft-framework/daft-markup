@@ -190,6 +190,14 @@ class Markup
         );
     }
 
+    /**
+    * @param array<int|string, mixed> $out
+    * @param array<string, string[]> $excludeElements
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
+    *
+    * @return array<int|string, mixed>
+    */
     protected function ElementNodeToMarkupArrayIfPassedFilter(
         DOMElement $node,
         array $out,
