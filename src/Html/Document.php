@@ -132,7 +132,7 @@ class Document extends AbstractHtmlElement
 
     public function Preload(string $as, string ...$urls) : void
     {
-        $this->preloads = $this->MergeSetting($this->preloads, $as, ...$urls);
+        $this->preloads = DocumentUtilities::MergeSetting($this->preloads, $as, ...$urls);
     }
 
     public function IncludeCss(string ...$urls) : void
@@ -142,7 +142,7 @@ class Document extends AbstractHtmlElement
 
     public function ExcludeCss(string ...$urls) : void
     {
-        $this->stylesheets = $this->ExcludeUrls($this->stylesheets, ...$urls);
+        $this->stylesheets = DocumentUtilities::ExcludeUrls($this->stylesheets, ...$urls);
     }
 
     public function GetCharset() : string
@@ -184,7 +184,7 @@ class Document extends AbstractHtmlElement
 
     public function ExcludeJs(string ...$urls) : void
     {
-        $this->scripts = $this->ExcludeUrls($this->scripts, ...$urls);
+        $this->scripts = DocumentUtilities::ExcludeUrls($this->scripts, ...$urls);
     }
 
     public function IncludeModules(string ...$urls) : void
@@ -211,7 +211,11 @@ class Document extends AbstractHtmlElement
 
     public function CrossOrigin(string $setting, string ...$urls) : void
     {
-        $this->crossOrigin = $this->MergeSetting($this->crossOrigin, $setting, ...$urls);
+        $this->crossOrigin = DocumentUtilities::MergeSetting(
+            $this->crossOrigin,
+            $setting,
+            ...$urls
+        );
     }
 
     public function ConfigureIntegrity(string $url, string $integrity) : void
@@ -256,36 +260,6 @@ class Document extends AbstractHtmlElement
     public function ClearPossibleHeaderSources() : void
     {
         $this->preloads = [];
-    }
-
-    /**
-    * @return array<int, string>
-    */
-    protected function ExcludeUrls(array $existing, string ...$urls) : array
-    {
-        /**
-        * @var array<int, string> $out
-        */
-        $out = array_filter($existing, function (string $url) use ($urls) : bool {
-            return ! in_array($url, $urls, true);
-        });
-
-        return $out;
-    }
-
-    /**
-    * @param array<string, string> $existing
-    *
-    * @return array<string, string>
-    */
-    protected function MergeSetting(array $existing, string $setting, string ...$urls) : array
-    {
-        /**
-        * @var array<string, string> $fresh
-        */
-        $fresh = array_combine($urls, array_fill(0, count($urls), $setting));
-
-        return array_merge($existing, $fresh);
     }
 
     protected function HeadContentMarkupArray() : array
