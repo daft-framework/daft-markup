@@ -7,6 +7,9 @@ declare(strict_types=1);
 namespace SignpostMarv\DaftMarkup\Html;
 
 use BadMethodCallException;
+use SignpostMarv\DaftMarkup\AbstractHtmlElement;
+use SignpostMarv\DaftMarkup\HtmlAttributeTrait;
+use SignpostMarv\DaftMarkup\MarkupConverterTrait;
 
 class Document extends AbstractHtmlDocument
 {
@@ -74,17 +77,6 @@ class Document extends AbstractHtmlDocument
     * @var bool
     */
     protected $enableIntegrityOnPreload = false;
-
-    /**
-    * @param null|array<int|string, mixed> $content
-    */
-    public function MarkupContentToDocumentString(array $content = null) : string
-    {
-        return
-            '<!DOCTYPE html>' .
-            "\n" .
-            $this->GetMarkupConverter()->MarkupArrayToMarkupString($this->ToMarkupArray($content));
-    }
 
     /**
     * @param null|array<int|string, mixed> $content
