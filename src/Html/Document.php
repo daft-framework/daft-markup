@@ -11,11 +11,8 @@ use SignpostMarv\DaftMarkup\AbstractHtmlElement;
 use SignpostMarv\DaftMarkup\HtmlAttributeTrait;
 use SignpostMarv\DaftMarkup\MarkupConverterTrait;
 
-class Document extends AbstractHtmlElement
+class Document extends AbstractHtmlDocument
 {
-    use HtmlAttributeTrait;
-    use MarkupConverterTrait;
-
     /**
     * @var string|null
     */
@@ -80,11 +77,6 @@ class Document extends AbstractHtmlElement
     * @var bool
     */
     protected $enableIntegrityOnPreload = false;
-
-    public static function MarkupElementName() : string
-    {
-        return 'html';
-    }
 
     /**
     * @param null|array<int|string, mixed> $content
