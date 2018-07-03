@@ -6,8 +6,6 @@ declare(strict_types=1);
 
 namespace SignpostMarv\DaftMarkup\Html;
 
-use BadMethodCallException;
-
 class Document extends AbstractHtmlDocument
 {
     /**
