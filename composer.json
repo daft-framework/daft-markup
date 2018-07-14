@@ -41,8 +41,8 @@
         "masterminds/html5": "^2.3"
     },
     "require-dev": {
-        "maglnet/composer-require-checker": "dev-master",
-        "phpstan/phpstan": "^0.10.0",
+        "maglnet/composer-require-checker": "^1.0",
+        "phpstan/phpstan": "^0.10.1",
         "phpstan/phpstan-phpunit": "^0.10.0",
         "phpstan/phpstan-strict-rules": "^0.10.0",
         "phpunit/phpunit": "^7.2",
