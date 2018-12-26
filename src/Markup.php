@@ -128,9 +128,11 @@ class Markup
         $out = [];
 
         /**
-        * @var DOMNode|null
+        * @var iterable<DOMNode|null>
         */
-        foreach ($frag->childNodes as $node) {
+        $nodes = $frag->childNodes;
+
+        foreach ($nodes as $node) {
             if ( ! ($node instanceof DOMNode)) {
                 continue;
             }
@@ -310,8 +312,10 @@ class Markup
         $out = [];
 
         /**
-        * @var DOMNode|null
+        * @var iterable<DOMNode|null>
         */
+        $nodes = $nodes;
+
         foreach ($nodes as $child) {
             if ( ! ($child instanceof DOMNode)) {
                 continue;

@@ -73,12 +73,17 @@ abstract class AbstractHtmlElement
     */
     public function MarkupAttributes() : array
     {
+        /**
+        * @var array<string, scalar|bool|array<int, scalar>>
+        */
         $out = [];
 
         /**
-        * @var array<string, bool|scalar|array<int, scalar>>
+        * @var array<int, array<string, bool|scalar|array<int, scalar>>>
         */
-        foreach ($this->GroupedAttributes() as $group) {
+        $groupedAttributes = $this->GroupedAttributes();
+
+        foreach ($groupedAttributes as $group) {
             foreach ($group as $attribute => $value) {
                 $out[$attribute] = $value;
             }
