@@ -9,6 +9,7 @@ namespace SignpostMarv\DaftMarkup\Tests;
 use BadMethodCallException;
 use Closure;
 use Generator;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SignpostMarv\DaftMarkup\AbstractHtmlElement;
 use SignpostMarv\DaftMarkup\Html\Document;
@@ -546,6 +547,18 @@ class DocumentTest extends TestCase
     */
     public function testValidElementName(string $class) : void
     {
+        if ( ! is_a($class, AbstractHtmlElement::class, true)) {
+            throw new InvalidArgumentException(
+                'Argument 1 passed to ' .
+                __METHOD__ .
+                ' must be an instance of ' .
+                AbstractHtmlElement::class .
+                ', ' .
+                $class .
+                ' given!'
+            );
+        }
+
         static::assertRegExp(Markup::REGEX_ELEMENT_NAME, (string) ($class::MarkupElementName()));
     }
 
