@@ -38,7 +38,7 @@
     "require": {
         "php": "^7.1",
         "ext-dom": "*",
-        "masterminds/html5": "^2.3"
+        "masterminds/html5": "^2.4"
     },
     "require-dev": {
         "maglnet/composer-require-checker": "^1.1",
