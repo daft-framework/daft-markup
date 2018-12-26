@@ -588,7 +588,7 @@ class ConverterTest extends TestCase
             }
 
             /**
-            * @var string $class
+            * @var string
             * @var mixed[] $ctorargs
             */
             list($class, $ctorargs) = $markupArgs;
@@ -626,7 +626,7 @@ class ConverterTest extends TestCase
             }
 
             /**
-            * @var string $class
+            * @var string
             * @var mixed[] $ctorargs
             */
             list($class, $ctorargs) = $markupArgs;
@@ -667,7 +667,7 @@ class ConverterTest extends TestCase
             }
 
             /**
-            * @var string $class
+            * @var string
             * @var mixed[] $ctorargs
             */
             list($class, $ctorargs) = $markupArgs;
@@ -705,7 +705,7 @@ class ConverterTest extends TestCase
             }
 
             /**
-            * @var string $class
+            * @var string
             * @var mixed[] $ctorargs
             */
             list($class, $ctorargs) = $markupArgs;
@@ -740,7 +740,7 @@ class ConverterTest extends TestCase
         }
 
         /**
-        * @var Markup $converter
+        * @var Markup
         */
         $converter = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
         static::assertSame(
@@ -780,7 +780,7 @@ class ConverterTest extends TestCase
         }
 
         /**
-        * @var Markup $converter
+        * @var Markup
         */
         $converter = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
         static::assertSame(
@@ -819,7 +819,7 @@ class ConverterTest extends TestCase
         }
 
         /**
-        * @var Markup $converter
+        * @var Markup
         */
         $converter = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
 
@@ -868,12 +868,12 @@ class ConverterTest extends TestCase
         }
 
         /**
-        * @var Markup $converter
+        * @var Markup
         */
         $converter = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
 
         /**
-        * @var DOMNode $node
+        * @var DOMNode
         */
         $node = 0 === count($nodeCtorargs) ? new $nodeClass() : new $nodeClass(...$nodeCtorargs);
 

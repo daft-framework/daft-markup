@@ -118,7 +118,7 @@ class MarkupUtilities
         array $generalAttrWhitelist = []
     ) : array {
         /**
-        * @var array<string, scalar> $out
+        * @var array<string, scalar>
         */
         $out = array_reduce(
             self::FilteredArrayFromDOMNamedNodeMap(

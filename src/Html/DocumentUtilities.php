@@ -14,7 +14,7 @@ class DocumentUtilities
     public static function ExcludeUrls(array $existing, string ...$urls) : array
     {
         /**
-        * @var array<int, string> $out
+        * @var array<int, string>
         */
         $out = array_filter($existing, function (string $url) use ($urls) : bool {
             return ! in_array($url, $urls, true);
@@ -31,7 +31,7 @@ class DocumentUtilities
     public static function MergeSetting(array $existing, string $setting, string ...$urls) : array
     {
         /**
-        * @var array<string, string> $fresh
+        * @var array<string, string>
         */
         $fresh = array_combine($urls, array_fill(0, count($urls), $setting));
 

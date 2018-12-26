@@ -136,7 +136,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     {
         $this->includeJs(...$urls);
         /**
-        * @var array<int, string> $urls
+        * @var array<int, string>
         */
         $urls = array_unique(array_merge($this->defer, $urls));
 
@@ -147,7 +147,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     {
         $this->includeJs(...$urls);
         /**
-        * @var array<int, string> $urls
+        * @var array<int, string>
         */
         $urls = array_unique(array_merge($this->async, $urls));
 
@@ -163,7 +163,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     {
         $this->includeJs(...$urls);
         /**
-        * @var array<int, string> $urls
+        * @var array<int, string>
         */
         $urls = array_unique(array_merge($this->modules, $urls));
 
@@ -174,7 +174,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     {
         $this->includeJs(...$urls);
         /**
-        * @var array<int, string> $urls
+        * @var array<int, string>
         */
         $urls = array_unique(array_merge($this->noModules, $urls));
 

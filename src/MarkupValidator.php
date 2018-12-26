@@ -39,7 +39,7 @@ class MarkupValidator
             }
 
             /**
-            * @var array<int|string, mixed> $attributes
+            * @var array<int|string, mixed>
             */
             $attributes = $markup['!attributes'];
 
@@ -49,7 +49,7 @@ class MarkupValidator
             }
 
             /**
-            * @var array<string, scalar|scalar[]> $attributes
+            * @var array<string, scalar|scalar[]>
             */
             $attributes = $attributes;
 
@@ -90,7 +90,7 @@ class MarkupValidator
     protected static function ValidateMarkupAttributeArrayValue(string $attr, array $value) : void
     {
         /**
-        * @var int $key
+        * @var int
         */
         foreach (array_keys($value) as $key) {
             if ( ! is_scalar($value[$key])) {
@@ -127,7 +127,7 @@ class MarkupValidator
         }
 
         /**
-        * @var array<int|string, mixed> $markupContent
+        * @var array<int|string, mixed>
         */
         $markupContent = $markupContent;
 

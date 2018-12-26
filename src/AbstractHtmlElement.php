@@ -76,7 +76,7 @@ abstract class AbstractHtmlElement
         $out = [];
 
         /**
-        * @var array<string, bool|scalar|array<int, scalar>> $group
+        * @var array<string, bool|scalar|array<int, scalar>>
         */
         foreach ($this->GroupedAttributes() as $group) {
             foreach ($group as $attribute => $value) {
@@ -112,12 +112,12 @@ abstract class AbstractHtmlElement
     }
 
     /**
-    * @var array<int, array<string, bool|scalar|array<int, scalar>>> $groupedAttributes
+    * @var array<int, array<string, bool|scalar|array<int, scalar>>>
     */
     protected function GroupedAttributes() : array
     {
         /**
-        * @var array<int, array<string, bool|scalar|array<int, scalar>>> $groupedAttributes
+        * @var array<int, array<string, bool|scalar|array<int, scalar>>>
         */
         $groupedAttributes = array_map(
             function (array $group) : array {

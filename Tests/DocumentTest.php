@@ -668,7 +668,7 @@ class DocumentTest extends TestCase
         static::assertSame($assertSameAppendExpected, $doc->$getMethod());
 
         /**
-        * @var string[] $val
+        * @var string[]
         */
         $val = $doc->$getMethod();
         sort($val);
@@ -713,7 +713,7 @@ class DocumentTest extends TestCase
         }
 
         /**
-        * @var AbstractHtmlElement $doc
+        * @var AbstractHtmlElement
         */
         $doc = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
 

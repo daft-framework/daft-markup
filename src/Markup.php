@@ -56,7 +56,7 @@ class Markup
         $out = '';
 
         /**
-        * @var array<int, scalar|array<int|string, mixed>> $markupContent
+        * @var array<int, scalar|array<int|string, mixed>>
         */
         $markupContent = array_filter($markupContent, [$this, 'MarkupCollectionFilter']);
 
@@ -90,7 +90,7 @@ class Markup
         $attrs = MarkupValidator::ValidateMarkupAttributes($markup);
 
         /**
-        * @var string $element
+        * @var string
         */
         $element = $markup['!element'];
 
@@ -128,7 +128,7 @@ class Markup
         $out = [];
 
         /**
-        * @var DOMNode|null $node
+        * @var DOMNode|null
         */
         foreach ($frag->childNodes as $node) {
             if ( ! ($node instanceof DOMNode)) {
@@ -203,7 +203,7 @@ class Markup
         switch ($node->nodeType) {
             case XML_ELEMENT_NODE:
                 /**
-                * @var DOMElement $node
+                * @var DOMElement
                 */
                 $node = $node;
 
@@ -310,7 +310,7 @@ class Markup
         $out = [];
 
         /**
-        * @var DOMNode|null $child
+        * @var DOMNode|null
         */
         foreach ($nodes as $child) {
             if ( ! ($child instanceof DOMNode)) {
