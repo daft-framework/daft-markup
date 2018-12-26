@@ -15,7 +15,7 @@ trait MarkupConverterTrait
 
     public function GetMarkupConverter() : Markup
     {
-        if ( ! isset($this->markup)) {
+        if ( ! ($this->markup instanceof Markup)) {
             $this->markup = new Markup();
         }
 
