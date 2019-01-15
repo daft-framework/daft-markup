@@ -322,32 +322,37 @@ class Markup
         array $keepElements = [],
         array $generalAttrWhitelist = []
     ) : array {
-        $out = [];
-
-        /**
-        * @var iterable<DOMNode|null>
-        */
-        $nodes = $nodes;
-
-        foreach ($nodes as $child) {
-            if ( ! ($child instanceof DOMNode)) {
-                continue;
-            }
-            $childOut = $this->NodeToMarkupArray(
+        return array_reduce(
+            array_map(
+                function (
+                    DOMNode $child
+                ) use (
+                    $excludeElements,
+                    $keepElements,
+                    $generalAttrWhitelist
+                ) : array {
+                    return $this->NodeToMarkupArray(
                 $child,
                 $excludeElements,
                 $keepElements,
                 $generalAttrWhitelist
             );
-
+                },
+                array_filter(iterator_to_array($nodes), function (? DOMNode $child) : bool {
+                    return $child instanceof DOMNode;
+                })
+            ),
+            function (array $out, array $childOut) : array {
             if ( ! isset($childOut['!element'])) {
                 $out = array_merge($out, $childOut);
             } else {
                 $out[] = $childOut;
             }
-        }
 
-        return $out;
+                return $out;
+            },
+            []
+        );
     }
 
     /**
