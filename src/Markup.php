@@ -135,32 +135,12 @@ class Markup
         $doc = new HTML5();
         $frag = $doc->loadHTMLFragment($markup);
 
-        $out = [];
-
-        /**
-        * @var iterable<DOMNode|null>
-        */
-        $nodes = $frag->childNodes;
-
-        foreach ($nodes as $node) {
-            if ( ! ($node instanceof DOMNode)) {
-                continue;
-            }
-            $markupArray = $this->NodeToMarkupArray(
-                $node,
-                $excludeElements,
-                $keepElements,
-                $generalAttrWhitelist
-            );
-
-            if ( ! isset($markupArray['!element'])) {
-                $out = array_merge($out, $markupArray);
-            } else {
-                $out[] = $markupArray;
-            }
-        }
-
-        return $out;
+        return $this->NodeListToContent(
+            $frag->childNodes,
+            $excludeElements,
+            $keepElements,
+            $generalAttrWhitelist
+        );
     }
 
     /**
@@ -338,9 +318,7 @@ class Markup
                         $generalAttrWhitelist
                     );
                 },
-                array_filter(iterator_to_array($nodes), function (? DOMNode $child) : bool {
-                    return $child instanceof DOMNode;
-                })
+                $this->FilterDOMNodeList($nodes)
             ),
             function (array $out, array $childOut) : array {
                 if ( ! isset($childOut['!element'])) {
@@ -353,6 +331,16 @@ class Markup
             },
             []
         );
+    }
+
+    /**
+    * @return DOMNode[]
+    */
+    protected function FilterDOMNodeList(DOMNodeList $nodes) : array
+    {
+        return array_filter(iterator_to_array($nodes), function (? DOMNode $child) : bool {
+            return $child instanceof DOMNode;
+        });
     }
 
     /**
