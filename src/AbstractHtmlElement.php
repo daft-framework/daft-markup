@@ -15,6 +15,8 @@ abstract class AbstractHtmlElement
         'spellcheck',
     ];
 
+    const BOOL_IN_ARRAY_STRICT = true;
+
     /**
     * @var array<string, string>
     */
@@ -100,7 +102,10 @@ abstract class AbstractHtmlElement
     protected static function MarkupAttributesPostProcess(array $out) : array
     {
         foreach ($out as $attribute => $value) {
-            if (in_array($attribute, self::ENUMERATED_BOOLEANS, true) && is_bool($value)) {
+            if (
+                in_array($attribute, self::ENUMERATED_BOOLEANS, self::BOOL_IN_ARRAY_STRICT) &&
+                is_bool($value)
+            ) {
                 $out[$attribute] = $value ? 'true' : 'false';
             }
         }

@@ -8,6 +8,8 @@ namespace SignpostMarv\DaftMarkup\Html;
 
 class DocumentUtilities
 {
+    const BOOL_IN_ARRAY_STRICT = true;
+
     /**
     * @return array<int, string>
     */
@@ -17,7 +19,7 @@ class DocumentUtilities
         * @var array<int, string>
         */
         $out = array_filter($existing, function (string $url) use ($urls) : bool {
-            return ! in_array($url, $urls, true);
+            return ! in_array($url, $urls, self::BOOL_IN_ARRAY_STRICT);
         });
 
         return $out;

@@ -15,6 +15,16 @@ use Masterminds\HTML5;
 
 class Markup
 {
+    const BOOL_IN_ARRAY_STRICT = true;
+
+    const DEFAULT_BOOL_XML_STYLE = false;
+
+    const DEFAULT_BITWISE_FLAGS = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5;
+
+    const DEFAULT_STRING_ENCODING = 'UTF-8';
+
+    const DEFAULT_BOOL_DOUBLE_ENCODE = false;
+
     const SUPPORTED_ARRAY_ATTRIBUTES = [
         '!element',
         '!attributes',
@@ -48,10 +58,10 @@ class Markup
 
     public function MarkupCollectionToMarkupString(
         array $markupContent,
-        bool $xml_style = false,
-        int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
-        string $encoding = 'UTF-8',
-        bool $double_encode = false
+        bool $xml_style = self::DEFAULT_BOOL_XML_STYLE,
+        int $flags = self::DEFAULT_BITWISE_FLAGS,
+        string $encoding = self::DEFAULT_STRING_ENCODING,
+        bool $double_encode = self::DEFAULT_BOOL_DOUBLE_ENCODE
     ) : string {
         $out = '';
 
@@ -82,10 +92,10 @@ class Markup
     */
     public function MarkupArrayToMarkupString(
         array $markup,
-        bool $xml_style = false,
-        int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
-        string $encoding = 'UTF-8',
-        bool $double = false
+        bool $xml_style = self::DEFAULT_BOOL_XML_STYLE,
+        int $flags = self::DEFAULT_BITWISE_FLAGS,
+        string $encoding = self::DEFAULT_STRING_ENCODING,
+        bool $double = self::DEFAULT_BOOL_DOUBLE_ENCODE
     ) : string {
         $attrs = MarkupValidator::ValidateMarkupAttributes($markup);
 
@@ -269,15 +279,18 @@ class Markup
     protected function MarkupArrayContentToMarkupString(
         string $element,
         array $content,
-        bool $xml_style = false,
-        int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
-        string $encoding = 'UTF-8',
-        bool $double = false
+        bool $xml_style = self::DEFAULT_BOOL_XML_STYLE,
+        int $flags = self::DEFAULT_BITWISE_FLAGS,
+        string $encoding = self::DEFAULT_STRING_ENCODING,
+        bool $double = self::DEFAULT_BOOL_DOUBLE_ENCODE
     ) : string {
         $emptyContent = [] === $content;
         $out = '';
 
-        if ($emptyContent && in_array($element, self::SELF_CLOSING_ELEMENTS, true)) {
+        if (
+            $emptyContent &&
+            in_array($element, self::SELF_CLOSING_ELEMENTS, self::BOOL_IN_ARRAY_STRICT)
+        ) {
             $out .= $xml_style ? '/>' : '>';
         } else {
             $out .= '>';

@@ -293,11 +293,11 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     protected function MaybeDecorateScriptAttrs(array $attrs, string $url) : array
     {
         $attrs['src'] = $url;
-        $attrs['async'] = in_array($url, $this->async, true);
-        $attrs['defer'] = in_array($url, $this->defer, true);
-        if (in_array($url, $this->modules, true)) {
+        $attrs['async'] = in_array($url, $this->async, self::BOOL_IN_ARRAY_STRICT);
+        $attrs['defer'] = in_array($url, $this->defer, self::BOOL_IN_ARRAY_STRICT);
+        if (in_array($url, $this->modules, self::BOOL_IN_ARRAY_STRICT)) {
             $attrs['type'] = 'module';
-        } elseif (in_array($url, $this->noModules, true)) {
+        } elseif (in_array($url, $this->noModules, self::BOOL_IN_ARRAY_STRICT)) {
             $attrs['nomodule'] = true;
         }
 

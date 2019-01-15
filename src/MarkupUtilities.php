@@ -13,6 +13,10 @@ use DOMNode;
 
 class MarkupUtilities
 {
+    const BOOL_IN_ARRAY_STRICT = true;
+
+    const OVERRIDE_BOOL_DISABLE_DOUBLE_ENCODE = false;
+
     const BOOLEAN_ELEMENT_ATTRIBUTES = [
         'contenteditable',
         'draggable',
@@ -63,7 +67,12 @@ class MarkupUtilities
             if (true !== $val) {
                 $out .=
                     '="' .
-                    htmlentities((string) $val, ($flags ^ ENT_HTML5), $encoding, false) .
+                    htmlentities(
+                        (string) $val,
+                        ($flags ^ ENT_HTML5),
+                        $encoding,
+                        self::OVERRIDE_BOOL_DISABLE_DOUBLE_ENCODE
+                    ) .
                     '"';
             }
         }
@@ -94,11 +103,19 @@ class MarkupUtilities
                     ! (
                         (
                             isset($keepElements[$node->nodeName]) &&
-                            ! in_array($attr->name, $keepElements[$node->nodeName], true)
+                            ! in_array(
+                                $attr->name,
+                                $keepElements[$node->nodeName],
+                                self::BOOL_IN_ARRAY_STRICT
+                            )
                         ) ||
                         (
                             count($generalAttrWhitelist) > 0 &&
-                            ! in_array($attr->name, $generalAttrWhitelist, true)
+                            ! in_array(
+                                $attr->name,
+                                $generalAttrWhitelist,
+                                self::BOOL_IN_ARRAY_STRICT
+                            )
                         )
                     );
             }
@@ -130,7 +147,13 @@ class MarkupUtilities
             function (array $out, DOMAttr $attr) : array {
                 $out[$attr->name] = $attr->value;
 
-                if (in_array($attr->name, self::BOOLEAN_ELEMENT_ATTRIBUTES, true)) {
+                if (
+                    in_array(
+                        $attr->name,
+                        self::BOOLEAN_ELEMENT_ATTRIBUTES,
+                        self::BOOL_IN_ARRAY_STRICT
+                    )
+                ) {
                     $out[$attr->name] = '' === $attr->value;
                 }
 

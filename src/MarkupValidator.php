@@ -10,6 +10,8 @@ use InvalidArgumentException;
 
 class MarkupValidator
 {
+    const BOOL_IN_ARRAY_STRICT = true;
+
     /**
     * @param array<int|string, mixed> $markup
     */
@@ -18,7 +20,7 @@ class MarkupValidator
         self::MaybeThrowWhenValidatingMarkup($markup);
 
         foreach (array_keys($markup) as $k) {
-            if ( ! in_array($k, Markup::SUPPORTED_ARRAY_ATTRIBUTES, true)) {
+            if ( ! in_array($k, Markup::SUPPORTED_ARRAY_ATTRIBUTES, self::BOOL_IN_ARRAY_STRICT)) {
                 throw new InvalidArgumentException(sprintf('Unsupported array key! (%s)', $k));
             }
         }
