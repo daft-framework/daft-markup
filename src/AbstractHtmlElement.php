@@ -33,14 +33,14 @@ abstract class AbstractHtmlElement
     ];
 
     /**
-    * @param null|array<int|string, mixed> $markup
+    * @param array<int|string, mixed>|null $markup
     */
     abstract public function MarkupContentToDocumentString(array $markup = null) : string;
 
     abstract public static function MarkupElementName() : string;
 
     /**
-    * @param null|array<int|string, mixed> $content
+    * @param array<int|string, mixed>|null $content
     *
     * @return array<int|string, mixed>
     */

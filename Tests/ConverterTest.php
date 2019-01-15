@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace SignpostMarv\DaftMarkup\Tests;
 
+use function array_merge;
 use BadMethodCallException;
 use DOMAttr;
 use DOMNode;
@@ -13,7 +14,6 @@ use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SignpostMarv\DaftMarkup\Markup;
-use function array_merge;
 
 class ConverterTest extends TestCase
 {

@@ -82,7 +82,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     protected $enableIntegrityOnPreload = false;
 
     /**
-    * @param null|array<int|string, mixed> $content
+    * @param array<int|string, mixed>|null $content
     *
     * @return array<int|string, mixed>
     */
@@ -222,7 +222,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     }
 
     /**
-    * @param null|array<int|string, mixed> $content
+    * @param array<int|string, mixed>|null $content
     */
     public function MarkupContentToDocumentString(array $content = null) : string
     {

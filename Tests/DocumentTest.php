@@ -423,7 +423,7 @@ class DocumentTest extends TestCase
     }
 
     /**
-    * @return array<int, array<int, scalar|null|array>>
+    * @return array<int, array<int, scalar|array|null>>
     */
     public function dataProviderDefaultValues() : array
     {
@@ -563,7 +563,7 @@ class DocumentTest extends TestCase
     }
 
     /**
-    * @param null|array<int|string, mixed> $content
+    * @param array<int|string, mixed>|null $content
     *
     * @dataProvider dataProviderDocumentToString
     *
@@ -598,7 +598,7 @@ class DocumentTest extends TestCase
     }
 
     /**
-    * @param null|array<int|string, mixed> $content
+    * @param array<int|string, mixed>|null $content
     *
     * @dataProvider dataProviderBadDocumentToString
     *
