@@ -332,22 +332,22 @@ class Markup
                     $generalAttrWhitelist
                 ) : array {
                     return $this->NodeToMarkupArray(
-                $child,
-                $excludeElements,
-                $keepElements,
-                $generalAttrWhitelist
-            );
+                        $child,
+                        $excludeElements,
+                        $keepElements,
+                        $generalAttrWhitelist
+                    );
                 },
                 array_filter(iterator_to_array($nodes), function (? DOMNode $child) : bool {
                     return $child instanceof DOMNode;
                 })
             ),
             function (array $out, array $childOut) : array {
-            if ( ! isset($childOut['!element'])) {
-                $out = array_merge($out, $childOut);
-            } else {
-                $out[] = $childOut;
-            }
+                if ( ! isset($childOut['!element'])) {
+                    $out = array_merge($out, $childOut);
+                } else {
+                    $out[] = $childOut;
+                }
 
                 return $out;
             },
