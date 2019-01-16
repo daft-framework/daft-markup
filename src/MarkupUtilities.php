@@ -122,7 +122,7 @@ class MarkupUtilities
     * @param array<int, string> $generalAttrWhitelist
     */
     protected static function FilterDOMAttr(
-        DOMElement $node,
+        DOMElement $element,
         DOMAttr $attr,
         array $keepElements,
         array $generalAttrWhitelist
@@ -135,7 +135,7 @@ class MarkupUtilities
     }
 
     protected static function FilterDOMAttrKeepElement(
-        DOMElement $element,
+        DOMElement $node,
         DOMAttr $attr,
         array $keepElements
     ) : bool {
