@@ -139,11 +139,7 @@ class MarkupUtilities
                 ) ||
                 (
                     count($generalAttrWhitelist) > self::COUNT_NON_EMPTY &&
-                    ! in_array(
-                        $attr->name,
-                        $generalAttrWhitelist,
-                        self::BOOL_IN_ARRAY_STRICT
-                    )
+                    ! in_array($attr->name, $generalAttrWhitelist, self::BOOL_IN_ARRAY_STRICT)
                 )
             );
     }
