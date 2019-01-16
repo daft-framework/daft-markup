@@ -129,16 +129,25 @@ class MarkupUtilities
     ) : bool {
         return
             ! (
-                (
+                static::FilterDOMAttrKeepElement($element, $attr, $keepElements
+                ) ||
+                static::FilterDOMAttrGeneralAttrWhitelist($attr, $generalAttrWhitelist)
+            );
+    }
+
+    protected static function FilterDOMAttrKeepElement(
+        DOMElement $element,
+        DOMAttr $attr,
+        array $keepElements
+    ) : bool {
+        return
                     isset($keepElements[$node->nodeName]) &&
                     ! in_array(
                         $attr->name,
                         $keepElements[$node->nodeName],
                         self::BOOL_IN_ARRAY_STRICT
                     )
-                ) ||
-                static::FilterDOMAttrGeneralAttrWhitelist($attr, $generalAttrWhitelist)
-            );
+                    ;
     }
 
     protected static function FilterDOMAttrGeneralAttrWhitelist(
