@@ -98,10 +98,37 @@ class MarkupUtilities
         * @var DOMAttr[]
         */
         $attrs = array_filter(
-            iterator_to_array($attributes),
-            function (DOMNode $attr) use ($node, $keepElements, $generalAttrWhitelist) : bool {
+            static::FilterDOMNamedNodeMapToAttrs($attributes),
+            function (DOMAttr $attr) use ($node, $keepElements, $generalAttrWhitelist) : bool {
                 return
-                    ($attr instanceof DOMAttr) &&
+                    static::FilterDOMAttr($node, $attr, $keepElements, $generalAttrWhitelist);
+            }
+        );
+
+        return $attrs;
+    }
+
+    /**
+    * @return DOMAttr[]
+    */
+    protected static function FilterDOMNamedNodeMapToAttrs(DOMNamedNodeMap $attributes) : array
+    {
+        return array_filter(iterator_to_array($attributes), function (DOMNode $attr) : bool {
+            return $attr instanceof DOMAttr;
+        });
+    }
+
+    /**
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
+    */
+    protected static function FilterDOMAttr(
+        DOMElement $node,
+        DOMAttr $attr,
+        array $keepElements,
+        array $generalAttrWhitelist
+    ) : bool {
+        return
                     ! (
                         (
                             isset($keepElements[$node->nodeName]) &&
@@ -120,10 +147,6 @@ class MarkupUtilities
                             )
                         )
                     );
-            }
-        );
-
-        return $attrs;
     }
 
     /**
