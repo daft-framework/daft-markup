@@ -15,6 +15,8 @@ use Masterminds\HTML5;
 
 class Markup
 {
+    const COUNT_NON_EMPTY = 0;
+
     const BOOL_IN_ARRAY_STRICT = true;
 
     const DEFAULT_BOOL_XML_STYLE = false;
@@ -159,7 +161,10 @@ class Markup
         $out = [];
 
         if (
-            (count($keepElements) > 0 && ! isset($keepElements[$node->nodeName])) ||
+            (
+                count($keepElements) > self::COUNT_NON_EMPTY &&
+                ! isset($keepElements[$node->nodeName])
+            ) ||
             isset($excludeElements[$node->nodeName])
         ) {
             $out[] = $node->textContent;

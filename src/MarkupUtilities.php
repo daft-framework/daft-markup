@@ -13,6 +13,8 @@ use DOMNode;
 
 class MarkupUtilities
 {
+    const COUNT_NON_EMPTY = 0;
+
     const BOOL_IN_ARRAY_STRICT = true;
 
     const OVERRIDE_BOOL_DISABLE_DOUBLE_ENCODE = false;
@@ -110,7 +112,7 @@ class MarkupUtilities
                             )
                         ) ||
                         (
-                            count($generalAttrWhitelist) > 0 &&
+                            count($generalAttrWhitelist) > self::COUNT_NON_EMPTY &&
                             ! in_array(
                                 $attr->name,
                                 $generalAttrWhitelist,

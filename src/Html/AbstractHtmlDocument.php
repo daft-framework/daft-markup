@@ -16,6 +16,8 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     use HtmlAttributeTrait;
     use MarkupConverterTrait;
 
+    const COUNT_NON_EMPTY = 0;
+
     /**
     * @var string|null
     */
@@ -89,13 +91,13 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     public function ToMarkupArray(array $content = null) : array
     {
         $bodyContent = array_merge(
-            ($content ?? []),
+            self::CoalesceToArray($content),
             array_map([$this, 'ScriptsToMarkupArrayMapper'], $this->scripts)
         );
 
         $content = [['!element' => 'head', '!content' => $this->HeadContentMarkupArray()]];
 
-        if (count($bodyContent) > 0) {
+        if (count($bodyContent) > self::COUNT_NON_EMPTY) {
             $content[] = ['!element' => 'body', '!content' => $bodyContent];
         }
 
@@ -202,7 +204,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 
         if (preg_match('/^http:(.+)$/', $name, $matches) > 0) {
             $key = 'http-equiv';
-            $val = (string) $matches[1];
+            $val = $matches[1];
         }
 
         $this->metas[] = [
@@ -340,5 +342,10 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     protected static function MarkupContentDoctype() : string
     {
         return '<!DOCTYPE html>';
+    }
+
+    final protected static function CoalesceToArray(? array $content) : array
+    {
+        return $content ?? [];
     }
 }

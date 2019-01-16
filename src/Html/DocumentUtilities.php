@@ -10,6 +10,8 @@ class DocumentUtilities
 {
     const BOOL_IN_ARRAY_STRICT = true;
 
+    const INT_ARRAY_FILL_START_AT_ZERO = 0;
+
     /**
     * @return array<int, string>
     */
@@ -35,7 +37,14 @@ class DocumentUtilities
         /**
         * @var array<string, string>
         */
-        $fresh = array_combine($urls, array_fill(0, count($urls), $setting));
+        $fresh = array_combine(
+            $urls,
+            array_fill(
+                self::INT_ARRAY_FILL_START_AT_ZERO,
+                count($urls),
+                $setting
+            )
+        );
 
         return array_merge($existing, $fresh);
     }
