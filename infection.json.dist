@@ -34,6 +34,7 @@
         },
         "LogicalNot": {
             "ignore": [
+                "SignpostMarv\\DaftMarkup\\MarkupUtilities::FilterDOMAttrGeneralAttrWhitelist",
                 "SignpostMarv\\DaftMarkup\\MarkupUtilities::FilteredArrayFromDOMNamedNodeMap"
             ]
         },
@@ -57,8 +58,12 @@
                 "SignpostMarv\\DaftMarkup\\Markup::FilterDOMNodeList",
                 "SignpostMarv\\DaftMarkup\\Markup::MarkupArrayContentToMarkupString",
                 "SignpostMarv\\DaftMarkup\\Markup::MarkupCollectionFilter",
-                "SignpostMarv\\DaftMarkup\\MarkupValidator::MaybeThrowWhenValidatingMarkup",
                 "SignpostMarv\\DaftMarkup\\Markup::NodeListToContent",
+                "SignpostMarv\\DaftMarkup\\MarkupUtilities::FilterDOMAttr",
+                "SignpostMarv\\DaftMarkup\\MarkupUtilities::FilterDOMAttrGeneralAttrWhitelist",
+                "SignpostMarv\\DaftMarkup\\MarkupUtilities::FilterDOMAttrKeepElement",
+                "SignpostMarv\\DaftMarkup\\MarkupUtilities::FilterDOMNamedNodeMapToAttrs",
+                "SignpostMarv\\DaftMarkup\\MarkupValidator::MaybeThrowWhenValidatingMarkup",
                 "SignpostMarv\\DaftMarkup\\MarkupValidator::ValidateContent",
                 "SignpostMarv\\DaftMarkup\\MarkupValidator::ValidateMarkupAttributeValue",
                 "SignpostMarv\\DaftMarkup\\MarkupValidator::ValidateMarkupAttributeArrayValue",
