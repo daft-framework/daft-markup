@@ -141,11 +141,7 @@ class MarkupUtilities
     ) : bool {
         return
             isset($keepElements[$node->nodeName]) &&
-            ! in_array(
-                $attr->name,
-                $keepElements[$node->nodeName],
-                self::BOOL_IN_ARRAY_STRICT
-            );
+            ! in_array($attr->name, $keepElements[$node->nodeName], self::BOOL_IN_ARRAY_STRICT);
     }
 
     protected static function FilterDOMAttrGeneralAttrWhitelist(
