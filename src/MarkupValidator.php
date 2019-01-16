@@ -10,17 +10,15 @@ use InvalidArgumentException;
 
 class MarkupValidator
 {
-    const BOOL_IN_ARRAY_STRICT = true;
-
     /**
     * @param array<int|string, mixed> $markup
     */
-    public static function ValidateMarkup(array $markup) : void
+    public static function ValidateMarkup(array $markup)
     {
         self::MaybeThrowWhenValidatingMarkup($markup);
 
         foreach (array_keys($markup) as $k) {
-            if ( ! in_array($k, Markup::SUPPORTED_ARRAY_ATTRIBUTES, self::BOOL_IN_ARRAY_STRICT)) {
+            if ( ! in_array($k, Markup::SUPPORTED_ARRAY_ATTRIBUTES, true)) {
                 throw new InvalidArgumentException(sprintf('Unsupported array key! (%s)', $k));
             }
         }
@@ -64,7 +62,7 @@ class MarkupValidator
     /**
     * @param array<int|string, mixed> $markup
     */
-    final protected static function MaybeThrowWhenValidatingMarkup(array $markup) : void
+    final protected static function MaybeThrowWhenValidatingMarkup(array $markup)
     {
         if ( ! array_key_exists('!element', $markup)) {
             throw new InvalidArgumentException('Element not specified!');
@@ -91,7 +89,7 @@ class MarkupValidator
         return $attr;
     }
 
-    protected static function ValidateMarkupAttributeArrayValue(string $attr, array $value) : void
+    protected static function ValidateMarkupAttributeArrayValue(string $attr, array $value)
     {
         /**
         * @var array<int, int|string>
@@ -111,7 +109,7 @@ class MarkupValidator
     /**
     * @param mixed $value
     */
-    protected static function ValidateMarkupAttributeValue(string $attr, $value) : void
+    protected static function ValidateMarkupAttributeValue(string $attr, $value)
     {
         if (is_array($value)) {
             static::ValidateMarkupAttributeArrayValue($attr, $value);
@@ -126,7 +124,7 @@ class MarkupValidator
     /**
     * @param mixed $markupContent
     */
-    protected static function ValidateContent($markupContent) : void
+    protected static function ValidateContent($markupContent)
     {
         if ( ! is_array($markupContent)) {
             throw new InvalidArgumentException('Element content must be specified as an array!');

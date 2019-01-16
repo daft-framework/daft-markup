@@ -15,8 +15,6 @@ abstract class AbstractHtmlElement
         'spellcheck',
     ];
 
-    const BOOL_IN_ARRAY_STRICT = true;
-
     /**
     * @var array<string, string>
     */
@@ -60,12 +58,15 @@ abstract class AbstractHtmlElement
         return $out;
     }
 
-    public function RetrieveDataAttribute(string $attr) : ? string
+    /**
+    * @return string|null
+    */
+    public function RetrieveDataAttribute(string $attr)
     {
         return $this->RetrieveNullableStringAttribute('data-' . $attr);
     }
 
-    public function ApplyValueForDataAttribute(string $attribute, ? string $value) : void
+    public function ApplyValueForDataAttribute(string $attribute, string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('data-' . $attribute, $value);
     }
@@ -103,7 +104,7 @@ abstract class AbstractHtmlElement
     {
         foreach ($out as $attribute => $value) {
             if (
-                in_array($attribute, self::ENUMERATED_BOOLEANS, self::BOOL_IN_ARRAY_STRICT) &&
+                in_array($attribute, self::ENUMERATED_BOOLEANS, true) &&
                 is_bool($value)
             ) {
                 $out[$attribute] = $value ? 'true' : 'false';
@@ -154,15 +155,18 @@ abstract class AbstractHtmlElement
         return $groupedAttributes;
     }
 
-    protected function RetrieveNullableStringAttribute(string $attribute) : ? string
+    /**
+    * @return string|null
+    */
+    protected function RetrieveNullableStringAttribute(string $attribute)
     {
         return $this->nullableStringAttributes[$attribute] ?? null;
     }
 
     protected function ApplyValueForNullableStringAttribute(
         string $attribute,
-        ? string $value
-    ) : void {
+        string $value = null
+    ) {
         if (is_string($value)) {
             $this->nullableStringAttributes[$attribute] = $value;
         } else {
@@ -175,7 +179,7 @@ abstract class AbstractHtmlElement
         return $this->stringArrayAttributes[$attribute] ?? [];
     }
 
-    protected function ClearValueForStringArrayAttribute(string $attribute) : void
+    protected function ClearValueForStringArrayAttribute(string $attribute)
     {
         unset($this->stringArrayAttributes[$attribute]);
     }
@@ -183,14 +187,14 @@ abstract class AbstractHtmlElement
     protected function ApplyValueForStringArrayAttribute(
         string $attribute,
         string ...$values
-    ) : void {
+    ) {
         $this->stringArrayAttributes[$attribute] = $values;
     }
 
     protected function AppendValueForStringArrayAttribute(
         string $attribute,
         string ...$values
-    ) : void {
+    ) {
         $this->stringArrayAttributes[$attribute] = array_merge(
             $this->stringArrayAttributes[$attribute] ?? [],
             $values
@@ -202,7 +206,7 @@ abstract class AbstractHtmlElement
         return $this->nullableBooleanAttributes[$attribute] ?? false;
     }
 
-    protected function ApplyBooleanAttributeValue(string $attribute, ? bool $value) : void
+    protected function ApplyBooleanAttributeValue(string $attribute, bool $value = null)
     {
         if (is_null($value)) {
             unset($this->nullableBooleanAttributes[$attribute]);

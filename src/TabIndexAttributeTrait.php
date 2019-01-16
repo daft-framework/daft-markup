@@ -13,12 +13,15 @@ trait TabIndexAttributeTrait
     */
     protected $tabindex = null;
 
-    public function GetTabIndex() : ? int
+    /**
+    * @return int|null
+    */
+    public function GetTabIndex()
     {
         return $this->tabindex;
     }
 
-    public function SetTabIndex(? int $value) : void
+    public function SetTabIndex(int $value = null)
     {
         $this->tabindex = $value;
     }

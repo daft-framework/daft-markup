@@ -17,8 +17,6 @@ class Markup
 {
     const COUNT_NON_EMPTY = 0;
 
-    const BOOL_IN_ARRAY_STRICT = true;
-
     const DEFAULT_BOOL_XML_STYLE = false;
 
     const DEFAULT_BITWISE_FLAGS = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5;
@@ -274,7 +272,7 @@ class Markup
 
         if (
             $emptyContent &&
-            in_array($element, self::SELF_CLOSING_ELEMENTS, self::BOOL_IN_ARRAY_STRICT)
+            in_array($element, self::SELF_CLOSING_ELEMENTS, true)
         ) {
             $out .= $xml_style ? '/>' : '>';
         } else {
@@ -343,7 +341,7 @@ class Markup
     */
     protected function FilterDOMNodeList(DOMNodeList $nodes) : array
     {
-        return array_filter(iterator_to_array($nodes), function (? DOMNode $child) : bool {
+        return array_filter(iterator_to_array($nodes), function (DOMNode $child = null) : bool {
             return $child instanceof DOMNode;
         });
     }

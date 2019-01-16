@@ -16,7 +16,7 @@ class Document extends AbstractHtmlDocument
         return array_map([$this, 'GetPossibleHeadersMapper'], array_keys($this->preloads));
     }
 
-    public function ClearPossibleHeaderSources() : void
+    public function ClearPossibleHeaderSources()
     {
         $this->preloads = [];
     }

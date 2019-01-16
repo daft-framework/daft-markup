@@ -104,17 +104,17 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         return parent::ToMarkupArray($content);
     }
 
-    public function Preload(string $as, string ...$urls) : void
+    public function Preload(string $as, string ...$urls)
     {
         $this->preloads = DocumentUtilities::MergeSetting($this->preloads, $as, ...$urls);
     }
 
-    public function IncludeCss(string ...$urls) : void
+    public function IncludeCss(string ...$urls)
     {
         $this->stylesheets = array_unique(array_merge($this->stylesheets, $urls));
     }
 
-    public function ExcludeCss(string ...$urls) : void
+    public function ExcludeCss(string ...$urls)
     {
         $this->stylesheets = DocumentUtilities::ExcludeUrls($this->stylesheets, ...$urls);
     }
@@ -124,17 +124,17 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         return $this->charset;
     }
 
-    public function SetCharset(string $charset) : void
+    public function SetCharset(string $charset)
     {
         $this->charset = $charset;
     }
 
-    public function includeJs(string ...$urls) : void
+    public function includeJs(string ...$urls)
     {
         $this->scripts = array_unique(array_merge($this->scripts, $urls));
     }
 
-    public function deferJs(string ...$urls) : void
+    public function deferJs(string ...$urls)
     {
         $this->includeJs(...$urls);
         /**
@@ -145,7 +145,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         $this->defer = $urls;
     }
 
-    public function asyncJs(string ...$urls) : void
+    public function asyncJs(string ...$urls)
     {
         $this->includeJs(...$urls);
         /**
@@ -156,12 +156,12 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         $this->async = $urls;
     }
 
-    public function ExcludeJs(string ...$urls) : void
+    public function ExcludeJs(string ...$urls)
     {
         $this->scripts = DocumentUtilities::ExcludeUrls($this->scripts, ...$urls);
     }
 
-    public function IncludeModules(string ...$urls) : void
+    public function IncludeModules(string ...$urls)
     {
         $this->includeJs(...$urls);
         /**
@@ -172,7 +172,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         $this->modules = $urls;
     }
 
-    public function IncludeNoModules(string ...$urls) : void
+    public function IncludeNoModules(string ...$urls)
     {
         $this->includeJs(...$urls);
         /**
@@ -183,7 +183,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         $this->noModules = $urls;
     }
 
-    public function CrossOrigin(string $setting, string ...$urls) : void
+    public function CrossOrigin(string $setting, string ...$urls)
     {
         $this->crossOrigin = DocumentUtilities::MergeSetting(
             $this->crossOrigin,
@@ -192,12 +192,12 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         );
     }
 
-    public function ConfigureIntegrity(string $url, string $integrity) : void
+    public function ConfigureIntegrity(string $url, string $integrity)
     {
         $this->integrity[$url] = $integrity;
     }
 
-    public function AppendMeta(string $name, string $content) : void
+    public function AppendMeta(string $name, string $content)
     {
         $key = 'name';
         $val = $name;
@@ -218,7 +218,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         return $this->enableIntegrityOnPreload;
     }
 
-    public function SetEnableIntegrityOnPreload(bool $value) : void
+    public function SetEnableIntegrityOnPreload(bool $value)
     {
         $this->enableIntegrityOnPreload = $value;
     }
@@ -239,7 +239,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         return trim((string) ($this->title ?? null));
     }
 
-    public function SetTitle(string $value) : void
+    public function SetTitle(string $value)
     {
         $value = trim($value);
 
@@ -295,11 +295,11 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     protected function MaybeDecorateScriptAttrs(array $attrs, string $url) : array
     {
         $attrs['src'] = $url;
-        $attrs['async'] = in_array($url, $this->async, self::BOOL_IN_ARRAY_STRICT);
-        $attrs['defer'] = in_array($url, $this->defer, self::BOOL_IN_ARRAY_STRICT);
-        if (in_array($url, $this->modules, self::BOOL_IN_ARRAY_STRICT)) {
+        $attrs['async'] = in_array($url, $this->async, true);
+        $attrs['defer'] = in_array($url, $this->defer, true);
+        if (in_array($url, $this->modules, true)) {
             $attrs['type'] = 'module';
-        } elseif (in_array($url, $this->noModules, self::BOOL_IN_ARRAY_STRICT)) {
+        } elseif (in_array($url, $this->noModules, true)) {
             $attrs['nomodule'] = true;
         }
 
@@ -344,7 +344,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
         return '<!DOCTYPE html>';
     }
 
-    final protected static function CoalesceToArray(? array $content) : array
+    final protected static function CoalesceToArray(array $content = null) : array
     {
         return $content ?? [];
     }

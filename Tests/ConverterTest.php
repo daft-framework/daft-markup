@@ -730,7 +730,7 @@ class ConverterTest extends TestCase
         int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
         string $encoding = 'UTF-8',
         bool $double_encode = false
-    ) : void {
+    ) {
         if ( ! is_a($class, Markup::class, true)) {
             throw new BadMethodCallException(sprintf(
                 'Argument 1 passed to %s must be an implementation of %s',
@@ -770,7 +770,7 @@ class ConverterTest extends TestCase
         array $excludeElements = [],
         array $keepElements = [],
         array $generalAttrWhitelist = []
-    ) : void {
+    ) {
         if ( ! is_a($class, Markup::class, true)) {
             throw new BadMethodCallException(sprintf(
                 'Argument 1 passed to %s must be an implementation of %s',
@@ -809,7 +809,7 @@ class ConverterTest extends TestCase
         int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
         string $encoding = 'UTF-8',
         bool $double_encode = false
-    ) : void {
+    ) {
         if ( ! is_a($class, Markup::class, true)) {
             throw new BadMethodCallException(sprintf(
                 'Argument 1 passed to %s must be an implementation of %s',
@@ -852,7 +852,7 @@ class ConverterTest extends TestCase
         array $excludeElements = [],
         array $keepElements = [],
         array $generalAttrWhitelist = []
-    ) : void {
+    ) {
         if ( ! is_a($class, Markup::class, true)) {
             throw new BadMethodCallException(sprintf(
                 'Argument 1 passed to %s must be an implementation of %s',

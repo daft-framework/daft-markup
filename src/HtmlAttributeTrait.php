@@ -17,27 +17,30 @@ trait HtmlAttributeTrait
         return $this->RetrieveStringArrayAttributeValues('accesskey');
     }
 
-    public function ClearAccessKey() : void
+    public function ClearAccessKey()
     {
         $this->ClearValueForStringArrayAttribute('accesskey');
     }
 
-    public function SetAccessKey(string ...$parts) : void
+    public function SetAccessKey(string ...$parts)
     {
         $this->ApplyValueForStringArrayAttribute('accesskey', ...$parts);
     }
 
-    public function AppendAccessKey(string ...$parts) : void
+    public function AppendAccessKey(string ...$parts)
     {
         $this->AppendValueForStringArrayAttribute('accesskey', ...$parts);
     }
 
-    public function GetAutoCapitalize() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetAutoCapitalize()
     {
         return $this->RetrieveNullableStringAttribute('autocapitalize');
     }
 
-    public function SetAutoCapitalize(? string $value) : void
+    public function SetAutoCapitalize(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('autocapitalize', $value);
     }
@@ -47,17 +50,17 @@ trait HtmlAttributeTrait
         return $this->RetrieveStringArrayAttributeValues('class');
     }
 
-    public function ClearClass() : void
+    public function ClearClass()
     {
         $this->ClearValueForStringArrayAttribute('class');
     }
 
-    public function SetClass(string ...$parts) : void
+    public function SetClass(string ...$parts)
     {
         $this->ApplyValueForStringArrayAttribute('class', ...$parts);
     }
 
-    public function AppendClass(string ...$parts) : void
+    public function AppendClass(string ...$parts)
     {
         $this->AppendValueForStringArrayAttribute('class', ...$parts);
     }
@@ -67,27 +70,33 @@ trait HtmlAttributeTrait
         return $this->RetrieveBooleanAttributeValue('contenteditable');
     }
 
-    public function SetContentEditable(bool $value) : void
+    public function SetContentEditable(bool $value)
     {
         $this->ApplyBooleanAttributeValue('contenteditable', $value);
     }
 
-    public function GetContextMenu() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetContextMenu()
     {
         return $this->RetrieveNullableStringAttribute('contextmenu');
     }
 
-    public function SetContextMenu(? string $value) : void
+    public function SetContextMenu(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('contextmenu', $value);
     }
 
-    public function GetDir() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetDir()
     {
         return $this->RetrieveNullableStringAttribute('dir');
     }
 
-    public function SetDir(? string $value) : void
+    public function SetDir(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('dir', $value);
     }
@@ -97,17 +106,20 @@ trait HtmlAttributeTrait
         return $this->RetrieveBooleanAttributeValue('draggable');
     }
 
-    public function SetDraggable(? bool $value) : void
+    public function SetDraggable(bool $value = null)
     {
         $this->ApplyBooleanAttributeValue('draggable', $value);
     }
 
-    public function GetDropzone() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetDropzone()
     {
         return $this->RetrieveNullableStringAttribute('dropzone');
     }
 
-    public function SetDropzone(? string $value) : void
+    public function SetDropzone(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('dropzone', $value);
     }
@@ -117,47 +129,59 @@ trait HtmlAttributeTrait
         return $this->RetrieveBooleanAttributeValue('hidden');
     }
 
-    public function SetHidden(bool $value) : void
+    public function SetHidden(bool $value)
     {
         $this->ApplyBooleanAttributeValue('hidden', $value);
     }
 
-    public function GetId() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetId()
     {
         return $this->RetrieveNullableStringAttribute('id');
     }
 
-    public function SetId(? string $value) : void
+    public function SetId(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('id', $value);
     }
 
-    public function GetIs() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetIs()
     {
         return $this->RetrieveNullableStringAttribute('is');
     }
 
-    public function SetIs(? string $value) : void
+    public function SetIs(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('is', $value);
     }
 
-    public function GetLang() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetLang()
     {
         return $this->RetrieveNullableStringAttribute('lang');
     }
 
-    public function SetLang(? string $value) : void
+    public function SetLang(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('lang', $value);
     }
 
-    public function GetSlot() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetSlot()
     {
         return $this->RetrieveNullableStringAttribute('slot');
     }
 
-    public function SetSlot(? string $value) : void
+    public function SetSlot(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('slot', $value);
     }
@@ -167,7 +191,7 @@ trait HtmlAttributeTrait
         return $this->RetrieveBooleanAttributeValue('spellcheck');
     }
 
-    public function SetSpellcheck(? bool $value) : void
+    public function SetSpellcheck(bool $value = null)
     {
         $this->ApplyBooleanAttributeValue('spellcheck', $value);
     }
@@ -177,27 +201,30 @@ trait HtmlAttributeTrait
         return $this->RetrieveStringArrayAttributeValues('style');
     }
 
-    public function ClearStyle() : void
+    public function ClearStyle()
     {
         $this->ClearValueForStringArrayAttribute('style');
     }
 
-    public function SetStyle(string ...$parts) : void
+    public function SetStyle(string ...$parts)
     {
         $this->ApplyValueForStringArrayAttribute('style', ...$parts);
     }
 
-    public function AppendStyle(string ...$parts) : void
+    public function AppendStyle(string ...$parts)
     {
         $this->AppendValueForStringArrayAttribute('style', ...$parts);
     }
 
-    public function GetTitleAttribute() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetTitleAttribute()
     {
         return $this->RetrieveNullableStringAttribute('title');
     }
 
-    public function SetTitleAttribute(? string $value) : void
+    public function SetTitleAttribute(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('title', $value);
     }
@@ -207,7 +234,7 @@ trait HtmlAttributeTrait
         return $this->RetrieveBooleanAttributeValue('translate');
     }
 
-    public function SetTranslate(bool $value) : void
+    public function SetTranslate(bool $value)
     {
         $this->ApplyBooleanAttributeValue('translate', $value);
     }

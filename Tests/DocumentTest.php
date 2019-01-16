@@ -55,7 +55,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc) : void {
+                function (Document $doc) {
                     $doc->SetTitle('Test');
                     $doc->asyncJs('./foo.js');
                     $doc->deferJs('./bar.js', './baz.js');
@@ -98,7 +98,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc) : void {
+                function (Document $doc) {
                     $doc->SetMarkupConverter(new Markup());
                     $doc->SetTitle('Test');
                     $doc->SetTitleAttribute('Toast');
@@ -138,7 +138,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc, TestCase $test) : void {
+                function (Document $doc, TestCase $test) {
                     $doc->SetMarkupConverter(new Markup());
                     $doc->SetTitle('Test');
                     $doc->Preload('script', './foo.js');
@@ -167,7 +167,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc, TestCase $test) : void {
+                function (Document $doc, TestCase $test) {
                     $doc->SetMarkupConverter(new Markup());
                     $doc->SetTitle('Test');
                     $doc->Preload('script', './foo.js');
@@ -198,7 +198,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc, TestCase $test) : void {
+                function (Document $doc, TestCase $test) {
                     $doc->SetMarkupConverter(new Markup());
                     $doc->SetTitle('Test');
                     $doc->Preload('script', './foo.js');
@@ -223,7 +223,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc) : void {
+                function (Document $doc) {
                     $doc->SetTitle('Test');
                     $doc->ApplyValueForDataAttribute('foo', 'bar');
                     $doc->SetTabIndex(-1);
@@ -245,7 +245,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc) : void {
+                function (Document $doc) {
                     $doc->SetTitle('Test');
                     $doc->SetDraggable(true);
                 },
@@ -264,7 +264,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc) : void {
+                function (Document $doc) {
                     $doc->SetTitle('Test');
                     $doc->SetDraggable(false);
                 },
@@ -283,7 +283,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc) : void {
+                function (Document $doc) {
                     $doc->SetTitle('Test');
                     $doc->SetDraggable(null);
                 },
@@ -302,7 +302,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc) : void {
+                function (Document $doc) {
                     $doc->SetTitle('Test');
                     $doc->SetSpellcheck(true);
                 },
@@ -321,7 +321,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc) : void {
+                function (Document $doc) {
                     $doc->SetTitle('Test');
                     $doc->SetSpellcheck(false);
                 },
@@ -340,7 +340,7 @@ class DocumentTest extends TestCase
                 Document::class,
                 [],
                 null,
-                function (Document $doc) : void {
+                function (Document $doc) {
                     $doc->SetTitle('Test');
                     $doc->SetSpellcheck(null);
                 },
@@ -535,7 +535,7 @@ class DocumentTest extends TestCase
     /**
     * @dataProvider dataProviderDocumentInstance
     */
-    public function testIsAbstractHtmlElement(string $class) : void
+    public function testIsAbstractHtmlElement(string $class)
     {
         static::assertTrue(is_a($class, AbstractHtmlElement::class, true));
     }
@@ -545,7 +545,7 @@ class DocumentTest extends TestCase
     *
     * @depends testIsAbstractHtmlElement
     */
-    public function testValidElementName(string $class) : void
+    public function testValidElementName(string $class)
     {
         if ( ! is_a($class, AbstractHtmlElement::class, true)) {
             throw new InvalidArgumentException(
@@ -572,10 +572,10 @@ class DocumentTest extends TestCase
     public function testDocumentToString(
         string $class,
         array $ctorargs,
-        ? array $content,
-        ? Closure $decorateDocument,
-        string $expected
-    ) : void {
+        array $content = null,
+        Closure $decorateDocument = null,
+        string $expected = ''
+    ) {
         $doc = $this->AbstractHtmlElementFromCtorArgs($class, $ctorargs);
 
         if ($doc instanceof Document) {
@@ -611,7 +611,7 @@ class DocumentTest extends TestCase
         string $expectedExceptionMessage,
         array $content = null,
         Closure $decorateDocument = null
-    ) : void {
+    ) {
         $doc = $this->AbstractHtmlElementFromCtorArgs($class, $ctorargs);
 
         if ($decorateDocument instanceof Closure) {
@@ -646,7 +646,7 @@ class DocumentTest extends TestCase
         array $assertSameAppendExpected,
         array $assertSameSortExpected,
         array $assertSameSortSetExpected
-    ) : void {
+    ) {
         $doc = $this->AbstractHtmlElementFromCtorArgs($class, $ctorargs);
 
         $getMethod = 'Get' . $methodSuffix;
@@ -687,7 +687,7 @@ class DocumentTest extends TestCase
     *
     * @depends testIsAbstractHtmlElement
     */
-    public function testTranslateDefault(string $class, string $methodSuffix, $expected) : void
+    public function testTranslateDefault(string $class, string $methodSuffix, $expected)
     {
         $doc = $this->AbstractHtmlElementFromCtorArgs($class);
 

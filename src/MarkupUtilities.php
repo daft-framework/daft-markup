@@ -15,8 +15,6 @@ class MarkupUtilities
 {
     const COUNT_NON_EMPTY = 0;
 
-    const BOOL_IN_ARRAY_STRICT = true;
-
     const OVERRIDE_BOOL_DISABLE_DOUBLE_ENCODE = false;
 
     const BOOLEAN_ELEMENT_ATTRIBUTES = [
@@ -134,7 +132,7 @@ class MarkupUtilities
                     in_array(
                         $attr->name,
                         self::BOOLEAN_ELEMENT_ATTRIBUTES,
-                        self::BOOL_IN_ARRAY_STRICT
+                        true
                     )
                 ) {
                     $out[$attr->name] = '' === $attr->value;
@@ -185,7 +183,7 @@ class MarkupUtilities
     ) : bool {
         return
             isset($keepElements[$node->nodeName]) &&
-            ! in_array($attr->name, $keepElements[$node->nodeName], self::BOOL_IN_ARRAY_STRICT);
+            ! in_array($attr->name, $keepElements[$node->nodeName], true);
     }
 
     protected static function FilterDOMAttrGeneralAttrWhitelist(
@@ -194,6 +192,6 @@ class MarkupUtilities
     ) : bool {
         return
             count($generalAttrWhitelist) > self::COUNT_NON_EMPTY &&
-            ! in_array($attr->name, $generalAttrWhitelist, self::BOOL_IN_ARRAY_STRICT);
+            ! in_array($attr->name, $generalAttrWhitelist, true);
     }
 }

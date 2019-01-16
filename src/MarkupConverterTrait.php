@@ -22,7 +22,7 @@ trait MarkupConverterTrait
         return $this->markup;
     }
 
-    public function SetMarkupConverter(Markup $converter) : void
+    public function SetMarkupConverter(Markup $converter)
     {
         $this->markup = $converter;
     }

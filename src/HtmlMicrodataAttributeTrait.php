@@ -10,12 +10,15 @@ trait HtmlMicrodataAttributeTrait
 {
     use HtmlAttributeAbstractsTrait;
 
-    public function GetItemId() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetItemId()
     {
         return $this->RetrieveNullableStringAttribute('itemid');
     }
 
-    public function SetItemId(? string $value) : void
+    public function SetItemId(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('itemid', $value);
     }
@@ -25,17 +28,17 @@ trait HtmlMicrodataAttributeTrait
         return $this->RetrieveStringArrayAttributeValues('itemref');
     }
 
-    public function SetItemRefs(string ...$values) : void
+    public function SetItemRefs(string ...$values)
     {
         $this->ApplyValueForStringArrayAttribute('itemref', ...$values);
     }
 
-    public function ClearItemRefs() : void
+    public function ClearItemRefs()
     {
         $this->ClearValueForStringArrayAttribute('itemref');
     }
 
-    public function AppendItemRefs(string ...$appendThese) : void
+    public function AppendItemRefs(string ...$appendThese)
     {
         $this->AppendValueForStringArrayAttribute('itemref', ...$appendThese);
     }
@@ -45,17 +48,20 @@ trait HtmlMicrodataAttributeTrait
         return $this->RetrieveBooleanAttributeValue('itemscope');
     }
 
-    public function SetItemScope(bool $value) : void
+    public function SetItemScope(bool $value)
     {
         $this->ApplyBooleanAttributeValue('itemscope', $value);
     }
 
-    public function GetItemType() : ? string
+    /**
+    * @return string|null
+    */
+    public function GetItemType()
     {
         return $this->RetrieveNullableStringAttribute('itemtype');
     }
 
-    public function SetItemType(? string $value) : void
+    public function SetItemType(string $value = null)
     {
         $this->ApplyValueForNullableStringAttribute('itemtype', $value);
     }
