@@ -108,6 +108,47 @@ class MarkupUtilities
     }
 
     /**
+    * @param array<string, string[]> $keepElements
+    * @param array<int, string> $generalAttrWhitelist
+    */
+    public static function ObtainAttributesFromDOMNamedNodeMap(
+        DOMElement $node,
+        DOMNamedNodeMap $attributes,
+        array $keepElements = [],
+        array $generalAttrWhitelist = []
+    ) : array {
+        /**
+        * @var array<string, scalar>
+        */
+        $out = array_reduce(
+            self::FilteredArrayFromDOMNamedNodeMap(
+                $node,
+                $attributes,
+                $keepElements,
+                $generalAttrWhitelist
+            ),
+            function (array $out, DOMAttr $attr) : array {
+                $out[$attr->name] = $attr->value;
+
+                if (
+                    in_array(
+                        $attr->name,
+                        self::BOOLEAN_ELEMENT_ATTRIBUTES,
+                        self::BOOL_IN_ARRAY_STRICT
+                    )
+                ) {
+                    $out[$attr->name] = '' === $attr->value;
+                }
+
+                return $out;
+            },
+            []
+        );
+
+        return $out;
+    }
+
+    /**
     * @return DOMAttr[]
     */
     protected static function FilterDOMNamedNodeMapToAttrs(DOMNamedNodeMap $attributes) : array
@@ -154,46 +195,5 @@ class MarkupUtilities
         return
             count($generalAttrWhitelist) > self::COUNT_NON_EMPTY &&
             ! in_array($attr->name, $generalAttrWhitelist, self::BOOL_IN_ARRAY_STRICT);
-    }
-
-    /**
-    * @param array<string, string[]> $keepElements
-    * @param array<int, string> $generalAttrWhitelist
-    */
-    public static function ObtainAttributesFromDOMNamedNodeMap(
-        DOMElement $node,
-        DOMNamedNodeMap $attributes,
-        array $keepElements = [],
-        array $generalAttrWhitelist = []
-    ) : array {
-        /**
-        * @var array<string, scalar>
-        */
-        $out = array_reduce(
-            self::FilteredArrayFromDOMNamedNodeMap(
-                $node,
-                $attributes,
-                $keepElements,
-                $generalAttrWhitelist
-            ),
-            function (array $out, DOMAttr $attr) : array {
-                $out[$attr->name] = $attr->value;
-
-                if (
-                    in_array(
-                        $attr->name,
-                        self::BOOLEAN_ELEMENT_ATTRIBUTES,
-                        self::BOOL_IN_ARRAY_STRICT
-                    )
-                ) {
-                    $out[$attr->name] = '' === $attr->value;
-                }
-
-                return $out;
-            },
-            []
-        );
-
-        return $out;
     }
 }
