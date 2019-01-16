@@ -134,6 +134,9 @@ class MarkupUtilities
             );
     }
 
+    /**
+    * @param array<string, string[]> $keepElements
+    */
     protected static function FilterDOMAttrKeepElement(
         DOMElement $node,
         DOMAttr $attr,
