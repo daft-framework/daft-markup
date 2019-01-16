@@ -137,11 +137,18 @@ class MarkupUtilities
                         self::BOOL_IN_ARRAY_STRICT
                     )
                 ) ||
-                (
+                static::FilterDOMAttrGeneralAttrWhitelist($attr, $generalAttrWhitelist)
+            );
+    }
+
+    protected static function FilterDOMAttrGeneralAttrWhitelist(
+        DOMAttr $attr,
+        array $generalAttrWhitelist
+    ) : bool {
+        return
                     count($generalAttrWhitelist) > self::COUNT_NON_EMPTY &&
                     ! in_array($attr->name, $generalAttrWhitelist, self::BOOL_IN_ARRAY_STRICT)
-                )
-            );
+                    ;
     }
 
     /**
