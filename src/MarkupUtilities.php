@@ -100,8 +100,7 @@ class MarkupUtilities
         $attrs = array_filter(
             static::FilterDOMNamedNodeMapToAttrs($attributes),
             function (DOMAttr $attr) use ($node, $keepElements, $generalAttrWhitelist) : bool {
-                return
-                    static::FilterDOMAttr($node, $attr, $keepElements, $generalAttrWhitelist);
+                return static::FilterDOMAttr($node, $attr, $keepElements, $generalAttrWhitelist);
             }
         );
 
@@ -129,24 +128,24 @@ class MarkupUtilities
         array $generalAttrWhitelist
     ) : bool {
         return
-                    ! (
-                        (
-                            isset($keepElements[$node->nodeName]) &&
-                            ! in_array(
-                                $attr->name,
-                                $keepElements[$node->nodeName],
-                                self::BOOL_IN_ARRAY_STRICT
-                            )
-                        ) ||
-                        (
-                            count($generalAttrWhitelist) > self::COUNT_NON_EMPTY &&
-                            ! in_array(
-                                $attr->name,
-                                $generalAttrWhitelist,
-                                self::BOOL_IN_ARRAY_STRICT
-                            )
-                        )
-                    );
+            ! (
+                (
+                    isset($keepElements[$node->nodeName]) &&
+                    ! in_array(
+                        $attr->name,
+                        $keepElements[$node->nodeName],
+                        self::BOOL_IN_ARRAY_STRICT
+                    )
+                ) ||
+                (
+                    count($generalAttrWhitelist) > self::COUNT_NON_EMPTY &&
+                    ! in_array(
+                        $attr->name,
+                        $generalAttrWhitelist,
+                        self::BOOL_IN_ARRAY_STRICT
+                    )
+                )
+            );
     }
 
     /**
