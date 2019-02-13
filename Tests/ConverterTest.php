@@ -593,8 +593,8 @@ class ConverterTest extends TestCase
             */
             list($class, $ctorargs) = $markupArgs;
 
-            foreach ($this->dataProviderMarkupArrayToMarkupString() as $markupArgs) {
-                yield array_merge([$class, $ctorargs], $markupArgs);
+            foreach ($this->dataProviderMarkupArrayToMarkupString() as $v) {
+                yield array_merge([$class, $ctorargs], $v);
             }
         }
     }
@@ -631,10 +631,10 @@ class ConverterTest extends TestCase
             */
             list($class, $ctorargs) = $markupArgs;
 
-            foreach ($this->dataProviderMarkupStringToMarkupArray() as $markupArgs) {
+            foreach ($this->dataProviderMarkupStringToMarkupArray() as $v) {
                 yield array_merge(
                     [$class, $ctorargs],
-                    is_array($markupArgs) ? $markupArgs : [$markupArgs]
+                    is_array($v) ? $v : [$v]
                 );
             }
         }
@@ -672,8 +672,8 @@ class ConverterTest extends TestCase
             */
             list($class, $ctorargs) = $markupArgs;
 
-            foreach ($this->dataProviderBadMarkupArrayToMarkupString() as $markupArgs) {
-                yield array_merge([$class, $ctorargs], (array) $markupArgs);
+            foreach ($this->dataProviderBadMarkupArrayToMarkupString() as $v) {
+                yield array_merge([$class, $ctorargs], (array) $v);
             }
         }
     }
@@ -710,8 +710,8 @@ class ConverterTest extends TestCase
             */
             list($class, $ctorargs) = $markupArgs;
 
-            foreach ($this->dataProviderBadNodeToMarkupArray() as $markupArgs) {
-                yield array_merge([$class, $ctorargs], $markupArgs);
+            foreach ($this->dataProviderBadNodeToMarkupArray() as $v) {
+                yield array_merge([$class, $ctorargs], $v);
             }
         }
     }

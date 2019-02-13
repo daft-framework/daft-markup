@@ -323,7 +323,7 @@ class Markup
                         $generalAttrWhitelist
                     );
                 },
-                $this->FilterDOMNodeList($nodes)
+                iterator_to_array($nodes)
             ),
             function (array $out, array $childOut) : array {
                 if ( ! isset($childOut['!element'])) {
@@ -336,16 +336,6 @@ class Markup
             },
             []
         );
-    }
-
-    /**
-    * @return DOMNode[]
-    */
-    protected function FilterDOMNodeList(DOMNodeList $nodes) : array
-    {
-        return array_filter(iterator_to_array($nodes), function (? DOMNode $child) : bool {
-            return $child instanceof DOMNode;
-        });
     }
 
     /**
