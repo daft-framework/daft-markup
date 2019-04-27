@@ -10,7 +10,6 @@
         <directory name="src" />
         <directory name="Tests" />
         <file name="./.php_cs.dist" />
-        <file name="./phpunit-bootstrap.php" />
     </projectFiles>
 
     <issueHandlers>
