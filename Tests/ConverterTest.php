@@ -15,6 +15,11 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SignpostMarv\DaftMarkup\Markup;
 
+/**
+* @template TAttrs as array<string, scalar|array<int, scalar>>
+* @template TElement as array{!element:string, !attributes?:TAttrs, !content?:array<int, scalar|TElement>}
+* @template TContent as array<int, scalar|TElement>
+*/
 class ConverterTest extends TestCase
 {
     const EXPECTED_MARKUP_FACTORY_ARGUMENTS = 2;
@@ -719,6 +724,8 @@ class ConverterTest extends TestCase
     /**
     * @param array<int, scalar|array<int|string, mixed>> $markup
     *
+    * @psalm-param TContent $markup
+    *
     * @dataProvider dataProviderMarkupFactoryPlusMarkupArrayToMarkupString
     */
     public function testMarkupArrayToMarkupString(
@@ -796,6 +803,8 @@ class ConverterTest extends TestCase
 
     /**
     * @param array<int, scalar|array<int|string, mixed>> $markup
+    *
+    * @psalm-param array<int, scalar|TElement> $markup
     *
     * @dataProvider dataProviderMarkupFactoryPlusBadMarkupArrayToMarkupString
     */

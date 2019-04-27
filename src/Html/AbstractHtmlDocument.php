@@ -11,6 +11,9 @@ use SignpostMarv\DaftMarkup\AbstractHtmlElement;
 use SignpostMarv\DaftMarkup\HtmlAttributeTrait;
 use SignpostMarv\DaftMarkup\MarkupConverterTrait;
 
+/**
+* @template TElement as array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|TElement>}
+*/
 abstract class AbstractHtmlDocument extends AbstractHtmlElement
 {
     use HtmlAttributeTrait;
@@ -86,7 +89,11 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     /**
     * @param array<int|string, mixed>|null $content
     *
+    * @psalm-param array<int, scalar|TElement>|null $content
+    *
     * @return array<int|string, mixed>
+    *
+    * @psalm-return TElement
     */
     public function ToMarkupArray(array $content = null) : array
     {
@@ -225,6 +232,8 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 
     /**
     * @param array<int|string, mixed>|null $content
+    *
+    * @psalm-param array<int, scalar|TElement>|null $content
     */
     public function MarkupContentToDocumentString(array $content = null) : string
     {

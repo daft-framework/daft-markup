@@ -13,6 +13,9 @@ use DOMText;
 use InvalidArgumentException;
 use Masterminds\HTML5;
 
+/**
+* @template TElement as array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|TElement>}
+*/
 class Markup
 {
     const COUNT_NON_EMPTY = 0;
@@ -58,6 +61,9 @@ class Markup
     const REGEX_ATTRIBUTE_NAME =
         '/^(?:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*(?:\:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*){0,1})$/';
 
+    /**
+    * @psalm-param array<int, scalar|TElement> $markupContent
+    */
     public function MarkupCollectionToMarkupString(
         array $markupContent,
         bool $xml_style = self::DEFAULT_BOOL_XML_STYLE,
@@ -66,11 +72,6 @@ class Markup
         bool $double_encode = self::DEFAULT_BOOL_DOUBLE_ENCODE
     ) : string {
         $out = '';
-
-        /**
-        * @var array<int, scalar|array<int|string, mixed>>
-        */
-        $markupContent = array_filter($markupContent, [$this, 'MarkupCollectionFilter']);
 
         foreach ($markupContent as $content) {
             if (is_array($content)) {
@@ -90,7 +91,7 @@ class Markup
     }
 
     /**
-    * @param array<int|string, mixed> $markup
+    * @psalm-param TElement $markup
     */
     public function MarkupArrayToMarkupString(
         array $markup,
@@ -101,9 +102,6 @@ class Markup
     ) : string {
         $attrs = MarkupValidator::ValidateMarkupAttributes($markup);
 
-        /**
-        * @var string
-        */
         $element = $markup['!element'];
 
         $out = '<' . $element;
@@ -261,6 +259,9 @@ class Markup
         return $out;
     }
 
+    /**
+    * @psalm-param array<int, scalar|TElement> $content
+    */
     protected function MarkupArrayContentToMarkupString(
         string $element,
         array $content,
@@ -336,13 +337,5 @@ class Markup
             },
             []
         );
-    }
-
-    /**
-    * @param mixed $content
-    */
-    protected function MarkupCollectionFilter($content) : bool
-    {
-        return is_scalar($content) || is_array($content);
     }
 }

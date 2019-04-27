@@ -6,6 +6,9 @@ declare(strict_types=1);
 
 namespace SignpostMarv\DaftMarkup;
 
+/**
+* @template TElement as array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|TElement>}
+*/
 abstract class AbstractHtmlElement
 {
     use TabIndexAttributeTrait;
@@ -36,6 +39,8 @@ abstract class AbstractHtmlElement
 
     /**
     * @param array<int|string, mixed>|null $markup
+    *
+    * @psalm-param array<int, scalar|TElement>|null $markup
     */
     abstract public function MarkupContentToDocumentString(array $markup = null) : string;
 
@@ -44,7 +49,11 @@ abstract class AbstractHtmlElement
     /**
     * @param array<int|string, mixed>|null $content
     *
+    * @psalm-param array<int, scalar|TElement>|null $content
+    *
     * @return array<int|string, mixed>
+    *
+    * @psalm-return TElement
     */
     public function ToMarkupArray(array $content = null) : array
     {
