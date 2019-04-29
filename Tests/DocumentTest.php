@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 use SignpostMarv\DaftMarkup\AbstractHtmlElement;
 use SignpostMarv\DaftMarkup\Html\Document;
 use SignpostMarv\DaftMarkup\Markup;
+use Throwable;
 
 class DocumentTest extends TestCase
 {
@@ -34,6 +35,8 @@ class DocumentTest extends TestCase
 
     /**
     * @return array<int, array<int, string|array>>
+    *
+    * @psalm-return array<int, array{0:class-string<AbstractHtmlElement>, 1:mixed[]}>
     */
     public function dataProviderDocumentInstance() : array
     {
@@ -47,6 +50,8 @@ class DocumentTest extends TestCase
 
     /**
     * @return array<int, array<string|mixed[]|null|Closure>>
+    *
+    * @psalm-return array<int, array{0:class-string<Document>, 1:mixed[], 2:array|null, 3:Closure(Document):void|null, 4:string}>
     */
     public function dataProviderDocumentToString() : array
     {
@@ -360,6 +365,8 @@ class DocumentTest extends TestCase
 
     /**
     * @return array<int, array<string|mixed[]|null|Closure>>
+    *
+    * @psalm-return array<int, array{0:class-string<Document>, 1:mixed[], 2:class-string<Throwable>, 3:string}>
     */
     public function dataProviderBadDocumentToString() : array
     {
@@ -411,12 +418,20 @@ class DocumentTest extends TestCase
         ];
     }
 
+    /**
+    * @psalm-return Generator<int, array{0:class-string<Document>, 1:mixed[], 2:string, 3:string[], 4:string[], 5:string[], 6:string[], 7:string[], 8:string[]}, mixed, void>
+    */
     public function dataProviderStringArrayMethods() : Generator
     {
         foreach ($this->dataProviderDocumentInstance() as $classArgs) {
             foreach ($this->dataProviderStringArrayMethodNames() as $methodNameArgs) {
                 foreach ($this->dataProviderStringArrayMethodTestingValues() as $testingArgs) {
-                    yield array_merge($classArgs, $methodNameArgs, $testingArgs);
+                    /**
+                    * @psalm-var array{0:class-string<Document>, 1:mixed[], 2:string, 3:string[], 4:string[], 5:string[], 6:string[], 7:string[], 8:string[]}
+                    */
+                    $out = array_merge($classArgs, $methodNameArgs, $testingArgs);
+
+                    yield $out;
                 }
             }
         }
@@ -523,11 +538,19 @@ class DocumentTest extends TestCase
         ];
     }
 
+    /**
+    * @psalm-return Generator<int, array{0:class-string<AbstractHtmlElement>, 1:string, 2:scalar|null}, mixed, void>
+    */
     public function dataProviderTestDefaults() : Generator
     {
         foreach ($this->dataProviderDocumentInstance() as $classArgs) {
             foreach ($this->dataProviderDefaultValues() as $valuesArgs) {
-                yield array_merge([$classArgs[0]], $valuesArgs);
+                /**
+                * @psalm-var array{0:class-string<AbstractHtmlElement>, 1:string, 2:scalar|null}
+                */
+                $out = array_merge([$classArgs[0]], $valuesArgs);
+
+                yield $out;
             }
         }
     }
@@ -598,6 +621,8 @@ class DocumentTest extends TestCase
     }
 
     /**
+    * @psalm-param class-string<Throwable> $expectedExceptionClass
+    *
     * @param array<int|string, mixed>|null $content
     *
     * @dataProvider dataProviderBadDocumentToString
@@ -681,6 +706,8 @@ class DocumentTest extends TestCase
     }
 
     /**
+    * @psalm-param class-string<AbstractHtmlElement> $class
+    *
     * @param scalar|null $expected
     *
     * @dataProvider dataProviderTestDefaults

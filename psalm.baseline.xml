@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files/>
+<files>
+  <file src="src\AbstractHtmlElement.php">
+    <PossiblyUnusedMethod occurrences="6">
+      <code>RetrieveStringArrayAttributeValues</code>
+      <code>ClearValueForStringArrayAttribute</code>
+      <code>ApplyValueForStringArrayAttribute</code>
+      <code>AppendValueForStringArrayAttribute</code>
+      <code>RetrieveBooleanAttributeValue</code>
+      <code>ApplyBooleanAttributeValue</code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src\HtmlAttributeTrait.php">
+    <PossiblyUnusedMethod occurrences="25">
+      <code>GetAccessKey</code>
+      <code>ClearAccessKey</code>
+      <code>SetAccessKey</code>
+      <code>AppendAccessKey</code>
+      <code>GetAutoCapitalize</code>
+      <code>GetClass</code>
+      <code>ClearClass</code>
+      <code>SetClass</code>
+      <code>GetContentEditable</code>
+      <code>GetContextMenu</code>
+      <code>GetDir</code>
+      <code>GetDraggable</code>
+      <code>GetDropzone</code>
+      <code>GetHidden</code>
+      <code>GetId</code>
+      <code>GetIs</code>
+      <code>GetLang</code>
+      <code>GetSlot</code>
+      <code>GetSpellcheck</code>
+      <code>GetStyle</code>
+      <code>ClearStyle</code>
+      <code>SetStyle</code>
+      <code>AppendStyle</code>
+      <code>GetTitleAttribute</code>
+      <code>GetTranslate</code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src\HtmlMicrodataAttributeTrait.php">
+    <PossiblyUnusedMethod occurrences="7">
+      <code>GetItemId</code>
+      <code>GetItemRefs</code>
+      <code>SetItemRefs</code>
+      <code>ClearItemRefs</code>
+      <code>AppendItemRefs</code>
+      <code>GetItemScope</code>
+      <code>GetItemType</code>
+    </PossiblyUnusedMethod>
+  </file>
+</files>

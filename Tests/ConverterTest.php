@@ -14,6 +14,7 @@ use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SignpostMarv\DaftMarkup\Markup;
+use Throwable;
 
 class ConverterTest extends TestCase
 {
@@ -561,6 +562,9 @@ class ConverterTest extends TestCase
         ];
     }
 
+    /**
+    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array<int|string, mixed>>, 4:bool, 5:int, 6:string, 7:bool}, mixed, void>
+    */
     public function dataProviderMarkupFactoryPlusMarkupArrayToMarkupString() : Generator
     {
         foreach ($this->dataProviderMarkupFactory() as $k => $markupArgs) {
@@ -594,11 +598,19 @@ class ConverterTest extends TestCase
             list($class, $ctorargs) = $markupArgs;
 
             foreach ($this->dataProviderMarkupArrayToMarkupString() as $v) {
-                yield array_merge([$class, $ctorargs], $v);
+                /**
+                * @var array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array<int|string, mixed>>, 4:bool, 5:int, 6:string, 7:bool}
+                */
+                $out = array_merge([$class, $ctorargs], $v);
+
+                yield $out;
             }
         }
     }
 
+    /**
+    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:mixed[], 2:array, 3:string, 4:array<string, string[]>, 5:array<string, string[]>, 6:array<int, string>}, mixed, void>
+    */
     public function dataProviderMarkupFactoryPlusMarkupStringToMarkupArray() : Generator
     {
         foreach ($this->dataProviderMarkupFactory() as $k => $markupArgs) {
@@ -632,14 +644,22 @@ class ConverterTest extends TestCase
             list($class, $ctorargs) = $markupArgs;
 
             foreach ($this->dataProviderMarkupStringToMarkupArray() as $v) {
-                yield array_merge(
+                /**
+                * @var array{0:class-string<Markup>, 1:mixed[], 2:array, 3:string, 4:array<string, string[]>, 5:array<string, string[]>, 6:array<int, string>}
+                */
+                $out = array_merge(
                     [$class, $ctorargs],
                     is_array($v) ? $v : [$v]
                 );
+
+                yield $out;
             }
         }
     }
 
+    /**
+    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:array<int, scalar|array<int|string, mixed>>, 5:bool, 6:int, 7:string, 8:bool}, mixed, void>
+    */
     public function dataProviderMarkupFactoryPlusBadMarkupArrayToMarkupString() : Generator
     {
         foreach ($this->dataProviderMarkupFactory() as $k => $markupArgs) {
@@ -673,11 +693,19 @@ class ConverterTest extends TestCase
             list($class, $ctorargs) = $markupArgs;
 
             foreach ($this->dataProviderBadMarkupArrayToMarkupString() as $v) {
-                yield array_merge([$class, $ctorargs], (array) $v);
+                /**
+                * @psalm-var array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:array<int, scalar|array<int|string, mixed>>, 5:bool, 6:int, 7:string, 8:bool}
+                */
+                $out = array_merge([$class, $ctorargs], (array) $v);
+
+                yield $out;
             }
         }
     }
 
+    /**
+    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:string, 5:array, 6:array<string, string[]>, 7:array<string, string[]>, 8:array<int, string>}, mixed, void>
+    */
     public function dataProviderMarkupFactoryPlusBadNodeToMarkupArray() : Generator
     {
         foreach ($this->dataProviderMarkupFactory() as $k => $markupArgs) {
@@ -711,7 +739,12 @@ class ConverterTest extends TestCase
             list($class, $ctorargs) = $markupArgs;
 
             foreach ($this->dataProviderBadNodeToMarkupArray() as $v) {
-                yield array_merge([$class, $ctorargs], $v);
+                /**
+                * @psalm-var array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:string, 5:array, 6:array<string, string[]>, 7:array<string, string[]>, 8:array<int, string>}
+                */
+                $out = array_merge([$class, $ctorargs], $v);
+
+                yield $out;
             }
         }
     }
@@ -795,6 +828,8 @@ class ConverterTest extends TestCase
     }
 
     /**
+    * @psalm-param class-string<Throwable> $expectedExceptionClass
+    *
     * @param array<int, scalar|array<int|string, mixed>> $markup
     *
     * @dataProvider dataProviderMarkupFactoryPlusBadMarkupArrayToMarkupString
@@ -836,6 +871,8 @@ class ConverterTest extends TestCase
     }
 
     /**
+    * @psalm-param class-string<Throwable> $expectedExceptionClass
+    *
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
