@@ -49,7 +49,7 @@ class DocumentTest extends TestCase
     }
 
     /**
-    * @return array<int, array<string|mixed[]|null|Closure>>
+    * @return array<int, array<string|mixed[]|Closure|null>>
     *
     * @psalm-return array<int, array{0:class-string<Document>, 1:mixed[], 2:array|null, 3:Closure(Document):void|null, 4:string}>
     */
@@ -364,7 +364,7 @@ class DocumentTest extends TestCase
     }
 
     /**
-    * @return array<int, array<string|mixed[]|null|Closure>>
+    * @return array<int, array<string|mixed[]|Closure|null>>
     *
     * @psalm-return array<int, array{0:class-string<Document>, 1:mixed[], 2:class-string<Throwable>, 3:string}>
     */
