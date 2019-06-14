@@ -567,25 +567,16 @@ class DocumentTest extends TestCase
     * @dataProvider dataProviderDocumentInstance
     *
     * @depends testIsAbstractHtmlElement
+    *
+    * @param class-string<AbstractHtmlElement> $class
     */
     public function testValidElementName(string $class) : void
     {
-        if ( ! is_a($class, AbstractHtmlElement::class, true)) {
-            throw new InvalidArgumentException(
-                'Argument 1 passed to ' .
-                __METHOD__ .
-                ' must be an instance of ' .
-                AbstractHtmlElement::class .
-                ', ' .
-                $class .
-                ' given!'
-            );
-        }
-
         static::assertRegExp(Markup::REGEX_ELEMENT_NAME, (string) ($class::MarkupElementName()));
     }
 
     /**
+    * @param class-string<AbstractHtmlElement> $class
     * @param array<int|string, mixed>|null $content
     *
     * @dataProvider dataProviderDocumentToString
@@ -621,8 +612,8 @@ class DocumentTest extends TestCase
     }
 
     /**
-    * @psalm-param class-string<Throwable> $expectedExceptionClass
-    *
+    * @param class-string<AbstractHtmlElement> $class
+    * @param class-string<Throwable> $expectedExceptionClass
     * @param array<int|string, mixed>|null $content
     *
     * @dataProvider dataProviderBadDocumentToString
@@ -650,6 +641,7 @@ class DocumentTest extends TestCase
     }
 
     /**
+    * @param class-string<AbstractHtmlElement> $class
     * @param string[] $firstSet
     * @param string[] $assertSameFirstSetExpected
     * @param string[] $append
@@ -706,8 +698,7 @@ class DocumentTest extends TestCase
     }
 
     /**
-    * @psalm-param class-string<AbstractHtmlElement> $class
-    *
+    * @param class-string<AbstractHtmlElement> $class
     * @param scalar|null $expected
     *
     * @dataProvider dataProviderTestDefaults
@@ -727,18 +718,13 @@ class DocumentTest extends TestCase
         }
     }
 
+    /**
+    * @param class-string<AbstractHtmlElement> $class
+    */
     protected function AbstractHtmlElementFromCtorArgs(
         string $class,
         array $ctorargs = []
     ) : AbstractHtmlElement {
-        if ( ! is_a($class, AbstractHtmlElement::class, true)) {
-            throw new BadMethodCallException(sprintf(
-                'Argument 1 passed to %s must be an implementation of %s',
-                __METHOD__,
-                AbstractHtmlElement::class
-            ));
-        }
-
         /**
         * @var AbstractHtmlElement
         */

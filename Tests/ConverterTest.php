@@ -704,7 +704,7 @@ class ConverterTest extends TestCase
     }
 
     /**
-    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:string, 5:array, 6:array<string, string[]>, 7:array<string, string[]>, 8:array<int, string>}, mixed, void>
+    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:class-string<DOMNode>, 5:array, 6:array<string, string[]>, 7:array<string, string[]>, 8:array<int, string>}, mixed, void>
     */
     public function dataProviderMarkupFactoryPlusBadNodeToMarkupArray() : Generator
     {
@@ -740,7 +740,7 @@ class ConverterTest extends TestCase
 
             foreach ($this->dataProviderBadNodeToMarkupArray() as $v) {
                 /**
-                * @psalm-var array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:string, 5:array, 6:array<string, string[]>, 7:array<string, string[]>, 8:array<int, string>}
+                * @psalm-var array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:class-string<DOMNode>, 5:array, 6:array<string, string[]>, 7:array<string, string[]>, 8:array<int, string>}
                 */
                 $out = array_merge([$class, $ctorargs], $v);
 
@@ -750,6 +750,7 @@ class ConverterTest extends TestCase
     }
 
     /**
+    * @param class-string<Markup> $class,
     * @param array<int, scalar|array<int|string, mixed>> $markup
     *
     * @dataProvider dataProviderMarkupFactoryPlusMarkupArrayToMarkupString
@@ -764,14 +765,6 @@ class ConverterTest extends TestCase
         string $encoding = 'UTF-8',
         bool $double_encode = false
     ) : void {
-        if ( ! is_a($class, Markup::class, true)) {
-            throw new BadMethodCallException(sprintf(
-                'Argument 1 passed to %s must be an implementation of %s',
-                __METHOD__,
-                Markup::class
-            ));
-        }
-
         /**
         * @var Markup
         */
@@ -789,6 +782,7 @@ class ConverterTest extends TestCase
     }
 
     /**
+    * @param class-string<Markup> $class,
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
@@ -804,14 +798,6 @@ class ConverterTest extends TestCase
         array $keepElements = [],
         array $generalAttrWhitelist = []
     ) : void {
-        if ( ! is_a($class, Markup::class, true)) {
-            throw new BadMethodCallException(sprintf(
-                'Argument 1 passed to %s must be an implementation of %s',
-                __METHOD__,
-                Markup::class
-            ));
-        }
-
         /**
         * @var Markup
         */
@@ -828,8 +814,8 @@ class ConverterTest extends TestCase
     }
 
     /**
-    * @psalm-param class-string<Throwable> $expectedExceptionClass
-    *
+    * @param class-string<Markup> $class,
+    * @param class-string<Throwable> $expectedExceptionClass
     * @param array<int, scalar|array<int|string, mixed>> $markup
     *
     * @dataProvider dataProviderMarkupFactoryPlusBadMarkupArrayToMarkupString
@@ -845,14 +831,6 @@ class ConverterTest extends TestCase
         string $encoding = 'UTF-8',
         bool $double_encode = false
     ) : void {
-        if ( ! is_a($class, Markup::class, true)) {
-            throw new BadMethodCallException(sprintf(
-                'Argument 1 passed to %s must be an implementation of %s',
-                __METHOD__,
-                Markup::class
-            ));
-        }
-
         /**
         * @var Markup
         */
@@ -871,8 +849,9 @@ class ConverterTest extends TestCase
     }
 
     /**
-    * @psalm-param class-string<Throwable> $expectedExceptionClass
-    *
+    * @param class-string<Markup> $class,
+    * @param class-string<Throwable> $expectedExceptionClass
+    * @param class-string<DOMNode> $nodeClass
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
@@ -890,20 +869,6 @@ class ConverterTest extends TestCase
         array $keepElements = [],
         array $generalAttrWhitelist = []
     ) : void {
-        if ( ! is_a($class, Markup::class, true)) {
-            throw new BadMethodCallException(sprintf(
-                'Argument 1 passed to %s must be an implementation of %s',
-                __METHOD__,
-                Markup::class
-            ));
-        } elseif ( ! is_a($nodeClass, DOMNode::class, true)) {
-            throw new BadMethodCallException(sprintf(
-                'Argument 5 passed to %s must be an implementation of %s',
-                __METHOD__,
-                DOMNode::class
-            ));
-        }
-
         /**
         * @var Markup
         */
