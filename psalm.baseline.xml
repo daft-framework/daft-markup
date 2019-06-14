@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files>
-  <file src="src\AbstractHtmlElement.php">
+<files psalm-version="dev-master@6f6054f36db874cf6d32f55c1649fad3de24a9c3">
+  <file src="src/AbstractHtmlElement.php">
     <PossiblyUnusedMethod occurrences="6">
       <code>RetrieveStringArrayAttributeValues</code>
       <code>ClearValueForStringArrayAttribute</code>
@@ -10,7 +10,7 @@
       <code>ApplyBooleanAttributeValue</code>
     </PossiblyUnusedMethod>
   </file>
-  <file src="src\HtmlAttributeTrait.php">
+  <file src="src/HtmlAttributeTrait.php">
     <PossiblyUnusedMethod occurrences="25">
       <code>GetAccessKey</code>
       <code>ClearAccessKey</code>
@@ -39,7 +39,7 @@
       <code>GetTranslate</code>
     </PossiblyUnusedMethod>
   </file>
-  <file src="src\HtmlMicrodataAttributeTrait.php">
+  <file src="src/HtmlMicrodataAttributeTrait.php">
     <PossiblyUnusedMethod occurrences="7">
       <code>GetItemId</code>
       <code>GetItemRefs</code>
