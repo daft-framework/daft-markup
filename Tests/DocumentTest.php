@@ -9,7 +9,6 @@ namespace SignpostMarv\DaftMarkup\Tests;
 use BadMethodCallException;
 use Closure;
 use Generator;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SignpostMarv\DaftMarkup\AbstractHtmlElement;
 use SignpostMarv\DaftMarkup\Html\Document;
