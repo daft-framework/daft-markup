@@ -6,12 +6,20 @@ declare(strict_types=1);
 
 namespace SignpostMarv\DaftMarkup;
 
+/**
+* @psalm-type AUTOCAPITALIZE = 'off'|'none'|'on'|'sentences'|'words'|'characters'
+* @psalm-type DIR = 'ltr'|'rtl'|'auto'
+* @psalm-type DROPZONE = 'copy'|'move'|'link'
+*/
 trait HtmlAttributeTrait
 {
     use HtmlAttributeAbstractsTrait;
     use HtmlMicrodataAttributeTrait;
     use TabIndexAttributeTrait;
 
+    /**
+    * @return array<int, string>
+    */
     public function GetAccessKey() : array
     {
         return $this->RetrieveStringArrayAttributeValues('accesskey');
@@ -32,16 +40,30 @@ trait HtmlAttributeTrait
         $this->AppendValueForStringArrayAttribute('accesskey', ...$parts);
     }
 
+    /**
+    * @return AUTOCAPITALIZE|null
+    */
     public function GetAutoCapitalize() : ? string
     {
-        return $this->RetrieveNullableStringAttribute('autocapitalize');
+        /**
+        * @var AUTOCAPITALIZE|null
+        */
+        $out = $this->RetrieveNullableStringAttribute('autocapitalize');
+
+        return $out;
     }
 
+    /**
+    * @param AUTOCAPITALIZE|null $value
+    */
     public function SetAutoCapitalize(? string $value) : void
     {
         $this->ApplyValueForNullableStringAttribute('autocapitalize', $value);
     }
 
+    /**
+    * @return array<int, string>
+    */
     public function GetClass() : array
     {
         return $this->RetrieveStringArrayAttributeValues('class');
@@ -82,11 +104,22 @@ trait HtmlAttributeTrait
         $this->ApplyValueForNullableStringAttribute('contextmenu', $value);
     }
 
+    /**
+    * @return DIR|null
+    */
     public function GetDir() : ? string
     {
-        return $this->RetrieveNullableStringAttribute('dir');
+        /**
+        * @var DIR|null
+        */
+        $out = $this->RetrieveNullableStringAttribute('dir');
+
+        return $out;
     }
 
+    /**
+    * @param DIR|null $value
+    */
     public function SetDir(? string $value) : void
     {
         $this->ApplyValueForNullableStringAttribute('dir', $value);
@@ -102,11 +135,22 @@ trait HtmlAttributeTrait
         $this->ApplyBooleanAttributeValue('draggable', $value);
     }
 
+    /**
+    * @return DROPZONE|null
+    */
     public function GetDropzone() : ? string
     {
-        return $this->RetrieveNullableStringAttribute('dropzone');
+        /**
+        * @var DROPZONE|null
+        */
+        $out = $this->RetrieveNullableStringAttribute('dropzone');
+
+        return $out;
     }
 
+    /**
+    * @param DROPZONE|null $value
+    */
     public function SetDropzone(? string $value) : void
     {
         $this->ApplyValueForNullableStringAttribute('dropzone', $value);

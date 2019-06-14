@@ -170,6 +170,9 @@ abstract class AbstractHtmlElement
         }
     }
 
+    /**
+    * @return array<int, string>
+    */
     protected function RetrieveStringArrayAttributeValues(string $attribute) : array
     {
         return $this->stringArrayAttributes[$attribute] ?? [];

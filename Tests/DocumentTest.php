@@ -35,7 +35,7 @@ class DocumentTest extends TestCase
     /**
     * @return array<int, array<int, string|array>>
     *
-    * @psalm-return array<int, array{0:class-string<AbstractHtmlElement>, 1:mixed[]}>
+    * @psalm-return array<int, array{0:class-string<Document>, 1:mixed[]}>
     */
     public function dataProviderDocumentInstance() : array
     {
@@ -116,7 +116,7 @@ class DocumentTest extends TestCase
                     $doc->SetHidden(true);
                     $doc->SetIs('html-future');
                     $doc->SetId('foo');
-                    $doc->SetDropzone('bar');
+                    $doc->SetDropzone('copy');
                     $doc->SetItemId('baz');
                     $doc->SetSlot('nope');
                     $doc->SetItemType('http://schema.org/Thing');
@@ -128,7 +128,7 @@ class DocumentTest extends TestCase
                 (
                     '<!DOCTYPE html>' .
                     "\n" .
-                    '<html autocapitalize="off" contenteditable contextmenu="bag" dir="ltr" dropzone="bar" hidden id="foo" is="html-future" itemid="baz" itemscope itemtype="http://schema.org/Thing" lang="en" slot="nope" title="Toast">' .
+                    '<html autocapitalize="off" contenteditable contextmenu="bag" dir="ltr" dropzone="copy" hidden id="foo" is="html-future" itemid="baz" itemscope itemtype="http://schema.org/Thing" lang="en" slot="nope" title="Toast">' .
                         '<head>' .
                             '<meta charset="iso-8859-1">' .
                             '<title>Test</title>' .
@@ -575,7 +575,7 @@ class DocumentTest extends TestCase
     }
 
     /**
-    * @param class-string<AbstractHtmlElement> $class
+    * @param class-string<Document> $class
     * @param array<int|string, mixed>|null $content
     *
     * @dataProvider dataProviderDocumentToString
@@ -715,6 +715,155 @@ class DocumentTest extends TestCase
         } else {
             static::assertSame($expected, $doc->$method());
         }
+    }
+
+    /**
+    * @param class-string<Document> $class
+    *
+    * @dataProvider dataProviderDocumentInstance
+    */
+    public function testDocumentDefaults(
+        string $class,
+        array $ctorargs
+    ) : void {
+        /**
+        * @var Document
+        */
+        $doc = $this->AbstractHtmlElementFromCtorArgs($class, $ctorargs);
+
+        static::assertSame([], $doc->GetAccessKey());
+        $doc->SetAccessKey('a');
+        static::assertSame(['a'], $doc->GetAccessKey());
+        $doc->AppendAccessKey('b');
+        static::assertSame(['a', 'b'], $doc->GetAccessKey());
+        $doc->ClearAccessKey();
+        static::assertSame([], $doc->GetAccessKey());
+
+        static::assertNull($doc->GetAutoCapitalize());
+        $doc->SetAutoCapitalize('words');
+        static::assertSame('words', $doc->GetAutoCapitalize());
+
+        static::assertSame([], $doc->GetClass());
+        $doc->SetClass('foo');
+        static::assertSame(['foo'], $doc->GetClass());
+        $doc->AppendClass('bar');
+        static::assertSame(['foo', 'bar'], $doc->GetClass());
+        $doc->ClearClass();
+        static::assertSame([], $doc->GetClass());
+
+        static::assertFalse($doc->GetContentEditable());
+        $doc->SetContentEditable(true);
+        static::assertTrue($doc->GetContentEditable());
+        $doc->SetContentEditable(false);
+        static::assertFalse($doc->GetContentEditable());
+
+        static::assertNull($doc->GetContextMenu());
+        $doc->SetContextMenu('foo');
+        static::assertSame('foo', $doc->GetContextMenu());
+        $doc->SetContextMenu(null);
+        static::assertNull($doc->GetContextMenu());
+
+        static::assertNull($doc->GetDir());
+        $doc->SetDir('ltr');
+        static::assertSame('ltr', $doc->GetDir());
+        $doc->SetDir(null);
+        static::assertNull($doc->GetDir());
+
+        static::assertFalse($doc->GetDraggable());
+        $doc->SetDraggable(true);
+        static::assertTrue($doc->GetDraggable());
+        $doc->SetDraggable(false);
+        static::assertFalse($doc->GetDraggable());
+        $doc->SetDraggable(null);
+        static::assertFalse($doc->GetDraggable());
+
+        static::assertNull($doc->GetDropzone());
+        $doc->SetDropzone('copy');
+        static::assertSame('copy', $doc->GetDropzone());
+        $doc->SetDropzone(null);
+        static::assertNull($doc->GetDropzone());
+
+        static::assertFalse($doc->GetHidden());
+        $doc->SetHidden(true);
+        static::assertTrue($doc->GetHidden());
+        $doc->SetHidden(false);
+        static::assertFalse($doc->GetHidden());
+
+        static::assertNull($doc->GetId());
+        $doc->SetId('foo');
+        static::assertSame('foo', $doc->GetId());
+        $doc->SetId(null);
+        static::assertNull($doc->GetId());
+
+        static::assertNull($doc->GetIs());
+        $doc->SetIs('foo');
+        static::assertSame('foo', $doc->GetIs());
+        $doc->SetIs(null);
+        static::assertNull($doc->GetIs());
+
+        static::assertNull($doc->GetLang());
+        $doc->SetLang('foo');
+        static::assertSame('foo', $doc->GetLang());
+        $doc->SetLang(null);
+        static::assertNull($doc->GetLang());
+
+        static::assertNull($doc->GetSlot());
+        $doc->SetSlot('foo');
+        static::assertSame('foo', $doc->GetSlot());
+        $doc->SetSlot(null);
+        static::assertNull($doc->GetSlot());
+
+        static::assertFalse($doc->GetSpellcheck());
+        $doc->SetSpellcheck(true);
+        static::assertTrue($doc->GetSpellcheck());
+        $doc->SetSpellcheck(false);
+        static::assertFalse($doc->GetSpellcheck());
+
+        static::assertSame([], $doc->GetStyle());
+        $doc->SetStyle('foo');
+        static::assertSame(['foo'], $doc->GetStyle());
+        $doc->AppendStyle('bar');
+        static::assertSame(['foo', 'bar'], $doc->GetStyle());
+        $doc->ClearStyle();
+        static::assertSame([], $doc->GetStyle());
+
+        static::assertNull($doc->GetTitleAttribute());
+        $doc->SetTitleAttribute('foo');
+        static::assertSame('foo', $doc->GetTitleAttribute());
+        $doc->SetTitleAttribute(null);
+        static::assertNull($doc->GetTitleAttribute());
+
+        static::assertTrue($doc->GetTranslate());
+        $doc->SetTranslate(false);
+        static::assertFalse($doc->GetTranslate());
+        $doc->SetTranslate(true);
+        static::assertTrue($doc->GetTranslate());
+
+        static::assertNull($doc->GetItemId());
+        $doc->SetItemId('foo');
+        static::assertSame('foo', $doc->GetItemId());
+        $doc->SetItemId(null);
+        static::assertNull($doc->GetItemId());
+
+        static::assertSame([], $doc->GetItemRefs());
+        $doc->SetItemRefs('foo');
+        static::assertSame(['foo'], $doc->GetItemRefs());
+        $doc->AppendItemRefs('bar');
+        static::assertSame(['foo', 'bar'], $doc->GetItemRefs());
+        $doc->ClearItemRefs();
+        static::assertSame([], $doc->GetItemRefs());
+
+        static::assertFalse($doc->GetItemScope());
+        $doc->SetItemScope(true);
+        static::assertTrue($doc->GetItemScope());
+        $doc->SetItemScope(false);
+        static::assertFalse($doc->GetItemScope());
+
+        static::assertNull($doc->GetItemType());
+        $doc->SetItemType('foo');
+        static::assertSame('foo', $doc->GetItemType());
+        $doc->SetItemType(null);
+        static::assertNull($doc->GetItemType());
     }
 
     /**

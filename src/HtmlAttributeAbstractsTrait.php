@@ -8,6 +8,9 @@ namespace SignpostMarv\DaftMarkup;
 
 trait HtmlAttributeAbstractsTrait
 {
+    /**
+    * @return array<int, string>
+    */
     abstract protected function RetrieveStringArrayAttributeValues(string $attribute) : array;
 
     abstract protected function ClearValueForStringArrayAttribute(string $attribute) : void;
