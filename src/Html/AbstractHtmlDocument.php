@@ -11,6 +11,12 @@ use SignpostMarv\DaftMarkup\AbstractHtmlElement;
 use SignpostMarv\DaftMarkup\HtmlAttributeTrait;
 use SignpostMarv\DaftMarkup\MarkupConverterTrait;
 
+/**
+* @template T1 as array<string, scalar|array<int, scalar>>
+* @template T2 as array<int, scalar|array{!element:string}>
+*
+* @template-extends AbstractHtmlElement<'html', T1, T2>
+*/
 abstract class AbstractHtmlDocument extends AbstractHtmlElement
 {
     use HtmlAttributeTrait;
@@ -84,9 +90,9 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     protected $enableIntegrityOnPreload = false;
 
     /**
-    * @param array<int|string, mixed>|null $content
+    * @param T2|null $content
     *
-    * @return array<int|string, mixed>
+    * @return array{!element:'html', !attributes:T1, !content:T2|array<empty, empty>}
     */
     public function ToMarkupArray(array $content = null) : array
     {
@@ -101,7 +107,12 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
             $content[] = ['!element' => 'body', '!content' => $bodyContent];
         }
 
-        return parent::ToMarkupArray($content);
+        /**
+        * @var array{!element:'html', !attributes:T1, !content:T2|array<empty, empty>}
+        */
+        $out = parent::ToMarkupArray($content);
+
+        return $out;
     }
 
     public function Preload(string $as, string ...$urls) : void
@@ -224,7 +235,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
     }
 
     /**
-    * @param array<int|string, mixed>|null $content
+    * @param T2|null $content
     */
     public function MarkupContentToDocumentString(array $content = null) : string
     {

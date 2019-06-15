@@ -50,7 +50,7 @@ class DocumentTest extends TestCase
     /**
     * @return array<int, array<string|mixed[]|Closure|null>>
     *
-    * @psalm-return array<int, array{0:class-string<Document>, 1:mixed[], 2:array|null, 3:Closure(Document):void|null, 4:string}>
+    * @psalm-return array<int, array{0:class-string<Document>, 1:mixed[], 2:array<int, scalar|array{!element:string}>|null, 3:Closure(Document):void|null, 4:string}>
     */
     public function dataProviderDocumentToString() : array
     {
@@ -576,7 +576,7 @@ class DocumentTest extends TestCase
 
     /**
     * @param class-string<Document> $class
-    * @param array<int|string, mixed>|null $content
+    * @param array<int, scalar|array{!element:string}>|null $content
     *
     * @dataProvider dataProviderDocumentToString
     *
@@ -613,7 +613,7 @@ class DocumentTest extends TestCase
     /**
     * @param class-string<AbstractHtmlElement> $class
     * @param class-string<Throwable> $expectedExceptionClass
-    * @param array<int|string, mixed>|null $content
+    * @param array<int, scalar|array{!element:string}>|null $content
     *
     * @dataProvider dataProviderBadDocumentToString
     *

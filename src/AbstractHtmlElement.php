@@ -6,6 +6,11 @@ declare(strict_types=1);
 
 namespace SignpostMarv\DaftMarkup;
 
+/**
+* @template T1 as string
+* @template T2 as array<string, scalar|array<int, scalar>>
+* @template T3 as array<int, scalar|array{!element:string}>
+*/
 abstract class AbstractHtmlElement
 {
     use TabIndexAttributeTrait;
@@ -35,16 +40,19 @@ abstract class AbstractHtmlElement
     ];
 
     /**
-    * @param array<int|string, mixed>|null $markup
+    * @param T3|null $markup
     */
     abstract public function MarkupContentToDocumentString(array $markup = null) : string;
 
+    /**
+    * @return T1
+    */
     abstract public static function MarkupElementName() : string;
 
     /**
-    * @param array<int|string, mixed>|null $content
+    * @param T3|null $content
     *
-    * @return array<int|string, mixed>
+    * @return array{!element:T1, !attributes:T2, !content?:T3}
     */
     public function ToMarkupArray(array $content = null) : array
     {
@@ -71,17 +79,17 @@ abstract class AbstractHtmlElement
     }
 
     /**
-    * @return array<string, scalar|array<int, scalar>>
+    * @return T2
     */
     public function MarkupAttributes() : array
     {
         /**
-        * @var array<string, scalar|bool|array<int, scalar>>
+        * @var T2
         */
         $out = [];
 
         /**
-        * @var array<int, array<string, bool|scalar|array<int, scalar>>>
+        * @var array<int, T2>
         */
         $groupedAttributes = $this->GroupedAttributes();
 
@@ -95,9 +103,9 @@ abstract class AbstractHtmlElement
     }
 
     /**
-    * @param array<string, scalar|bool|array<int, scalar>> $out
+    * @param T2 $out
     *
-    * @return array<string, scalar|array<int, scalar>>
+    * @return T2
     */
     protected static function MarkupAttributesPostProcess(array $out) : array
     {
@@ -118,16 +126,21 @@ abstract class AbstractHtmlElement
             unset($out['translate']);
         }
 
+        /**
+        * @var T2
+        */
+        $out = $out;
+
         return $out;
     }
 
     /**
-    * @var array<int, array<string, bool|scalar|array<int, scalar>>>
+    * @var array<int, T2>
     */
     protected function GroupedAttributes() : array
     {
         /**
-        * @var array<int, array<string, bool|scalar|array<int, scalar>>>
+        * @var array<int, T2>
         */
         $groupedAttributes = array_map(
             function (array $group) : array {
