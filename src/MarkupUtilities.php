@@ -28,18 +28,15 @@ class MarkupUtilities
     ];
 
     /**
-    * @param array<int|string, mixed> $out
+    * @param array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>} $out
     *
-    * @return array<int|string, mixed>
+    * @return array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}
     */
     public static function NodeToMarkupArrayStripEmptyAttributes(array $out) : array
     {
         if (
             isset($out['!attributes']) &&
-            (
-                ! is_array($out['!attributes']) ||
                 [] === $out['!attributes']
-            )
         ) {
             unset($out['!attributes']);
         }

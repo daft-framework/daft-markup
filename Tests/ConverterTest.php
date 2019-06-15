@@ -403,24 +403,6 @@ class ConverterTest extends TestCase
     }
 
     /**
-    * @return array<int, array<string|array>>
-    */
-    public function dataProviderBadNodeToMarkupArray() : array
-    {
-        return [
-            [
-                InvalidArgumentException::class,
-                'Node type not supported! (' . DOMAttr::class . ')',
-                DOMAttr::class,
-                [
-                    'title',
-                    'foo',
-                ],
-            ],
-        ];
-    }
-
-    /**
     * @psalm-return Generator<int, array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>, 4:bool, 5:int, 6:string, 7:bool}, mixed, void>
     */
     public function dataProviderMarkupFactoryPlusMarkupArrayToMarkupString() : Generator
@@ -516,52 +498,6 @@ class ConverterTest extends TestCase
     }
 
     /**
-    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:class-string<DOMNode>, 5:array, 6:array<string, string[]>, 7:array<string, string[]>, 8:array<int, string>}, mixed, void>
-    */
-    public function dataProviderMarkupFactoryPlusBadNodeToMarkupArray() : Generator
-    {
-        foreach ($this->dataProviderMarkupFactory() as $k => $markupArgs) {
-            if (
-                self::EXPECTED_MARKUP_FACTORY_ARGUMENTS !== count($markupArgs) ||
-                ! isset($markupArgs[0], $markupArgs[1])
-            ) {
-                throw new BadMethodCallException(sprintf(
-                    '%s::dataProviderMarkupFactory() contains insufficient args at index %s',
-                    static::class,
-                    $k
-                ));
-            } elseif ( ! is_string($markupArgs[0])) {
-                throw new BadMethodCallException(sprintf(
-                    '%s::dataProviderMarkupFactory() contains an invalid class value at index %s',
-                    static::class,
-                    $k
-                ));
-            } elseif ( ! is_array($markupArgs[1])) {
-                throw new BadMethodCallException(sprintf(
-                    '%s::dataProviderMarkupFactory() contains an invalid constructor args at index %s',
-                    static::class,
-                    $k
-                ));
-            }
-
-            /**
-            * @var string
-            * @var mixed[] $ctorargs
-            */
-            list($class, $ctorargs) = $markupArgs;
-
-            foreach ($this->dataProviderBadNodeToMarkupArray() as $v) {
-                /**
-                * @psalm-var array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:class-string<DOMNode>, 5:array, 6:array<string, string[]>, 7:array<string, string[]>, 8:array<int, string>}
-                */
-                $out = array_merge([$class, $ctorargs], $v);
-
-                yield $out;
-            }
-        }
-    }
-
-    /**
     * @param class-string<Markup> $class,
     * @param array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}> $markup
     *
@@ -622,48 +558,6 @@ class ConverterTest extends TestCase
                 $keepElements,
                 $generalAttrWhitelist
             )
-        );
-    }
-
-    /**
-    * @param class-string<Markup> $class,
-    * @param class-string<Throwable> $expectedExceptionClass
-    * @param class-string<DOMElement>|class-string<DOMText> $nodeClass
-    * @param array<string, string[]> $excludeElements
-    * @param array<string, string[]> $keepElements
-    * @param array<int, string> $generalAttrWhitelist
-    *
-    * @dataProvider dataProviderMarkupFactoryPlusBadNodeToMarkupArray
-    */
-    public function testBadNodeToMarkupArray(
-        string $class,
-        array $ctorargs,
-        string $expectedExceptionClass,
-        string $expectedExceptionMessage,
-        string $nodeClass,
-        array $nodeCtorargs,
-        array $excludeElements = [],
-        array $keepElements = [],
-        array $generalAttrWhitelist = []
-    ) : void {
-        /**
-        * @var Markup
-        */
-        $converter = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
-
-        /**
-        * @var DOMElement|DOMText
-        */
-        $node = 0 === count($nodeCtorargs) ? new $nodeClass() : new $nodeClass(...$nodeCtorargs);
-
-        $this->expectException($expectedExceptionClass);
-        $this->expectExceptionMessage($expectedExceptionMessage);
-
-        $converter->NodeToMarkupArray(
-            $node,
-            $excludeElements,
-            $keepElements,
-            $generalAttrWhitelist
         );
     }
 }

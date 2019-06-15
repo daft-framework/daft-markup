@@ -199,7 +199,7 @@ class Markup
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
     *
-    * @return array<int|string, mixed>
+    * @return array{0:string}|array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}
     */
     public function NodeToMarkupArray(
         DOMNode $node,
@@ -207,35 +207,22 @@ class Markup
         array $keepElements = [],
         array $generalAttrWhitelist = []
     ) : array {
-        $out = [];
-
-        switch ($node->nodeType) {
-            case XML_ELEMENT_NODE:
-                /**
-                * @var DOMElement
-                */
-                $node = $node;
-
-                $out = $this->ElementNodeToMarkupArray(
+        if ($node instanceof DOMElement) {
+            $out = $this->ElementNodeToMarkupArray(
                     $node,
                     $excludeElements,
                     $keepElements,
                     $generalAttrWhitelist
-                );
-            break;
-            case XML_TEXT_NODE:
-                if ($node instanceof DOMText) {
-                    $out[] = $node->wholeText;
-                }
-            break;
-            default:
-                throw new InvalidArgumentException(sprintf(
-                    'Node type not supported! (%s)',
-                    get_class($node)
-                ));
+            );
+
+            if ( ! isset($out['!element'])) {
+                return $out;
+            }
+
+            return MarkupUtilities::NodeToMarkupArrayStripEmptyAttributes($out);
         }
 
-        return MarkupUtilities::NodeToMarkupArrayStripEmptyAttributes($out);
+        return [$node->wholeText];
     }
 
     /**
