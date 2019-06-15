@@ -159,7 +159,7 @@ class Markup
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
     *
-    * @return array<int|string, mixed>
+    * @return array{0:string}|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}
     */
     public function ElementNodeToMarkupArray(
         DOMElement $node,
@@ -167,8 +167,6 @@ class Markup
         array $keepElements = [],
         array $generalAttrWhitelist = []
     ) {
-        $out = [];
-
         if (
             (
                 count($keepElements) > self::COUNT_NON_EMPTY &&
@@ -176,11 +174,15 @@ class Markup
             ) ||
             isset($excludeElements[$node->nodeName])
         ) {
-            $out[] = $node->textContent;
-
-            return $out;
+            return [$node->textContent];
         }
-        $out['!element'] = $node->nodeName;
+
+        /**
+        * @var array{!element:string}
+        */
+        $out = [
+            '!element' => $node->nodeName,
+        ];
 
         return $this->ElementNodeToMarkupArrayIfPassedFilter(
             $node,
@@ -236,12 +238,12 @@ class Markup
     }
 
     /**
-    * @param array<int|string, mixed> $out
+    * @param array{!element:string} $out
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
     *
-    * @return array<int|string, mixed>
+    * @return array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}
     */
     protected function ElementNodeToMarkupArrayIfPassedFilter(
         DOMElement $node,

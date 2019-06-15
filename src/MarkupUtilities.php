@@ -110,6 +110,8 @@ class MarkupUtilities
     /**
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
+    *
+    * @return array<string, scalar|array<int, scalar>>
     */
     public static function ObtainAttributesFromDOMNamedNodeMap(
         DOMElement $node,
