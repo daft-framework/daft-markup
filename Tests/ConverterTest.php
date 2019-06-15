@@ -419,7 +419,7 @@ class ConverterTest extends TestCase
     }
 
     /**
-    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array{!element:string}>, 4:bool, 5:int, 6:string, 7:bool}, mixed, void>
+    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>, 4:bool, 5:int, 6:string, 7:bool}, mixed, void>
     */
     public function dataProviderMarkupFactoryPlusMarkupArrayToMarkupString() : Generator
     {
@@ -455,7 +455,7 @@ class ConverterTest extends TestCase
 
             foreach ($this->dataProviderMarkupArrayToMarkupString() as $v) {
                 /**
-                * @var array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array{!element:string}>, 4:bool, 5:int, 6:string, 7:bool}
+                * @var array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>, 4:bool, 5:int, 6:string, 7:bool}
                 */
                 $out = array_merge([$class, $ctorargs], $v);
 
@@ -561,7 +561,7 @@ class ConverterTest extends TestCase
 
     /**
     * @param class-string<Markup> $class,
-    * @param array<int, scalar|array{!element:string}> $markup
+    * @param array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}> $markup
     *
     * @dataProvider dataProviderMarkupFactoryPlusMarkupArrayToMarkupString
     */

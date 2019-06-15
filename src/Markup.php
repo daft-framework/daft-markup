@@ -59,7 +59,7 @@ class Markup
         '/^(?:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*(?:\:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*){0,1})$/';
 
     /**
-    * @param array<int, scalar|array{!element:string}> $markupContent
+    * @param array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}> $markupContent
     */
     public function MarkupCollectionToMarkupString(
         array $markupContent,
@@ -71,7 +71,7 @@ class Markup
         $out = '';
 
         /**
-        * @var array<int, scalar|array{!element:string}>
+        * @var array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
         */
         $markupContent = array_filter($markupContent, [$this, 'MarkupCollectionFilter']);
 
@@ -93,7 +93,7 @@ class Markup
     }
 
     /**
-    * @param array{!element:string, !content?:array<int, scalar|array{!element:string}>} $markup
+    * @param array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>} $markup
     */
     public function MarkupArrayToMarkupString(
         array $markup,
@@ -117,8 +117,14 @@ class Markup
             $encoding,
             $double
         );
+
+        /**
+        * @var array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
+        */
+        $markup_content = $markup['!content'] ?? [];
+
         $out .= $this->MarkupArrayContentToMarkupString(
-            $element, ((array) ($markup['!content'] ?? [])), $xml_style, $flags, $encoding, $double
+            $element, $markup_content, $xml_style, $flags, $encoding, $double
         );
 
         return $out;
@@ -265,7 +271,7 @@ class Markup
     }
 
     /**
-    * @param array<int, scalar|array{!element:string}> $content
+    * @param array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}> $content
     */
     protected function MarkupArrayContentToMarkupString(
         string $element,
