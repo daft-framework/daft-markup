@@ -135,7 +135,7 @@ class Markup
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
     *
-    * @return array<int|string, mixed>
+    * @return array<int, array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
     */
     public function MarkupStringToMarkupArray(
         string $markup,
@@ -312,6 +312,8 @@ class Markup
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
+    *
+    * @return array<int, array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
     */
     protected function NodeListToContent(
         DOMNodeList $nodes,
@@ -319,7 +321,10 @@ class Markup
         array $keepElements = [],
         array $generalAttrWhitelist = []
     ) : array {
-        return array_reduce(
+        /**
+        * @var array<int, array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
+        */
+        $out = array_reduce(
             array_map(
                 function (
                     DOMNode $child
@@ -348,6 +353,8 @@ class Markup
             },
             []
         );
+
+        return $out;
     }
 
     /**
