@@ -18,21 +18,6 @@ use Throwable;
 class DocumentTest extends TestCase
 {
     /**
-    * @var bool
-    */
-    protected $backupGlobals = false;
-
-    /**
-    * @var bool
-    */
-    protected $backupStaticAttributes = false;
-
-    /**
-    * @var bool
-    */
-    protected $runTestInSeparateProcess = false;
-
-    /**
     * @return array<int, array<int, string|array>>
     *
     * @psalm-return array<int, array{0:class-string<Document>, 1:mixed[]}>

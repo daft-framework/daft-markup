@@ -15,20 +15,6 @@ use SignpostMarv\DaftMarkup\Markup;
 class ConverterTest extends TestCase
 {
     const EXPECTED_MARKUP_FACTORY_ARGUMENTS = 2;
-    /**
-    * @var bool
-    */
-    protected $backupGlobals = false;
-
-    /**
-    * @var bool
-    */
-    protected $backupStaticAttributes = false;
-
-    /**
-    * @var bool
-    */
-    protected $runTestInSeparateProcess = false;
 
     /**
     * @return array<int, array<int, string|mixed[]>>
