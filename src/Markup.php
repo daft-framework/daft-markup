@@ -194,6 +194,7 @@ class Markup
     }
 
     /**
+    * @param DOMElement|DOMText $node
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
@@ -324,10 +325,23 @@ class Markup
         array $generalAttrWhitelist = []
     ) : array {
         /**
+        * @var array<int, DOMElement|DOMText>
+        */
+        $filtered_nodes = array_filter(
+            iterator_to_array($nodes),
+            function (DOMNode $maybe) : bool {
+                return ($maybe instanceof DOMElement) || ($maybe instanceof DOMText);
+            }
+        );
+
+        /**
         * @var array<int, array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
         */
         $out = array_reduce(
             array_map(
+                /**
+                * @param DOMElement|DOMText $child
+                */
                 function (
                     DOMNode $child
                 ) use (
@@ -342,7 +356,7 @@ class Markup
                         $generalAttrWhitelist
                     );
                 },
-                iterator_to_array($nodes)
+                $filtered_nodes
             ),
             function (array $out, array $childOut) : array {
                 if ( ! isset($childOut['!element'])) {

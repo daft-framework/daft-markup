@@ -9,7 +9,9 @@ namespace SignpostMarv\DaftMarkup\Tests;
 use function array_merge;
 use BadMethodCallException;
 use DOMAttr;
+use DOMElement;
 use DOMNode;
+use DOMText;
 use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -626,7 +628,7 @@ class ConverterTest extends TestCase
     /**
     * @param class-string<Markup> $class,
     * @param class-string<Throwable> $expectedExceptionClass
-    * @param class-string<DOMNode> $nodeClass
+    * @param class-string<DOMElement>|class-string<DOMText> $nodeClass
     * @param array<string, string[]> $excludeElements
     * @param array<string, string[]> $keepElements
     * @param array<int, string> $generalAttrWhitelist
@@ -650,7 +652,7 @@ class ConverterTest extends TestCase
         $converter = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
 
         /**
-        * @var DOMNode
+        * @var DOMElement|DOMText
         */
         $node = 0 === count($nodeCtorargs) ? new $nodeClass() : new $nodeClass(...$nodeCtorargs);
 
