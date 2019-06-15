@@ -122,7 +122,7 @@ final class MarkupValidator
     /**
     * @param mixed $markupContent
     */
-    final public static function ValidateContent($markupContent) : void
+    public static function ValidateContent($markupContent) : void
     {
         if ( ! is_array($markupContent)) {
             throw new InvalidArgumentException('Element content must be specified as an array!');

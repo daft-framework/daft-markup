@@ -104,7 +104,7 @@ class ValidatorTest extends TestCase
                 'Attribute keys must be strings!',
             ],
             [
-                new \stdClass,
+                new \stdClass(),
                 InvalidArgumentException::class,
                 'Attribute keys must be strings!',
             ],
@@ -162,7 +162,7 @@ class ValidatorTest extends TestCase
             ],
             [
                 'class',
-                [new \stdClass],
+                [new \stdClass()],
                 InvalidArgumentException::class,
                 'Attribute class contained a non-scalar array value!',
             ],
@@ -206,7 +206,7 @@ class ValidatorTest extends TestCase
             ],
             [
                 'id',
-                new \stdClass,
+                new \stdClass(),
                 InvalidArgumentException::class,
                 'Attribute id contained a non-scalar value!',
             ],
@@ -268,7 +268,7 @@ class ValidatorTest extends TestCase
                 'Element content must be specified as an array!',
             ],
             [
-                new \stdClass,
+                new \stdClass(),
                 InvalidArgumentException::class,
                 'Element content must be specified as an array!',
             ],
