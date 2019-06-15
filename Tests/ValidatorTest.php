@@ -281,7 +281,7 @@ class ValidatorTest extends TestCase
     }
 
     /**
-    * @param mixed $markupContent
+    * @param mixed $markup_content
     * @param class-string<\Throwable> $expected_message
     *
     * @dataProvider dataProvider_ValidateContent_failure
