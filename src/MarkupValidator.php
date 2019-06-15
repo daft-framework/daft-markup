@@ -13,7 +13,7 @@ final class MarkupValidator
     const BOOL_IN_ARRAY_STRICT = true;
 
     /**
-    * @param array{!element:string} $markup
+    * @param array $markup
     */
     public static function ValidateMarkup(array $markup) : void
     {
@@ -58,7 +58,7 @@ final class MarkupValidator
     }
 
     /**
-    * @param array<int|string, mixed> $markup
+    * @param array $markup
     */
     public static function MaybeThrowWhenValidatingMarkup(array $markup) : void
     {

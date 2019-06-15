@@ -13,7 +13,7 @@ use SignpostMarv\DaftMarkup\MarkupValidator;
 class ValidatorTest extends TestCase
 {
     /**
-    * @return array<int, array{0:mixed, 1:class-string<\Throwable>, 2:string}>
+    * @return array<int, array{0:array, 1:class-string<\Throwable>, 2:string}>
     */
     public function dataProvider_ValidateMarkup_failure() : array
     {
@@ -53,7 +53,7 @@ class ValidatorTest extends TestCase
     }
 
     /**
-    * @return array<int, array{0:mixed, 1:class-string<\Throwable>, 2:string}>
+    * @return array<int, array{0:array, 1:class-string<\Throwable>, 2:string}>
     */
     public function dataProvider_MaybeThrowWhenValidatingMarkup_failure() : array
     {
@@ -282,7 +282,7 @@ class ValidatorTest extends TestCase
 
     /**
     * @param mixed $markup_content
-    * @param class-string<\Throwable> $expected_message
+    * @param class-string<\Throwable> $expected_exception
     *
     * @dataProvider dataProvider_ValidateContent_failure
     */
