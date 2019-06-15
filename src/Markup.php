@@ -58,6 +58,9 @@ class Markup
     const REGEX_ATTRIBUTE_NAME =
         '/^(?:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*(?:\:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*){0,1})$/';
 
+    /**
+    * @param array<int, scalar|array{!element:string}> $markupContent
+    */
     public function MarkupCollectionToMarkupString(
         array $markupContent,
         bool $xml_style = self::DEFAULT_BOOL_XML_STYLE,
@@ -68,7 +71,7 @@ class Markup
         $out = '';
 
         /**
-        * @var array<int, scalar|array<int|string, mixed>>
+        * @var array<int, scalar|array{!element:string}>
         */
         $markupContent = array_filter($markupContent, [$this, 'MarkupCollectionFilter']);
 
@@ -90,7 +93,7 @@ class Markup
     }
 
     /**
-    * @param array<int|string, mixed> $markup
+    * @param array{!element:string, !content?:array<int, scalar|array{!element:string}>} $markup
     */
     public function MarkupArrayToMarkupString(
         array $markup,
@@ -261,6 +264,9 @@ class Markup
         return $out;
     }
 
+    /**
+    * @param array<int, scalar|array{!element:string}> $content
+    */
     protected function MarkupArrayContentToMarkupString(
         string $element,
         array $content,

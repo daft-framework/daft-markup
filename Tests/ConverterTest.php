@@ -401,150 +401,6 @@ class ConverterTest extends TestCase
     }
 
     /**
-    * @return array<int, string|array>
-    */
-    public function dataProviderBadMarkupArrayToMarkupString() : array
-    {
-        return [
-            [
-                InvalidArgumentException::class,
-                'Element not specified!',
-                [],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Element not specified as string!',
-                [
-                    '!element' => null,
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Element not specified as string!',
-                [
-                    '!element' => 1,
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Element not specified as string!',
-                [
-                    '!element' => new class() {
-                        public function __toString()
-                        {
-                            return 'br';
-                        }
-                    },
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Element not valid! ( br)',
-                [
-                    '!element' => ' br',
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Element not valid! (br-)',
-                [
-                    '!element' => 'br-',
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Attributes not specified as an array!',
-                [
-                    '!element' => 'br',
-                    '!attributes' => '',
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Attribute keys must be strings!',
-                [
-                    '!element' => 'br',
-                    '!attributes' => [
-                        true,
-                    ],
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Attribute keys must be strings!',
-                [
-                    '!element' => 'br',
-                    '!attributes' => [
-                        'title' => 'foo',
-                        [
-                            'color:red;',
-                        ],
-                    ],
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Attribute name invalid! ( title )',
-                [
-                    '!element' => 'br',
-                    '!attributes' => [
-                        ' title ' => 'foo',
-                    ],
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Attribute style contained non-scalar array value!',
-                [
-                    '!element' => 'br',
-                    '!attributes' => [
-                        'style' => [
-                            ['color:red;'],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Attribute title contained non-scalar value!',
-                [
-                    '!element' => 'br',
-                    '!attributes' => [
-                        'title' => null,
-                    ],
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Element content must be specified as an array!',
-                [
-                    '!element' => 'br',
-                    '!content' => 'foo',
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Element content must be scalar or an array!',
-                [
-                    '!element' => 'br',
-                    '!content' => [
-                        'foo',
-                        null,
-                    ],
-                ],
-            ],
-            [
-                InvalidArgumentException::class,
-                'Unsupported array key! (!attrs)',
-                [
-                    '!element' => 'br',
-                    '!attrs' => [],
-                ],
-            ],
-        ];
-    }
-
-    /**
     * @return array<int, array<string|array>>
     */
     public function dataProviderBadNodeToMarkupArray() : array
@@ -563,7 +419,7 @@ class ConverterTest extends TestCase
     }
 
     /**
-    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array<int|string, mixed>>, 4:bool, 5:int, 6:string, 7:bool}, mixed, void>
+    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array{!element:string}>, 4:bool, 5:int, 6:string, 7:bool}, mixed, void>
     */
     public function dataProviderMarkupFactoryPlusMarkupArrayToMarkupString() : Generator
     {
@@ -599,7 +455,7 @@ class ConverterTest extends TestCase
 
             foreach ($this->dataProviderMarkupArrayToMarkupString() as $v) {
                 /**
-                * @var array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array<int|string, mixed>>, 4:bool, 5:int, 6:string, 7:bool}
+                * @var array{0:class-string<Markup>, 1:mixed[], 2:string, 3:array<int, scalar|array{!element:string}>, 4:bool, 5:int, 6:string, 7:bool}
                 */
                 $out = array_merge([$class, $ctorargs], $v);
 
@@ -658,52 +514,6 @@ class ConverterTest extends TestCase
     }
 
     /**
-    * @psalm-return Generator<int, array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:array<int, scalar|array<int|string, mixed>>, 5:bool, 6:int, 7:string, 8:bool}, mixed, void>
-    */
-    public function dataProviderMarkupFactoryPlusBadMarkupArrayToMarkupString() : Generator
-    {
-        foreach ($this->dataProviderMarkupFactory() as $k => $markupArgs) {
-            if (
-                self::EXPECTED_MARKUP_FACTORY_ARGUMENTS !== count($markupArgs) ||
-                ! isset($markupArgs[0], $markupArgs[1])
-            ) {
-                throw new BadMethodCallException(sprintf(
-                    '%s::dataProviderMarkupFactory() contains insufficient args at index %s',
-                    static::class,
-                    $k
-                ));
-            } elseif ( ! is_string($markupArgs[0])) {
-                throw new BadMethodCallException(sprintf(
-                    '%s::dataProviderMarkupFactory() contains an invalid class value at index %s',
-                    static::class,
-                    $k
-                ));
-            } elseif ( ! is_array($markupArgs[1])) {
-                throw new BadMethodCallException(sprintf(
-                    '%s::dataProviderMarkupFactory() contains an invalid constructor args at index %s',
-                    static::class,
-                    $k
-                ));
-            }
-
-            /**
-            * @var string
-            * @var mixed[] $ctorargs
-            */
-            list($class, $ctorargs) = $markupArgs;
-
-            foreach ($this->dataProviderBadMarkupArrayToMarkupString() as $v) {
-                /**
-                * @psalm-var array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:array<int, scalar|array<int|string, mixed>>, 5:bool, 6:int, 7:string, 8:bool}
-                */
-                $out = array_merge([$class, $ctorargs], (array) $v);
-
-                yield $out;
-            }
-        }
-    }
-
-    /**
     * @psalm-return Generator<int, array{0:class-string<Markup>, 1:array, 2:class-string<Throwable>, 3:string, 4:class-string<DOMNode>, 5:array, 6:array<string, string[]>, 7:array<string, string[]>, 8:array<int, string>}, mixed, void>
     */
     public function dataProviderMarkupFactoryPlusBadNodeToMarkupArray() : Generator
@@ -751,7 +561,7 @@ class ConverterTest extends TestCase
 
     /**
     * @param class-string<Markup> $class,
-    * @param array<int, scalar|array<int|string, mixed>> $markup
+    * @param array<int, scalar|array{!element:string}> $markup
     *
     * @dataProvider dataProviderMarkupFactoryPlusMarkupArrayToMarkupString
     */
@@ -810,41 +620,6 @@ class ConverterTest extends TestCase
                 $keepElements,
                 $generalAttrWhitelist
             )
-        );
-    }
-
-    /**
-    * @param class-string<Markup> $class,
-    * @param class-string<Throwable> $expectedExceptionClass
-    * @param array<int, scalar|array<int|string, mixed>> $markup
-    *
-    * @dataProvider dataProviderMarkupFactoryPlusBadMarkupArrayToMarkupString
-    */
-    public function testBadMarkupArrayToMarkupString(
-        string $class,
-        array $ctorargs,
-        string $expectedExceptionClass,
-        string $expectedExceptionMessage,
-        array $markup,
-        bool $xml_style = false,
-        int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
-        string $encoding = 'UTF-8',
-        bool $double_encode = false
-    ) : void {
-        /**
-        * @var Markup
-        */
-        $converter = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
-
-        $this->expectException($expectedExceptionClass);
-        $this->expectExceptionMessage($expectedExceptionMessage);
-
-        $converter->MarkupArrayToMarkupString(
-            $markup,
-            $xml_style,
-            $flags,
-            $encoding,
-            $double_encode
         );
     }
 
