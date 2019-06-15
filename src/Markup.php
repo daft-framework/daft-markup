@@ -209,10 +209,10 @@ class Markup
     ) : array {
         if ($node instanceof DOMElement) {
             $out = $this->ElementNodeToMarkupArray(
-                    $node,
-                    $excludeElements,
-                    $keepElements,
-                    $generalAttrWhitelist
+                $node,
+                $excludeElements,
+                $keepElements,
+                $generalAttrWhitelist
             );
 
             if ( ! isset($out['!element'])) {

@@ -36,7 +36,7 @@ class MarkupUtilities
     {
         if (
             isset($out['!attributes']) &&
-                [] === $out['!attributes']
+            [] === $out['!attributes']
         ) {
             unset($out['!attributes']);
         }
