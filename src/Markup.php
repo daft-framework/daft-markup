@@ -10,7 +10,6 @@ use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use DOMText;
-use InvalidArgumentException;
 use Masterminds\HTML5;
 
 class Markup

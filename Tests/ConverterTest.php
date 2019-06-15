@@ -8,15 +8,9 @@ namespace SignpostMarv\DaftMarkup\Tests;
 
 use function array_merge;
 use BadMethodCallException;
-use DOMAttr;
-use DOMElement;
-use DOMNode;
-use DOMText;
 use Generator;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SignpostMarv\DaftMarkup\Markup;
-use Throwable;
 
 class ConverterTest extends TestCase
 {
