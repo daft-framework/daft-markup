@@ -13,7 +13,7 @@ class MarkupValidator
     const BOOL_IN_ARRAY_STRICT = true;
 
     /**
-    * @param array<int|string, mixed> $markup
+    * @param array{!element:string} $markup
     */
     public static function ValidateMarkup(array $markup) : void
     {
@@ -27,7 +27,7 @@ class MarkupValidator
     }
 
     /**
-    * @param array<int|string, mixed> $markup
+    * @param array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>} $markup
     *
     * @return array<string, scalar|scalar[]>
     */
@@ -36,10 +36,6 @@ class MarkupValidator
         self::ValidateMarkup($markup);
 
         if (isset($markup['!attributes'])) {
-            if ( ! is_array($markup['!attributes'])) {
-                throw new InvalidArgumentException('Attributes not specified as an array!');
-            }
-
             /**
             * @var array<int|string, mixed>
             */
