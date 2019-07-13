@@ -1,8 +1,8 @@
-Copyright 2018 SignpostMarv
+Copyright 2019 SignpostMarv
 
 # daft-markup
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SignpostMarv/daft-markup/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SignpostMarv/daft-markup/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/SignpostMarv/daft-markup/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SignpostMarv/daft-markup/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/SignpostMarv/daft-markup/badges/build.png?b=master)](https://scrutinizer-ci.com/g/SignpostMarv/daft-markup/build-status/master)
+[![Coverage Status](https://coveralls.io/repos/github/SignpostMarv/daft-markup/badge.svg?branch=master)](https://coveralls.io/github/SignpostMarv/daft-markup?branch=master)
+[![Build Status](https://travis-ci.org/SignpostMarv/daft-markup.svg?branch=master)](https://travis-ci.org/SignpostMarv/daft-markup)
+[![Type Coverage](https://shepherd.dev/github/signpostmarv/daft-markup/coverage.svg)](https://shepherd.dev/github/signpostmarv/daft-markup)
 
 auto-escaping, coincidentally minifying markup & document output
