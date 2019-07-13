@@ -56,6 +56,9 @@ abstract class AbstractHtmlElement
     */
     public function ToMarkupArray(array $content = null) : array
     {
+        /**
+        * @var array{!element:T1, !attributes:T2}
+        */
         $out = [
             '!element' => static::MarkupElementName(),
             '!attributes' => $this->MarkupAttributes(),
