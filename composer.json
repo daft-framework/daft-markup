@@ -1,55 +1,55 @@
 {
-    "name": "signpostmarv/daft-markup",
-    "description": "daft markup",
-    "type": "library",
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "SignpostMarv",
-            "email": "me@signpostmarv.name"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "SignpostMarv\\DaftMarkup\\": "./src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "SignpostMarv\\DaftMarkup\\Tests\\": "./Tests/"
-        }
-    },
-    "config": {
-        "classmap-authoritative": true,
-        "sort-packages": true
-    },
-    "scripts": {
-        "tests": [
-            "phpunit -vvvv --coverage-clover=phpunit.clover",
-            "psalm --shepherd --find-dead-code --show-info=false",
-            "phpcpd src Tests",
-            "phpmnd ./ --exclude=./phpunit/ --exclude=./vendor/ --non-zero-exit-on-violation --hint",
-            "composer-require-checker check ./composer.json",
-            "php-cs-fixer fix --verbose --allow-risky=yes --dry-run"
-        ]
-    },
-    "suggest": {
-        "vimeo/psalm": "Useful for static analysis to reduce runtime type checks etc."
-    },
-    "require": {
-        "php": "^7.3",
-        "ext-dom": "*",
-        "masterminds/html5": "^2.6"
-    },
-    "require-dev": {
-        "infection/infection": "^0.13.4",
-        "maglnet/composer-require-checker": "^2.0",
-        "phpunit/phpunit": "^8.2",
-        "povils/phpmnd": "^2.1",
-        "psalm/plugin-phpunit": "^0.7.0",
-        "roave/security-advisories": "dev-master",
-        "sebastian/phpcpd": "^4.1",
-        "signpostmarv/php-cs-fixer-config": "^0.10.0",
-        "vimeo/psalm": "^3.4"
-    }
+	"name": "signpostmarv/daft-markup",
+	"description": "daft markup",
+	"type": "library",
+	"license": "Apache-2.0",
+	"authors": [
+		{
+			"name": "SignpostMarv",
+			"email": "me@signpostmarv.name"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"SignpostMarv\\DaftMarkup\\": "./src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"SignpostMarv\\DaftMarkup\\Tests\\": "./Tests/"
+		}
+	},
+	"config": {
+		"classmap-authoritative": true,
+		"sort-packages": true
+	},
+	"scripts": {
+		"tests": [
+			"phpunit -vvvv --coverage-clover=phpunit.clover",
+			"psalm --shepherd --find-dead-code --show-info=false",
+			"phpcpd src Tests",
+			"phpmnd ./ --exclude=./phpunit/ --exclude=./vendor/ --non-zero-exit-on-violation --hint",
+			"composer-require-checker check ./composer.json",
+			"php-cs-fixer fix --verbose --allow-risky=yes --dry-run"
+		]
+	},
+	"suggest": {
+		"vimeo/psalm": "Useful for static analysis to reduce runtime type checks etc."
+	},
+	"require": {
+		"php": "^7.3",
+		"ext-dom": "*",
+		"masterminds/html5": "^2.6",
+		"signpostmarv/php-cs-fixer-config": "^0.11.0"
+	},
+	"require-dev": {
+		"infection/infection": "^0.13.4",
+		"maglnet/composer-require-checker": "^2.0",
+		"phpunit/phpunit": "^8.2",
+		"povils/phpmnd": "^2.1",
+		"psalm/plugin-phpunit": "^0.7.0",
+		"roave/security-advisories": "dev-master",
+		"sebastian/phpcpd": "^4.1",
+		"vimeo/psalm": "^3.4"
+	}
 }

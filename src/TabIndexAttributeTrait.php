@@ -8,18 +8,18 @@ namespace SignpostMarv\DaftMarkup;
 
 trait TabIndexAttributeTrait
 {
-    /**
-    * @var int|null
-    */
-    protected $tabindex = null;
+	/**
+	* @var int|null
+	*/
+	protected $tabindex = null;
 
-    public function GetTabIndex() : ? int
-    {
-        return $this->tabindex;
-    }
+	public function GetTabIndex() : ? int
+	{
+		return $this->tabindex;
+	}
 
-    public function SetTabIndex(? int $value) : void
-    {
-        $this->tabindex = $value;
-    }
+	public function SetTabIndex(? int $value) : void
+	{
+		$this->tabindex = $value;
+	}
 }

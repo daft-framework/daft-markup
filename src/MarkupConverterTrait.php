@@ -8,22 +8,22 @@ namespace SignpostMarv\DaftMarkup;
 
 trait MarkupConverterTrait
 {
-    /**
-    * @var Markup|null
-    */
-    protected $markup;
+	/**
+	* @var Markup|null
+	*/
+	protected $markup;
 
-    public function GetMarkupConverter() : Markup
-    {
-        if ( ! ($this->markup instanceof Markup)) {
-            $this->markup = new Markup();
-        }
+	public function GetMarkupConverter() : Markup
+	{
+		if ( ! ($this->markup instanceof Markup)) {
+			$this->markup = new Markup();
+		}
 
-        return $this->markup;
-    }
+		return $this->markup;
+	}
 
-    public function SetMarkupConverter(Markup $converter) : void
-    {
-        $this->markup = $converter;
-    }
+	public function SetMarkupConverter(Markup $converter) : void
+	{
+		$this->markup = $converter;
+	}
 }
