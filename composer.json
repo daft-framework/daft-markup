@@ -39,8 +39,7 @@
 	"require": {
 		"php": "^7.3",
 		"ext-dom": "*",
-		"masterminds/html5": "^2.6",
-		"signpostmarv/php-cs-fixer-config": "^0.11.0"
+		"masterminds/html5": "^2.6"
 	},
 	"require-dev": {
 		"infection/infection": "^0.13.4",
@@ -51,6 +50,7 @@
 		"psalm/plugin-phpunit": "^0.7.0",
 		"roave/security-advisories": "dev-master",
 		"sebastian/phpcpd": "^4.1",
+		"signpostmarv/php-cs-fixer-config": "^0.11.0",
 		"vimeo/psalm": "^3.4"
 	}
 }
