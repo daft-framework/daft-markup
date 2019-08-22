@@ -12,6 +12,10 @@
 		<directory name="src" />
 		<directory name="Tests" />
 		<file name="./.php_cs.dist" />
+
+		<ignoreFiles>
+			<directory name="vendor/phpunit/phpunit" />
+		</ignoreFiles>
 	</projectFiles>
 
 	<issueHandlers>
