@@ -39,13 +39,13 @@
 	"require": {
 		"php": "^7.3",
 		"ext-dom": "*",
-		"masterminds/html5": "^2.6"
+		"masterminds/html5": "^2.7"
 	},
 	"require-dev": {
 		"infection/infection": "^0.13.4",
 		"maglnet/composer-require-checker": "^2.0",
 		"php-coveralls/php-coveralls": "^2.1",
-		"phpunit/phpunit": "^8.2",
+		"phpunit/phpunit": "^8.3",
 		"povils/phpmnd": "^2.1",
 		"psalm/plugin-phpunit": "^0.7.0",
 		"roave/security-advisories": "dev-master",
