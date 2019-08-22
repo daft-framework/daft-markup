@@ -68,6 +68,9 @@ abstract class AbstractHtmlElement
 			$out['!content'] = $content;
 		}
 
+		/**
+		* @var array{!element:T1, !attributes:T2, !content?:T3}
+		*/
 		return $out;
 	}
 
