@@ -33,6 +33,9 @@
 			"php-cs-fixer fix --verbose --allow-risky=yes --dry-run"
 		]
 	},
+	"conflict": {
+		"vimeo/psalm": "<3.5"
+	},
 	"suggest": {
 		"vimeo/psalm": "Useful for static analysis to reduce runtime type checks etc."
 	},
@@ -42,7 +45,7 @@
 		"masterminds/html5": "^2.7"
 	},
 	"require-dev": {
-		"infection/infection": "^0.13.4",
+		"infection/infection": "^0.13.6",
 		"maglnet/composer-require-checker": "^2.0",
 		"php-coveralls/php-coveralls": "^2.1",
 		"phpunit/phpunit": "^8.3",
@@ -50,7 +53,7 @@
 		"psalm/plugin-phpunit": "^0.7.0",
 		"roave/security-advisories": "dev-master",
 		"sebastian/phpcpd": "^4.1",
-		"signpostmarv/php-cs-fixer-config": "^0.11.0",
-		"vimeo/psalm": "^3.4"
+		"signpostmarv/php-cs-fixer-config": "^0.12.0",
+		"vimeo/psalm": "^3.5"
 	}
 }
