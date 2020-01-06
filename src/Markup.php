@@ -58,7 +58,7 @@ class Markup
 		'/^(?:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*(?:\:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*){0,1})$/';
 
 	/**
-	* @param array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}> $markupContent
+	* @param list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:array<scalar|array{!element:string}>}> $markupContent
 	*/
 	public function MarkupCollectionToMarkupString(
 		array $markupContent,
@@ -70,7 +70,7 @@ class Markup
 		$out = '';
 
 		/**
-		* @var array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
+		* @var list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>
 		*/
 		$markupContent = array_filter($markupContent, [$this, 'MarkupCollectionFilter']);
 
@@ -92,7 +92,7 @@ class Markup
 	}
 
 	/**
-	* @param array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>} $markup
+	* @param array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>} $markup
 	*/
 	public function MarkupArrayToMarkupString(
 		array $markup,
@@ -103,12 +103,7 @@ class Markup
 	) : string {
 		$attrs = MarkupValidator::ValidateMarkupAttributes($markup);
 
-		/**
-		* @var string
-		*/
-		$element = $markup['!element'];
-
-		$out = '<' . $element;
+		$out = '<' . $markup['!element'];
 
 		$out .= MarkupUtilities::MarkupAttributesArrayToMarkupString(
 			$attrs,
@@ -118,23 +113,23 @@ class Markup
 		);
 
 		/**
-		* @var array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
+		* @var list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>
 		*/
 		$markup_content = $markup['!content'] ?? [];
 
 		$out .= $this->MarkupArrayContentToMarkupString(
-			$element, $markup_content, $xml_style, $flags, $encoding, $double
+			$markup['!element'], $markup_content, $xml_style, $flags, $encoding, $double
 		);
 
 		return $out;
 	}
 
 	/**
-	* @param array<string, string[]> $excludeElements
-	* @param array<string, string[]> $keepElements
-	* @param array<int, string> $generalAttrWhitelist
+	* @param array<string, list<string>> $excludeElements
+	* @param array<string, list<string>> $keepElements
+	* @param list<string> $generalAttrWhitelist
 	*
-	* @return array<int, array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
+	* @return list<array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>
 	*/
 	public function MarkupStringToMarkupArray(
 		string $markup,
@@ -154,11 +149,11 @@ class Markup
 	}
 
 	/**
-	* @param array<string, string[]> $excludeElements
-	* @param array<string, string[]> $keepElements
-	* @param array<int, string> $generalAttrWhitelist
+	* @param array<string, list<string>> $excludeElements
+	* @param array<string, list<string>> $keepElements
+	* @param list<string> $generalAttrWhitelist
 	*
-	* @return array{0:string}|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}
+	* @return array{0:string}|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}
 	*/
 	public function ElementNodeToMarkupArray(
 		DOMElement $node,
@@ -176,9 +171,6 @@ class Markup
 			return [$node->textContent];
 		}
 
-		/**
-		* @var array{!element:string}
-		*/
 		$out = [
 			'!element' => $node->nodeName,
 		];
@@ -194,11 +186,11 @@ class Markup
 
 	/**
 	* @param DOMElement|DOMText $node
-	* @param array<string, string[]> $excludeElements
-	* @param array<string, string[]> $keepElements
-	* @param array<int, string> $generalAttrWhitelist
+	* @param array<string, list<string>> $excludeElements
+	* @param array<string, list<string>> $keepElements
+	* @param list<string> $generalAttrWhitelist
 	*
-	* @return array{0:string}|array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}
+	* @return array{0:string}|array{!element:string, !attributes?:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}
 	*/
 	public function NodeToMarkupArray(
 		DOMNode $node,
@@ -226,11 +218,11 @@ class Markup
 
 	/**
 	* @param array{!element:string} $out
-	* @param array<string, string[]> $excludeElements
-	* @param array<string, string[]> $keepElements
-	* @param array<int, string> $generalAttrWhitelist
+	* @param array<string, list<string>> $excludeElements
+	* @param array<string, list<string>> $keepElements
+	* @param list<string> $generalAttrWhitelist
 	*
-	* @return array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}
+	* @return array{!element:string, !attributes?:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}
 	*/
 	protected function ElementNodeToMarkupArrayIfPassedFilter(
 		DOMElement $node,
@@ -260,7 +252,7 @@ class Markup
 	}
 
 	/**
-	* @param array<int, scalar|array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}> $content
+	* @param list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}> $content
 	*/
 	protected function MarkupArrayContentToMarkupString(
 		string $element,
@@ -298,11 +290,11 @@ class Markup
 	}
 
 	/**
-	* @param array<string, string[]> $excludeElements
-	* @param array<string, string[]> $keepElements
-	* @param array<int, string> $generalAttrWhitelist
+	* @param array<string, list<string>> $excludeElements
+	* @param array<string, list<string>> $keepElements
+	* @param list<string> $generalAttrWhitelist
 	*
-	* @return array<int, array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
+	* @return list<array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>
 	*/
 	protected function NodeListToContent(
 		DOMNodeList $nodes,
@@ -311,7 +303,7 @@ class Markup
 		array $generalAttrWhitelist = []
 	) : array {
 		/**
-		* @var array<int, DOMElement|DOMText>
+		* @var list<DOMElement|DOMText>
 		*/
 		$filtered_nodes = array_filter(
 			iterator_to_array($nodes),
@@ -321,7 +313,7 @@ class Markup
 		);
 
 		/**
-		* @var array<int, array{!element:string, !attributes:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>
+		* @var list<array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>
 		*/
 		$out = array_reduce(
 			array_map(

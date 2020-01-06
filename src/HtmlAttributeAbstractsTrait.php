@@ -9,7 +9,7 @@ namespace SignpostMarv\DaftMarkup;
 trait HtmlAttributeAbstractsTrait
 {
 	/**
-	* @return array<int, string>
+	* @return list<string>
 	*/
 	abstract protected function RetrieveStringArrayAttributeValues(string $attribute) : array;
 

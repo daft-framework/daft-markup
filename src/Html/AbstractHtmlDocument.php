@@ -12,8 +12,8 @@ use SignpostMarv\DaftMarkup\HtmlAttributeTrait;
 use SignpostMarv\DaftMarkup\MarkupConverterTrait;
 
 /**
-* @template T1 as array<string, scalar|array<int, scalar>>
-* @template T2 as array<int, scalar|array{!element:string}>
+* @template T1 as array<string, scalar|list<scalar>>
+* @template T2 as list<scalar|array{!element:string}>
 *
 * @template-extends AbstractHtmlElement<'html', T1, T2>
 */
@@ -24,75 +24,66 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 
 	const COUNT_NON_EMPTY = 0;
 
-	/**
-	* @var string|null
-	*/
-	protected $title = null;
+	protected ? string $title = null;
 
 	/**
 	* @var array<string, string>
 	*/
-	protected $preloads = [];
+	protected array $preloads = [];
 
 	/**
-	* @var array<int, string>
+	* @var list<string>
 	*/
-	protected $stylesheets = [];
+	protected array $stylesheets = [];
 
 	/**
-	* @var array<int, string>
+	* @var list<string>
 	*/
-	protected $scripts = [];
+	protected array $scripts = [];
 
 	/**
-	* @var array<int, string>
+	* @var list<string>
 	*/
-	protected $async = [];
+	protected array $async = [];
 
 	/**
-	* @var array<int, string>
+	* @var list<string>
 	*/
-	protected $defer = [];
+	protected array $defer = [];
 
 	/**
-	* @var array<int, string>
+	* @var list<string>
 	*/
-	protected $modules = [];
+	protected array $modules = [];
 
 	/**
-	* @var array<int, string>
+	* @var list<string>
 	*/
-	protected $noModules = [];
+	protected array $noModules = [];
 
 	/**
-	* @var array<int, array<string, string>>
+	* @var list<array<string, string>>
 	*/
-	protected $metas = [];
+	protected array $metas = [];
 
-	/**
-	* @var string
-	*/
-	protected $charset = 'utf-8';
+	protected string $charset = 'utf-8';
 
 	/**
 	* @var array<string, string>
 	*/
-	protected $crossOrigin = [];
+	protected array $crossOrigin = [];
 
 	/**
 	* @var array<string, string>
 	*/
-	protected $integrity = [];
+	protected array $integrity = [];
 
-	/**
-	* @var bool
-	*/
-	protected $enableIntegrityOnPreload = false;
+	protected bool $enableIntegrityOnPreload = false;
 
 	/**
 	* @param T2|null $content
 	*
-	* @return array{!element:'html', !attributes:T1, !content:T2|array<empty, empty>}
+	* @return array{!element:'html', !attributes:T1, !content:T2}
 	*/
 	public function ToMarkupArray(array $content = null) : array
 	{
@@ -101,6 +92,9 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 			array_map([$this, 'ScriptsToMarkupArrayMapper'], $this->scripts)
 		);
 
+		/**
+		* @var T2
+		*/
 		$content = [['!element' => 'head', '!content' => $this->HeadContentMarkupArray()]];
 
 		if (count($bodyContent) > self::COUNT_NON_EMPTY) {
@@ -108,11 +102,14 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 		}
 
 		/**
-		* @var array{!element:'html', !attributes:T1, !content:T2|array<empty, empty>}
+		* @var T2
 		*/
-		$out = parent::ToMarkupArray($content);
+		$content = $content;
 
-		return $out;
+		/**
+		* @var array{!element:'html', !attributes:T1, !content:T2}
+		*/
+		return parent::ToMarkupArray($content);
 	}
 
 	public function Preload(string $as, string ...$urls) : void
@@ -122,7 +119,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 
 	public function IncludeCss(string ...$urls) : void
 	{
-		$this->stylesheets = array_unique(array_merge($this->stylesheets, $urls));
+		$this->stylesheets = array_values(array_unique(array_merge($this->stylesheets, $urls)));
 	}
 
 	public function ExcludeCss(string ...$urls) : void
@@ -142,29 +139,21 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 
 	public function includeJs(string ...$urls) : void
 	{
-		$this->scripts = array_unique(array_merge($this->scripts, $urls));
+		$this->scripts = array_values(array_unique(array_merge($this->scripts, $urls)));
 	}
 
 	public function deferJs(string ...$urls) : void
 	{
 		$this->includeJs(...$urls);
-		/**
-		* @var array<int, string>
-		*/
-		$urls = array_unique(array_merge($this->defer, $urls));
 
-		$this->defer = $urls;
+		$this->defer = array_values(array_unique(array_merge($this->defer, $urls)));
 	}
 
 	public function asyncJs(string ...$urls) : void
 	{
 		$this->includeJs(...$urls);
-		/**
-		* @var array<int, string>
-		*/
-		$urls = array_unique(array_merge($this->async, $urls));
 
-		$this->async = $urls;
+		$this->async = array_values(array_unique(array_merge($this->async, $urls)));
 	}
 
 	public function ExcludeJs(string ...$urls) : void
@@ -175,23 +164,15 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 	public function IncludeModules(string ...$urls) : void
 	{
 		$this->includeJs(...$urls);
-		/**
-		* @var array<int, string>
-		*/
-		$urls = array_unique(array_merge($this->modules, $urls));
 
-		$this->modules = $urls;
+		$this->modules = array_values(array_unique(array_merge($this->modules, $urls)));
 	}
 
 	public function IncludeNoModules(string ...$urls) : void
 	{
 		$this->includeJs(...$urls);
-		/**
-		* @var array<int, string>
-		*/
-		$urls = array_unique(array_merge($this->noModules, $urls));
 
-		$this->noModules = $urls;
+		$this->noModules = array_values(array_unique(array_merge($this->noModules, $urls)));
 	}
 
 	public function CrossOrigin(string $setting, string ...$urls) : void
@@ -239,10 +220,19 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 	*/
 	public function MarkupContentToDocumentString(array $content = null) : string
 	{
+		/**
+		* @var array{
+		*	!element:string,
+		*	!attributes:array<string, scalar|list<scalar>>,
+		*	!content?:list<scalar|array{!element:string}>
+		* }
+		*/
+		$to_convert = $this->ToMarkupArray($content);
+
 		return
 			static::MarkupContentDoctype() .
 			"\n" .
-			$this->GetMarkupConverter()->MarkupArrayToMarkupString($this->ToMarkupArray($content));
+			$this->GetMarkupConverter()->MarkupArrayToMarkupString($to_convert);
 	}
 
 	public function GetTitle() : string
@@ -257,7 +247,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 		$this->title = '' !== $value ? $value : null;
 	}
 
-	public static function MarkupElementName() : string
+	public function MarkupElementName() : string
 	{
 		return 'html';
 	}

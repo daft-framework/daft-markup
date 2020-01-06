@@ -13,12 +13,12 @@ class DocumentUtilities
 	const INT_ARRAY_FILL_START_AT_ZERO = 0;
 
 	/**
-	* @return array<int, string>
+	* @return list<string>
 	*/
 	public static function ExcludeUrls(array $existing, string ...$urls) : array
 	{
 		/**
-		* @var array<int, string>
+		* @var list<string>
 		*/
 		$out = array_filter($existing, function (string $url) use ($urls) : bool {
 			return ! in_array($url, $urls, self::BOOL_IN_ARRAY_STRICT);

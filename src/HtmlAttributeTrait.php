@@ -18,7 +18,7 @@ trait HtmlAttributeTrait
 	use TabIndexAttributeTrait;
 
 	/**
-	* @return array<int, string>
+	* @return list<string>
 	*/
 	public function GetAccessKey() : array
 	{
@@ -62,7 +62,7 @@ trait HtmlAttributeTrait
 	}
 
 	/**
-	* @return array<int, string>
+	* @return list<string>
 	*/
 	public function GetClass() : array
 	{

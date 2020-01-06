@@ -24,7 +24,7 @@ final class MarkupValidator
 	}
 
 	/**
-	* @param array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>} $markup
+	* @param array{!element:string, !attributes?:array<string, scalar|list<scalar>>} $markup
 	*
 	* @return array<string, scalar|scalar[]>
 	*/
@@ -84,7 +84,7 @@ final class MarkupValidator
 	public static function ValidateMarkupAttributeArrayValue(string $attr, array $value) : void
 	{
 		/**
-		* @var array<int, int|string>
+		* @var list<int|string>
 		*/
 		$valueKeys = array_keys($value);
 

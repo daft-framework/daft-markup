@@ -8,8 +8,8 @@ namespace SignpostMarv\DaftMarkup;
 
 /**
 * @template T1 as string
-* @template T2 as array<string, scalar|array<int, scalar>>
-* @template T3 as array<int, scalar|array{!element:string}>
+* @template T2 as array<string, scalar|list<scalar>>
+* @template T3 as list<scalar|array{!element:string}>
 */
 abstract class AbstractHtmlElement
 {
@@ -25,12 +25,12 @@ abstract class AbstractHtmlElement
 	/**
 	* @var array<string, string>
 	*/
-	protected $nullableStringAttributes = [];
+	protected array $nullableStringAttributes = [];
 
 	/**
-	* @var array<string, array<int, string>>
+	* @var array<string, list<string>>
 	*/
-	protected $stringArrayAttributes = [];
+	protected array $stringArrayAttributes = [];
 
 	/**
 	* @var array<string, bool|null>
@@ -38,6 +38,10 @@ abstract class AbstractHtmlElement
 	protected $nullableBooleanAttributes = [
 		'translate' => true,
 	];
+
+	public function __construct()
+	{
+	}
 
 	/**
 	* @param T3|null $markup
@@ -47,7 +51,7 @@ abstract class AbstractHtmlElement
 	/**
 	* @return T1
 	*/
-	abstract public static function MarkupElementName() : string;
+	abstract public function MarkupElementName() : string;
 
 	/**
 	* @param T3|null $content
@@ -56,9 +60,6 @@ abstract class AbstractHtmlElement
 	*/
 	public function ToMarkupArray(array $content = null) : array
 	{
-		/**
-		* @var array{!element:T1, !attributes:T2}
-		*/
 		$out = [
 			'!element' => static::MarkupElementName(),
 			'!attributes' => $this->MarkupAttributes(),
@@ -95,7 +96,7 @@ abstract class AbstractHtmlElement
 		$out = [];
 
 		/**
-		* @var array<int, T2>
+		* @var list<T2>
 		*/
 		$groupedAttributes = $this->GroupedAttributes();
 
@@ -113,7 +114,7 @@ abstract class AbstractHtmlElement
 	*
 	* @return T2
 	*/
-	protected static function MarkupAttributesPostProcess(array $out) : array
+	private function MarkupAttributesPostProcess(array $out) : array
 	{
 		foreach ($out as $attribute => $value) {
 			if (
@@ -141,12 +142,12 @@ abstract class AbstractHtmlElement
 	}
 
 	/**
-	* @var array<int, T2>
+	* @var list<T2>
 	*/
 	protected function GroupedAttributes() : array
 	{
 		/**
-		* @var array<int, T2>
+		* @var list<T2>
 		*/
 		$groupedAttributes = array_map(
 			function (array $group) : array {
@@ -190,7 +191,7 @@ abstract class AbstractHtmlElement
 	}
 
 	/**
-	* @return array<int, string>
+	* @return list<string>
 	*/
 	protected function RetrieveStringArrayAttributeValues(string $attribute) : array
 	{

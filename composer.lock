@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6676012b7989a8e8d12d75a291bc6032",
+    "content-hash": "c520d464b839c00bd88d7f08609eed6c",
     "packages": [
         {
             "name": "masterminds/html5",
@@ -2369,28 +2369,28 @@
         },
         {
             "name": "psalm/plugin-phpunit",
-            "version": "0.7",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/phpunit-psalm-plugin.git",
-                "reference": "69aaf6be9f3edecf0158d08dc073f9867e890387"
+                "reference": "a577f90951095efc66f6d88eeb9ac9cd4b972ee8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/phpunit-psalm-plugin/zipball/69aaf6be9f3edecf0158d08dc073f9867e890387",
-                "reference": "69aaf6be9f3edecf0158d08dc073f9867e890387",
+                "url": "https://api.github.com/repos/psalm/phpunit-psalm-plugin/zipball/a577f90951095efc66f6d88eeb9ac9cd4b972ee8",
+                "reference": "a577f90951095efc66f6d88eeb9ac9cd4b972ee8",
                 "shasum": ""
             },
             "require": {
                 "composer/semver": "^1.4",
                 "ocramius/package-versions": "^1.3",
                 "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0",
-                "vimeo/psalm": "^3.2.11 || ^3.3 || dev-master"
+                "vimeo/psalm": "^3.6.2 || dev-master"
             },
             "require-dev": {
                 "codeception/base": "^2.5",
                 "squizlabs/php_codesniffer": "^3.3.1",
-                "weirdan/codeception-psalm-module": "^0.2.1"
+                "weirdan/codeception-psalm-module": "^0.2.2"
             },
             "type": "psalm-plugin",
             "extra": {
@@ -2422,7 +2422,7 @@
                 }
             ],
             "description": "Psalm plugin for PHPUnit",
-            "time": "2019-07-10T21:05:07+00:00"
+            "time": "2019-12-17T13:10:36+00:00"
         },
         {
             "name": "psr/container",
@@ -2616,12 +2616,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "872fce6c151b06f6446f228f2290a48862ede2a4"
+                "reference": "67ac6ea8f4a078c3c9b7aec5d7ae70f098c37389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/872fce6c151b06f6446f228f2290a48862ede2a4",
-                "reference": "872fce6c151b06f6446f228f2290a48862ede2a4",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/67ac6ea8f4a078c3c9b7aec5d7ae70f098c37389",
+                "reference": "67ac6ea8f4a078c3c9b7aec5d7ae70f098c37389",
                 "shasum": ""
             },
             "conflict": {
@@ -2657,7 +2657,7 @@
                 "doctrine/orm": ">=2,<2.4.8|>=2.5,<2.5.1",
                 "dompdf/dompdf": ">=0.6,<0.6.2",
                 "drupal/core": ">=7,<7.69|>=8,<8.7.11|>=8.8,<8.8.1",
-                "drupal/drupal": ">=7,<8.7.11|>=8.8,<8.8.1",
+                "drupal/drupal": ">=7,<7.69|>=8,<8.7.11|>=8.8,<8.8.1",
                 "endroid/qr-code-bundle": "<3.4.2",
                 "erusev/parsedown": "<1.7.2",
                 "ezsystems/ezplatform-admin-ui": ">=1.3,<1.3.5|>=1.4,<1.4.4",
@@ -2828,7 +2828,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2020-01-02T17:29:14+00:00"
+            "time": "2020-01-06T19:16:46+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -3586,16 +3586,16 @@
         },
         {
             "name": "signpostmarv/php-cs-fixer-config",
-            "version": "v0.13.0",
+            "version": "v0.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SignpostMarv/PHP-CS-Fixer-Config.git",
-                "reference": "29e0a03df205056ac35a06b868a64e006d68d6ab"
+                "reference": "cbb2f1008803fdc4293e8841343ad9b55ad3c4c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SignpostMarv/PHP-CS-Fixer-Config/zipball/29e0a03df205056ac35a06b868a64e006d68d6ab",
-                "reference": "29e0a03df205056ac35a06b868a64e006d68d6ab",
+                "url": "https://api.github.com/repos/SignpostMarv/PHP-CS-Fixer-Config/zipball/cbb2f1008803fdc4293e8841343ad9b55ad3c4c5",
+                "reference": "cbb2f1008803fdc4293e8841343ad9b55ad3c4c5",
                 "shasum": ""
             },
             "require": {
@@ -3603,14 +3603,14 @@
                 "php": "^7.1,>=7.1.3"
             },
             "conflict": {
-                "vimeo/psalm": "<3.5.1"
+                "vimeo/psalm": "<3.8"
             },
             "require-dev": {
                 "maglnet/composer-require-checker": "^2.0",
                 "povils/phpmnd": "^2.1",
                 "roave/security-advisories": "dev-master",
                 "sebastian/phpcpd": "^4.1",
-                "vimeo/psalm": "^3.5"
+                "vimeo/psalm": "^3.8"
             },
             "type": "library",
             "autoload": {
@@ -3629,7 +3629,7 @@
                 }
             ],
             "description": "PHP-CS-Fixer Config",
-            "time": "2019-11-14T22:23:55+00:00"
+            "time": "2019-12-31T21:58:15+00:00"
         },
         {
             "name": "symfony/config",
@@ -4771,31 +4771,32 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.5.1",
+            "version": "3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "deb36e8b273d4b25601f1991482a69d412e3169f"
+                "reference": "8e54e3aa060fc490d86d0e2abbf62750516d40fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/deb36e8b273d4b25601f1991482a69d412e3169f",
-                "reference": "deb36e8b273d4b25601f1991482a69d412e3169f",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/8e54e3aa060fc490d86d0e2abbf62750516d40fd",
+                "reference": "8e54e3aa060fc490d86d0e2abbf62750516d40fd",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2.1",
                 "amphp/byte-stream": "^1.5",
                 "composer/xdebug-handler": "^1.1",
+                "ext-dom": "*",
                 "felixfbecker/advanced-json-rpc": "^3.0.3",
                 "felixfbecker/language-server-protocol": "^1.4",
                 "netresearch/jsonmapper": "^1.0",
-                "nikic/php-parser": "^4.2",
+                "nikic/php-parser": "^4.3",
                 "ocramius/package-versions": "^1.2",
                 "openlss/lib-array2xml": "^1.0",
-                "php": "^7.1",
+                "php": "^7.1.3",
                 "sebastian/diff": "^3.0",
-                "symfony/console": "^3.3||^4.0",
+                "symfony/console": "^3.3||^4.0||^5.0",
                 "webmozart/glob": "^4.1",
                 "webmozart/path-util": "^2.3"
             },
@@ -4804,12 +4805,14 @@
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.2",
+                "ext-curl": "*",
                 "friendsofphp/php-cs-fixer": "^2.15",
                 "phpmyadmin/sql-parser": "^5.0",
+                "phpspec/prophecy": ">=1.9.0",
                 "phpunit/phpunit": "^7.5 || ^8.0",
                 "psalm/plugin-phpunit": "^0.6",
                 "slevomat/coding-standard": "^5.0",
-                "squizlabs/php_codesniffer": "3.4.0",
+                "squizlabs/php_codesniffer": "^3.5",
                 "symfony/process": "^4.3"
             },
             "suggest": {
@@ -4836,7 +4839,8 @@
                     "Psalm\\": "src/Psalm"
                 },
                 "files": [
-                    "src/functions.php"
+                    "src/functions.php",
+                    "src/spl_object_id.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4854,35 +4858,33 @@
                 "inspection",
                 "php"
             ],
-            "time": "2019-09-10T01:28:56+00:00"
+            "time": "2019-12-29T16:11:07+00:00"
         },
         {
             "name": "webmozart/assert",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "88e6d84706d09a236046d686bbea96f07b3a34f4"
+                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/88e6d84706d09a236046d686bbea96f07b3a34f4",
-                "reference": "88e6d84706d09a236046d686bbea96f07b3a34f4",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/573381c0a64f155a0d9a23f4b0c797194805b925",
+                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.3.3 || ^7.0",
                 "symfony/polyfill-ctype": "^1.8"
             },
+            "conflict": {
+                "vimeo/psalm": "<3.6.0"
+            },
             "require-dev": {
                 "phpunit/phpunit": "^4.8.36 || ^7.5.13"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Webmozart\\Assert\\": "src/"
@@ -4904,7 +4906,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2019-08-24T08:43:50+00:00"
+            "time": "2019-11-24T13:36:37+00:00"
         },
         {
             "name": "webmozart/glob",
@@ -5003,12 +5005,13 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "psalm/plugin-phpunit": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ext-dom": "*"
     },
     "platform-dev": []

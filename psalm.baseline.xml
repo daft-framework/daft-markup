@@ -1,53 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files
-  psalm-version="3.5.1@deb36e8b273d4b25601f1991482a69d412e3169f"
+  psalm-version="3.8.1@8e54e3aa060fc490d86d0e2abbf62750516d40fd"
   php-version="
-    php:7.3.2;
-    bcmath:7.3.2;
-    bz2:7.3.2;
-    calendar:7.3.2;
-    Core:7.3.2;
-    ctype:7.3.2;
-    curl:7.3.2;
-    date:7.3.2;
+    php:7.4.0;
+    bcmath:7.4.0;
+    calendar:7.4.0;
+    Core:7.4.0;
+    ctype:7.4.0;
+    curl:7.4.0;
+    date:7.4.0;
     dom:20031129;
-    exif:7.3.2;
-    fileinfo:7.3.2;
-    filter:7.3.2;
-    gd:7.3.2;
-    gettext:7.3.2;
-    gmp:7.3.2;
-    hash:7.3.2;
-    iconv:7.3.2;
-    json:1.7.0;
-    libxml:7.3.2;
-    mbstring:7.3.2;
-    mysqli:7.3.2;
-    mysqlnd:mysqlnd 5.0.12-dev - 20150407 - $Id: 7cc7cc96e675f6d72e5cf0f267f48e167c2abb23 $;
-    openssl:7.3.2;
-    pcre:7.3.2;
-    PDO:7.3.2;
-    pdo_mysql:7.3.2;
-    pdo_sqlite:7.3.2;
-    Phar:7.3.2;
-    readline:7.3.2;
-    Reflection:7.3.2;
-    session:7.3.2;
-    SimpleXML:7.3.2;
-    soap:7.3.2;
-    SPL:7.3.2;
-    standard:7.3.2;
-    tokenizer:7.3.2;
-    wddx:7.3.2;
-    xml:7.3.2;
-    xmlreader:7.3.2;
-    xmlwriter:7.3.2;
-    zip:1.15.4;
-    zlib:7.3.2
+    filter:7.4.0;
+    hash:7.4.0;
+    iconv:7.4.0;
+    json:7.4.0;
+    libxml:7.4.0;
+    mbstring:7.4.0;
+    mysqlnd:mysqlnd 7.4.0;
+    openssl:7.4.0;
+    pcre:7.4.0;
+    PDO:7.4.0;
+    Phar:7.4.0;
+    readline:7.4.0;
+    Reflection:7.4.0;
+    session:7.4.0;
+    SimpleXML:7.4.0;
+    SPL:7.4.0;
+    standard:7.4.0;
+    tokenizer:7.4.0;
+    xml:7.4.0;
+    xmlreader:7.4.0;
+    xmlwriter:7.4.0;
+    zip:1.15.5;
+    zlib:7.4.0
   "
 >
   <file src="src/AbstractHtmlElement.php">
-    <PossiblyUnusedMethod occurrences="6">
+    <PossiblyUnusedMethod occurrences="7">
+      <code>__construct</code>
       <code>RetrieveStringArrayAttributeValues</code>
       <code>ClearValueForStringArrayAttribute</code>
       <code>ApplyValueForStringArrayAttribute</code>

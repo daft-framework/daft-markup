@@ -18,9 +18,9 @@ use Throwable;
 class DocumentTest extends TestCase
 {
 	/**
-	* @return array<int, array<int, string|array>>
+	* @return list<list<string|array>>
 	*
-	* @psalm-return array<int, array{0:class-string<Document>, 1:mixed[]}>
+	* @psalm-return list<array{0:class-string<Document>, 1:mixed[]}>
 	*/
 	public function dataProviderDocumentInstance() : array
 	{
@@ -33,12 +33,13 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @return array<int, array<string|mixed[]|Closure|null>>
-	*
-	* @psalm-return array<int, array{0:class-string<Document>, 1:mixed[], 2:array<int, scalar|array{!element:string}>|null, 3:Closure(Document):void|null, 4:string}>
+	* @return list<array{0:class-string<Document>, 1:mixed[], 2:list<scalar|array{!element:string}>|null, 3:Closure(Document):void|null, 4:string}>
 	*/
 	public function dataProviderDocumentToString() : array
 	{
+		/**
+		* @var list<array{0:class-string<Document>, 1:mixed[], 2:list<scalar|array{!element:string}>|null, 3:Closure(Document):void|null, 4:string}>
+		*/
 		return [
 			[
 				Document::class,
@@ -348,9 +349,9 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @return array<int, array<string|mixed[]|Closure|null>>
+	* @return list<array<string|mixed[]|Closure|null>>
 	*
-	* @psalm-return array<int, array{0:class-string<Document>, 1:mixed[], 2:class-string<Throwable>, 3:string}>
+	* @psalm-return list<array{0:class-string<Document>, 1:mixed[], 2:class-string<Throwable>, 3:string}>
 	*/
 	public function dataProviderBadDocumentToString() : array
 	{
@@ -422,7 +423,7 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @return array<int, array<int, scalar|array|null>>
+	* @return list<list<scalar|array|null>>
 	*/
 	public function dataProviderDefaultValues() : array
 	{
@@ -556,12 +557,12 @@ class DocumentTest extends TestCase
 	*/
 	public function testValidElementName(string $class) : void
 	{
-		static::assertRegExp(Markup::REGEX_ELEMENT_NAME, (string) ($class::MarkupElementName()));
+		static::assertRegExp(Markup::REGEX_ELEMENT_NAME, (string) ((new $class())->MarkupElementName()));
 	}
 
 	/**
 	* @param class-string<Document> $class
-	* @param array<int, scalar|array{!element:string}>|null $content
+	* @param list<scalar|array{!element:string}>|null $content
 	*
 	* @dataProvider dataProviderDocumentToString
 	*
@@ -598,7 +599,7 @@ class DocumentTest extends TestCase
 	/**
 	* @param class-string<AbstractHtmlElement> $class
 	* @param class-string<Throwable> $expectedExceptionClass
-	* @param array<int, scalar|array{!element:string}>|null $content
+	* @param list<scalar|array{!element:string}>|null $content
 	*
 	* @dataProvider dataProviderBadDocumentToString
 	*
@@ -858,11 +859,6 @@ class DocumentTest extends TestCase
 		string $class,
 		array $ctorargs = []
 	) : AbstractHtmlElement {
-		/**
-		* @var AbstractHtmlElement
-		*/
-		$doc = 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
-
-		return $doc;
+		return 0 === count($ctorargs) ? new $class() : new $class(...$ctorargs);
 	}
 }

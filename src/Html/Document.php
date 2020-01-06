@@ -7,15 +7,15 @@ declare(strict_types=1);
 namespace SignpostMarv\DaftMarkup\Html;
 
 /**
-* @template T1 as array<string, scalar|array<int, scalar>>
-* @template T2 as array<int, scalar|array{!element:string}>
+* @template T1 as array<string, scalar|list<scalar>>
+* @template T2 as list<scalar|array{!element:string}>
 *
 * @template-extends AbstractHtmlDocument<T1, T2>
 */
 class Document extends AbstractHtmlDocument
 {
 	/**
-	* @return string[]
+	* @return list<string>
 	*/
 	public function GetPossibleHeaders() : array
 	{

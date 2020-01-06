@@ -9,11 +9,12 @@ namespace SignpostMarv\DaftMarkup\Tests;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SignpostMarv\DaftMarkup\MarkupValidator;
+use Throwable;
 
 class ValidatorTest extends TestCase
 {
 	/**
-	* @return array<int, array{0:array, 1:class-string<\Throwable>, 2:string}>
+	* @return list<array{0:array, 1:class-string<Throwable>, 2:string}>
 	*/
 	public function dataProvider_ValidateMarkup_failure() : array
 	{
@@ -37,7 +38,7 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @param class-string<\Throwable> $expected_exception
+	* @param class-string<Throwable> $expected_exception
 	*
 	* @dataProvider dataProvider_ValidateMarkup_failure
 	*/
@@ -53,7 +54,7 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return array<int, array{0:array, 1:class-string<\Throwable>, 2:string}>
+	* @return list<array{0:array, 1:class-string<Throwable>, 2:string}>
 	*/
 	public function dataProvider_MaybeThrowWhenValidatingMarkup_failure() : array
 	{
@@ -77,7 +78,7 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @param class-string<\Throwable> $expected_exception
+	* @param class-string<Throwable> $expected_exception
 	*
 	* @dataProvider dataProvider_MaybeThrowWhenValidatingMarkup_failure
 	*/
@@ -93,7 +94,7 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return array<int, array{0:mixed, 1:class-string<\Throwable>, 2:string}>
+	* @return list<array{0:mixed, 1:class-string<Throwable>, 2:string}>
 	*/
 	public function dataProvider_ValidateMarkupAttributeName_failure() : array
 	{
@@ -133,7 +134,7 @@ class ValidatorTest extends TestCase
 
 	/**
 	* @param mixed $attr
-	* @param class-string<\Throwable> $expected_exception
+	* @param class-string<Throwable> $expected_exception
 	*
 	* @dataProvider dataProvider_ValidateMarkupAttributeName_failure
 	*/
@@ -149,7 +150,7 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return array<int, array{0:string, 1:array, 2:class-string<\Throwable>, 3:string}>
+	* @return list<array{0:string, 1:array, 2:class-string<Throwable>, 3:string}>
 	*/
 	public function dataProvider_ValidateMarkupAttributeArrayValue_failure() : array
 	{
@@ -176,7 +177,7 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @param class-string<\Throwable> $expected_exception
+	* @param class-string<Throwable> $expected_exception
 	*
 	* @dataProvider dataProvider_ValidateMarkupAttributeArrayValue_failure
 	*/
@@ -193,7 +194,7 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return array<int, array{0:string, 1:mixed, 2:class-string<\Throwable>, 3:string}>
+	* @return list<array{0:string, 1:mixed, 2:class-string<Throwable>, 3:string}>
 	*/
 	public function dataProvider_ValidateMarkupAttributeValue_failure() : array
 	{
@@ -215,7 +216,7 @@ class ValidatorTest extends TestCase
 
 	/**
 	* @param mixed $value
-	* @param class-string<\Throwable> $expected_exception
+	* @param class-string<Throwable> $expected_exception
 	*
 	* @dataProvider dataProvider_ValidateMarkupAttributeValue_failure
 	*/
@@ -232,7 +233,7 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return array<int, array{0:mixed, 1:class-string<\Throwable>, 2:string}>
+	* @return list<array{0:mixed, 1:class-string<Throwable>, 2:string}>
 	*/
 	public function dataProvider_ValidateContent_failure() : array
 	{
@@ -282,7 +283,7 @@ class ValidatorTest extends TestCase
 
 	/**
 	* @param mixed $markup_content
-	* @param class-string<\Throwable> $expected_exception
+	* @param class-string<Throwable> $expected_exception
 	*
 	* @dataProvider dataProvider_ValidateContent_failure
 	*/

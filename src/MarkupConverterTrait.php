@@ -8,10 +8,7 @@ namespace SignpostMarv\DaftMarkup;
 
 trait MarkupConverterTrait
 {
-	/**
-	* @var Markup|null
-	*/
-	protected $markup;
+	protected ? Markup $markup = null;
 
 	public function GetMarkupConverter() : Markup
 	{

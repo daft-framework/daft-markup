@@ -28,9 +28,9 @@ class MarkupUtilities
 	];
 
 	/**
-	* @param array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>} $out
+	* @param array{!element:string, !attributes?:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>} $out
 	*
-	* @return array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}
+	* @return array{!element:string, !attributes?:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}
 	*/
 	public static function NodeToMarkupArrayStripEmptyAttributes(array $out) : array
 	{
@@ -81,9 +81,9 @@ class MarkupUtilities
 
 	/**
 	* @param array<string, string[]> $keepElements
-	* @param array<int, string> $generalAttrWhitelist
+	* @param list<string> $generalAttrWhitelist
 	*
-	* @return DOMAttr[]
+	* @return list<DOMAttr>
 	*/
 	public static function FilteredArrayFromDOMNamedNodeMap(
 		DOMElement $node,
@@ -91,24 +91,19 @@ class MarkupUtilities
 		array $keepElements = [],
 		array $generalAttrWhitelist = []
 	) : array {
-		/**
-		* @var DOMAttr[]
-		*/
-		$attrs = array_filter(
+		return array_values(array_filter(
 			static::FilterDOMNamedNodeMapToAttrs($attributes),
 			function (DOMAttr $attr) use ($node, $keepElements, $generalAttrWhitelist) : bool {
 				return static::FilterDOMAttr($node, $attr, $keepElements, $generalAttrWhitelist);
 			}
-		);
-
-		return $attrs;
+		));
 	}
 
 	/**
 	* @param array<string, string[]> $keepElements
-	* @param array<int, string> $generalAttrWhitelist
+	* @param list<string> $generalAttrWhitelist
 	*
-	* @return array<string, scalar|array<int, scalar>>
+	* @return array<string, scalar|list<scalar>>
 	*/
 	public static function ObtainAttributesFromDOMNamedNodeMap(
 		DOMElement $node,
@@ -159,7 +154,7 @@ class MarkupUtilities
 
 	/**
 	* @param array<string, string[]> $keepElements
-	* @param array<int, string> $generalAttrWhitelist
+	* @param list<string> $generalAttrWhitelist
 	*/
 	protected static function FilterDOMAttr(
 		DOMElement $element,
