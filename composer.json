@@ -30,7 +30,7 @@
 			"phpcpd src Tests",
 			"phpmnd ./ --exclude=./phpunit/ --exclude=./vendor/ --non-zero-exit-on-violation --hint",
 			"composer-require-checker check ./composer.json",
-			"php-cs-fixer fix --verbose --allow-risky=yes --dry-run"
+			"php-cs-fixer fix --verbose --allow-risky=yes --diff-format=udiff --dry-run"
 		]
 	},
 	"conflict": {
