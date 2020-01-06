@@ -12,9 +12,6 @@ final class MarkupValidator
 {
 	const BOOL_IN_ARRAY_STRICT = true;
 
-	/**
-	* @param array $markup
-	*/
 	public static function ValidateMarkup(array $markup) : void
 	{
 		self::MaybeThrowWhenValidatingMarkup($markup);
@@ -57,9 +54,6 @@ final class MarkupValidator
 		return [];
 	}
 
-	/**
-	* @param array $markup
-	*/
 	public static function MaybeThrowWhenValidatingMarkup(array $markup) : void
 	{
 		if ( ! array_key_exists('!element', $markup)) {
