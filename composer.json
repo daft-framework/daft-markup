@@ -34,7 +34,7 @@
 		]
 	},
 	"conflict": {
-		"vimeo/psalm": "<3.5"
+		"vimeo/psalm": "<3.5,>3.5.1"
 	},
 	"suggest": {
 		"vimeo/psalm": "Useful for static analysis to reduce runtime type checks etc."
@@ -45,15 +45,15 @@
 		"masterminds/html5": "^2.7"
 	},
 	"require-dev": {
-		"infection/infection": "^0.13.6",
+		"infection/infection": "^0.15.0",
 		"maglnet/composer-require-checker": "^2.0",
-		"php-coveralls/php-coveralls": "^2.1",
-		"phpunit/phpunit": "^8.3",
+		"php-coveralls/php-coveralls": "^2.2",
+		"phpunit/phpunit": "^8.5",
 		"povils/phpmnd": "^2.1",
-		"psalm/plugin-phpunit": "^0.7.0",
+		"psalm/plugin-phpunit": "^0.7",
 		"roave/security-advisories": "dev-master",
 		"sebastian/phpcpd": "^4.1",
-		"signpostmarv/php-cs-fixer-config": "^0.12.0",
-		"vimeo/psalm": "^3.5"
+		"signpostmarv/php-cs-fixer-config": "^0.13",
+		"vimeo/psalm": "^3.5,<3.5.2"
 	}
 }

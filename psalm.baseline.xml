@@ -1,36 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files
-  psalm-version="3.4.12@86e5e50c1bb492045e70f2ebe1da3cad06e4e9b2"
+  psalm-version="3.5.1@deb36e8b273d4b25601f1991482a69d412e3169f"
   php-version="
-    php:7.3.8;
-    bcmath:7.3.8;
-    calendar:7.3.8;
-    Core:7.3.8;
-    ctype:7.3.8;
-    date:7.3.8;
+    php:7.3.2;
+    bcmath:7.3.2;
+    bz2:7.3.2;
+    calendar:7.3.2;
+    Core:7.3.2;
+    ctype:7.3.2;
+    curl:7.3.2;
+    date:7.3.2;
     dom:20031129;
-    filter:7.3.8;
-    hash:7.3.8;
-    iconv:7.3.8;
+    exif:7.3.2;
+    fileinfo:7.3.2;
+    filter:7.3.2;
+    gd:7.3.2;
+    gettext:7.3.2;
+    gmp:7.3.2;
+    hash:7.3.2;
+    iconv:7.3.2;
     json:1.7.0;
-    libxml:7.3.8;
+    libxml:7.3.2;
+    mbstring:7.3.2;
+    mysqli:7.3.2;
     mysqlnd:mysqlnd 5.0.12-dev - 20150407 - $Id: 7cc7cc96e675f6d72e5cf0f267f48e167c2abb23 $;
-    pcre:7.3.8;
-    PDO:7.3.8;
-    Phar:7.3.8;
-    readline:7.3.8;
-    Reflection:7.3.8;
-    session:7.3.8;
-    SimpleXML:7.3.8;
-    SPL:7.3.8;
-    standard:7.3.8;
-    tokenizer:7.3.8;
-    wddx:7.3.8;
-    xml:7.3.8;
-    xmlreader:7.3.8;
-    xmlwriter:7.3.8;
+    openssl:7.3.2;
+    pcre:7.3.2;
+    PDO:7.3.2;
+    pdo_mysql:7.3.2;
+    pdo_sqlite:7.3.2;
+    Phar:7.3.2;
+    readline:7.3.2;
+    Reflection:7.3.2;
+    session:7.3.2;
+    SimpleXML:7.3.2;
+    soap:7.3.2;
+    SPL:7.3.2;
+    standard:7.3.2;
+    tokenizer:7.3.2;
+    wddx:7.3.2;
+    xml:7.3.2;
+    xmlreader:7.3.2;
+    xmlwriter:7.3.2;
     zip:1.15.4;
-    zlib:7.3.8
+    zlib:7.3.2
   "
 >
   <file src="src/AbstractHtmlElement.php">
