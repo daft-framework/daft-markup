@@ -110,38 +110,6 @@ abstract class AbstractHtmlElement
 	}
 
 	/**
-	* @param T2 $out
-	*
-	* @return T2
-	*/
-	private function MarkupAttributesPostProcess(array $out) : array
-	{
-		foreach ($out as $attribute => $value) {
-			if (
-				in_array($attribute, self::ENUMERATED_BOOLEANS, self::BOOL_IN_ARRAY_STRICT) &&
-				is_bool($value)
-			) {
-				$out[$attribute] = $value ? 'true' : 'false';
-			}
-		}
-
-		ksort($out);
-
-		if (false === ($out['translate'] ?? null)) {
-			$out['translate'] = 'no';
-		} else {
-			unset($out['translate']);
-		}
-
-		/**
-		* @var T2
-		*/
-		$out = $out;
-
-		return $out;
-	}
-
-	/**
 	* @var list<T2>
 	*/
 	protected function GroupedAttributes() : array
@@ -232,5 +200,37 @@ abstract class AbstractHtmlElement
 		} else {
 			$this->nullableBooleanAttributes[$attribute] = $value;
 		}
+	}
+
+	/**
+	* @param T2 $out
+	*
+	* @return T2
+	*/
+	private function MarkupAttributesPostProcess(array $out) : array
+	{
+		foreach ($out as $attribute => $value) {
+			if (
+				in_array($attribute, self::ENUMERATED_BOOLEANS, self::BOOL_IN_ARRAY_STRICT) &&
+				is_bool($value)
+			) {
+				$out[$attribute] = $value ? 'true' : 'false';
+			}
+		}
+
+		ksort($out);
+
+		if (false === ($out['translate'] ?? null)) {
+			$out['translate'] = 'no';
+		} else {
+			unset($out['translate']);
+		}
+
+		/**
+		* @var T2
+		*/
+		$out = $out;
+
+		return $out;
 	}
 }
