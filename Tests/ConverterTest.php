@@ -475,7 +475,7 @@ class ConverterTest extends TestCase
 	*
 	* @dataProvider dataProviderMarkupFactoryPlusMarkupArrayToMarkupString
 	*/
-	public function testMarkupArrayToMarkupString(
+	public function test_markup_array_to_markup_string(
 		string $class,
 		array $ctorargs,
 		string $expected,
@@ -506,7 +506,7 @@ class ConverterTest extends TestCase
 	*
 	* @dataProvider dataProviderMarkupFactoryPlusMarkupStringToMarkupArray
 	*/
-	public function testMarkupStringToMarkupArray(
+	public function test_markup_string_to_markup_array(
 		string $class,
 		array $ctorargs,
 		array $expected,

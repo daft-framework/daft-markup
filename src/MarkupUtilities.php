@@ -93,7 +93,7 @@ class MarkupUtilities
 	) : array {
 		return array_values(array_filter(
 			static::FilterDOMNamedNodeMapToAttrs($attributes),
-			function (DOMAttr $attr) use ($node, $keepElements, $generalAttrWhitelist) : bool {
+			static function (DOMAttr $attr) use ($node, $keepElements, $generalAttrWhitelist) : bool {
 				return static::FilterDOMAttr($node, $attr, $keepElements, $generalAttrWhitelist);
 			}
 		));
@@ -121,7 +121,7 @@ class MarkupUtilities
 				$keepElements,
 				$generalAttrWhitelist
 			),
-			function (array $out, DOMAttr $attr) : array {
+			static function (array $out, DOMAttr $attr) : array {
 				$out[$attr->name] = $attr->value;
 
 				if (
@@ -147,7 +147,7 @@ class MarkupUtilities
 	*/
 	protected static function FilterDOMNamedNodeMapToAttrs(DOMNamedNodeMap $attributes) : array
 	{
-		return array_filter(iterator_to_array($attributes), function (DOMNode $attr) : bool {
+		return array_filter(iterator_to_array($attributes), static function (DOMNode $attr) : bool {
 			return $attr instanceof DOMAttr;
 		});
 	}

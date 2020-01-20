@@ -307,7 +307,7 @@ class Markup
 		*/
 		$filtered_nodes = array_filter(
 			iterator_to_array($nodes),
-			function (DOMNode $maybe) : bool {
+			static function (DOMNode $maybe) : bool {
 				return ($maybe instanceof DOMElement) || ($maybe instanceof DOMText);
 			}
 		);
@@ -336,7 +336,7 @@ class Markup
 				},
 				$filtered_nodes
 			),
-			function (array $out, array $childOut) : array {
+			static function (array $out, array $childOut) : array {
 				if ( ! isset($childOut['!element'])) {
 					$out = array_merge($out, $childOut);
 				} else {

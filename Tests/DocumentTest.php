@@ -45,7 +45,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc) : void {
+				static function (Document $doc) : void {
 					$doc->SetTitle('Test');
 					$doc->asyncJs('./foo.js');
 					$doc->deferJs('./bar.js', './baz.js');
@@ -88,7 +88,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc) : void {
+				static function (Document $doc) : void {
 					$doc->SetMarkupConverter(new Markup());
 					$doc->SetTitle('Test');
 					$doc->SetTitleAttribute('Toast');
@@ -128,7 +128,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc, TestCase $test) : void {
+				static function (Document $doc, TestCase $test) : void {
 					$doc->SetMarkupConverter(new Markup());
 					$doc->SetTitle('Test');
 					$doc->Preload('script', './foo.js');
@@ -157,7 +157,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc, TestCase $test) : void {
+				static function (Document $doc, TestCase $test) : void {
 					$doc->SetMarkupConverter(new Markup());
 					$doc->SetTitle('Test');
 					$doc->Preload('script', './foo.js');
@@ -188,7 +188,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc, TestCase $test) : void {
+				static function (Document $doc, TestCase $test) : void {
 					$doc->SetMarkupConverter(new Markup());
 					$doc->SetTitle('Test');
 					$doc->Preload('script', './foo.js');
@@ -213,7 +213,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc) : void {
+				static function (Document $doc) : void {
 					$doc->SetTitle('Test');
 					$doc->ApplyValueForDataAttribute('foo', 'bar');
 					$doc->SetTabIndex(-1);
@@ -235,7 +235,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc) : void {
+				static function (Document $doc) : void {
 					$doc->SetTitle('Test');
 					$doc->SetDraggable(true);
 				},
@@ -254,7 +254,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc) : void {
+				static function (Document $doc) : void {
 					$doc->SetTitle('Test');
 					$doc->SetDraggable(false);
 				},
@@ -273,7 +273,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc) : void {
+				static function (Document $doc) : void {
 					$doc->SetTitle('Test');
 					$doc->SetDraggable(null);
 				},
@@ -292,7 +292,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc) : void {
+				static function (Document $doc) : void {
 					$doc->SetTitle('Test');
 					$doc->SetSpellcheck(true);
 				},
@@ -311,7 +311,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc) : void {
+				static function (Document $doc) : void {
 					$doc->SetTitle('Test');
 					$doc->SetSpellcheck(false);
 				},
@@ -330,7 +330,7 @@ class DocumentTest extends TestCase
 				Document::class,
 				[],
 				null,
-				function (Document $doc) : void {
+				static function (Document $doc) : void {
 					$doc->SetTitle('Test');
 					$doc->SetSpellcheck(null);
 				},
@@ -543,7 +543,7 @@ class DocumentTest extends TestCase
 	/**
 	* @dataProvider dataProviderDocumentInstance
 	*/
-	public function testIsAbstractHtmlElement(string $class) : void
+	public function test_is_abstract_html_element(string $class) : void
 	{
 		static::assertTrue(is_a($class, AbstractHtmlElement::class, true));
 	}
@@ -551,11 +551,11 @@ class DocumentTest extends TestCase
 	/**
 	* @dataProvider dataProviderDocumentInstance
 	*
-	* @depends testIsAbstractHtmlElement
+	* @depends test_is_abstract_html_element
 	*
 	* @param class-string<AbstractHtmlElement> $class
 	*/
-	public function testValidElementName(string $class) : void
+	public function test_valid_element_name(string $class) : void
 	{
 		static::assertRegExp(Markup::REGEX_ELEMENT_NAME, (string) ((new $class())->MarkupElementName()));
 	}
@@ -566,9 +566,9 @@ class DocumentTest extends TestCase
 	*
 	* @dataProvider dataProviderDocumentToString
 	*
-	* @depends testIsAbstractHtmlElement
+	* @depends test_is_abstract_html_element
 	*/
-	public function testDocumentToString(
+	public function test_document_to_string(
 		string $class,
 		array $ctorargs,
 		? array $content,
@@ -603,9 +603,9 @@ class DocumentTest extends TestCase
 	*
 	* @dataProvider dataProviderBadDocumentToString
 	*
-	* @depends testIsAbstractHtmlElement
+	* @depends test_is_abstract_html_element
 	*/
-	public function testBadDocumentToString(
+	public function test_bad_document_to_string(
 		string $class,
 		array $ctorargs,
 		string $expectedExceptionClass,
@@ -636,9 +636,9 @@ class DocumentTest extends TestCase
 	*
 	* @dataProvider dataProviderStringArrayMethods
 	*
-	* @depends testIsAbstractHtmlElement
+	* @depends test_is_abstract_html_element
 	*/
-	public function testStringArrayMethods(
+	public function test_string_array_methods(
 		string $class,
 		array $ctorargs,
 		string $methodSuffix,
@@ -688,9 +688,9 @@ class DocumentTest extends TestCase
 	*
 	* @dataProvider dataProviderTestDefaults
 	*
-	* @depends testIsAbstractHtmlElement
+	* @depends test_is_abstract_html_element
 	*/
-	public function testTranslateDefault(string $class, string $methodSuffix, $expected) : void
+	public function test_translate_default(string $class, string $methodSuffix, $expected) : void
 	{
 		$doc = $this->AbstractHtmlElementFromCtorArgs($class);
 
@@ -708,7 +708,7 @@ class DocumentTest extends TestCase
 	*
 	* @dataProvider dataProviderDocumentInstance
 	*/
-	public function testDocumentDefaults(
+	public function test_document_defaults(
 		string $class,
 		array $ctorargs
 	) : void {

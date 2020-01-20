@@ -268,7 +268,7 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 			array_map([$this, 'PreloadsToMarkupArrayMapper'], array_keys($this->preloads)),
 			array_map([$this, 'StylesheetsToMarkupArrayMapper'], $this->stylesheets),
 			array_map(
-				function (array $meta) : array {
+				static function (array $meta) : array {
 					return ['!element' => 'meta', '!attributes' => $meta];
 				},
 				$this->metas

@@ -20,7 +20,7 @@ class DocumentUtilities
 		/**
 		* @var list<string>
 		*/
-		$out = array_filter($existing, function (string $url) use ($urls) : bool {
+		$out = array_filter($existing, static function (string $url) use ($urls) : bool {
 			return ! in_array($url, $urls, self::BOOL_IN_ARRAY_STRICT);
 		});
 

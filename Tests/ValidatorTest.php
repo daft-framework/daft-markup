@@ -9,6 +9,7 @@ namespace SignpostMarv\DaftMarkup\Tests;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SignpostMarv\DaftMarkup\MarkupValidator;
+use stdClass;
 use Throwable;
 
 class ValidatorTest extends TestCase
@@ -42,7 +43,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateMarkup_failure
 	*/
-	public function test_ValidateMarkup_failure(
+	public function test_Validate_markup_failure(
 		array $content,
 		string $expected_exception,
 		string $expected_message
@@ -82,7 +83,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_MaybeThrowWhenValidatingMarkup_failure
 	*/
-	public function test_MaybeThrowWhenValidatingMarkup_failure(
+	public function test_Maybe_throw_when_validating_markup_failure(
 		array $content,
 		string $expected_exception,
 		string $expected_message
@@ -105,7 +106,7 @@ class ValidatorTest extends TestCase
 				'Attribute keys must be strings!',
 			],
 			[
-				new \stdClass(),
+				new stdClass(),
 				InvalidArgumentException::class,
 				'Attribute keys must be strings!',
 			],
@@ -138,7 +139,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateMarkupAttributeName_failure
 	*/
-	public function test_ValidateMarkupAttributeName_failure(
+	public function test_Validate_markup_attribute_name_failure(
 		$attr,
 		string $expected_exception,
 		string $expected_message
@@ -163,7 +164,7 @@ class ValidatorTest extends TestCase
 			],
 			[
 				'class',
-				[new \stdClass()],
+				[new stdClass()],
 				InvalidArgumentException::class,
 				'Attribute class contained a non-scalar array value!',
 			],
@@ -181,7 +182,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateMarkupAttributeArrayValue_failure
 	*/
-	public function test_ValidateMarkupAttributeArrayValue_failure(
+	public function test_Validate_markup_attribute_array_value_failure(
 		string $attr,
 		array $value,
 		string $expected_exception,
@@ -207,7 +208,7 @@ class ValidatorTest extends TestCase
 			],
 			[
 				'id',
-				new \stdClass(),
+				new stdClass(),
 				InvalidArgumentException::class,
 				'Attribute id contained a non-scalar value!',
 			],
@@ -220,7 +221,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateMarkupAttributeValue_failure
 	*/
-	public function test_ValidateMarkupAttributeValue_failure(
+	public function test_Validate_markup_attribute_value_failure(
 		string $attr,
 		$value,
 		string $expected_exception,
@@ -269,7 +270,7 @@ class ValidatorTest extends TestCase
 				'Element content must be specified as an array!',
 			],
 			[
-				new \stdClass(),
+				new stdClass(),
 				InvalidArgumentException::class,
 				'Element content must be specified as an array!',
 			],
@@ -287,7 +288,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateContent_failure
 	*/
-	public function test_ValidateContent_failure(
+	public function test_Validate_content_failure(
 		$markup_content,
 		string $expected_exception,
 		string $expected_message

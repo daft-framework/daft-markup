@@ -118,13 +118,13 @@ abstract class AbstractHtmlElement
 		* @var list<T2>
 		*/
 		$groupedAttributes = array_map(
-			function (array $group) : array {
+			static function (array $group) : array {
 				return array_filter(
 					$group,
 					/**
 					* @param mixed $value
 					*/
-					function ($value) : bool {
+					static function ($value) : bool {
 						return ! is_null($value);
 					}
 				);
