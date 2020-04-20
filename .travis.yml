@@ -8,6 +8,7 @@ cache:
     - ./vendor/
 install:
   - travis_retry composer install --no-interaction --no-suggest --prefer-source
+  - composer update --dry-run roave/security-advisories
 script:
   - composer run tests
   - ./vendor/bin/php-coveralls
