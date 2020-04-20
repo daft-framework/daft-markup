@@ -43,7 +43,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateMarkup_failure
 	*/
-	public function test_Validate_markup_failure(
+	public function test_validate_markup_failure(
 		array $content,
 		string $expected_exception,
 		string $expected_message
@@ -83,7 +83,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_MaybeThrowWhenValidatingMarkup_failure
 	*/
-	public function test_Maybe_throw_when_validating_markup_failure(
+	public function test_maybe_throw_when_validating_markup_failure(
 		array $content,
 		string $expected_exception,
 		string $expected_message
@@ -139,7 +139,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateMarkupAttributeName_failure
 	*/
-	public function test_Validate_markup_attribute_name_failure(
+	public function test_validate_markup_attribute_name_failure(
 		$attr,
 		string $expected_exception,
 		string $expected_message
@@ -182,7 +182,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateMarkupAttributeArrayValue_failure
 	*/
-	public function test_Validate_markup_attribute_array_value_failure(
+	public function test_validate_markup_attribute_array_value_failure(
 		string $attr,
 		array $value,
 		string $expected_exception,
@@ -221,7 +221,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateMarkupAttributeValue_failure
 	*/
-	public function test_Validate_markup_attribute_value_failure(
+	public function test_validate_markup_attribute_value_failure(
 		string $attr,
 		$value,
 		string $expected_exception,
@@ -288,7 +288,7 @@ class ValidatorTest extends TestCase
 	*
 	* @dataProvider dataProvider_ValidateContent_failure
 	*/
-	public function test_Validate_content_failure(
+	public function test_validate_content_failure(
 		$markup_content,
 		string $expected_exception,
 		string $expected_message
