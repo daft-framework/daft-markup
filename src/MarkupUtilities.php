@@ -28,10 +28,10 @@ class MarkupUtilities
 	];
 
 	/**
-	* @param array{!element:string, !attributes?:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>} $out
-	*
-	* @return array{!element:string, !attributes?:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}
-	*/
+	 * @param array{!element:string, !attributes?:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>} $out
+	 *
+	 * @return array{!element:string, !attributes?:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}
+	 */
 	public static function NodeToMarkupArrayStripEmptyAttributes(array $out) : array
 	{
 		if (
@@ -45,8 +45,8 @@ class MarkupUtilities
 	}
 
 	/**
-	* @param array<string, scalar|scalar[]> $attributes
-	*/
+	 * @param array<string, scalar|scalar[]> $attributes
+	 */
 	public static function MarkupAttributesArrayToMarkupString(
 		array $attributes,
 		int $flags,
@@ -80,11 +80,11 @@ class MarkupUtilities
 	}
 
 	/**
-	* @param array<string, string[]> $keepElements
-	* @param list<string> $generalAttrWhitelist
-	*
-	* @return list<DOMAttr>
-	*/
+	 * @param array<string, string[]> $keepElements
+	 * @param list<string> $generalAttrWhitelist
+	 *
+	 * @return list<DOMAttr>
+	 */
 	public static function FilteredArrayFromDOMNamedNodeMap(
 		DOMElement $node,
 		DOMNamedNodeMap $attributes,
@@ -100,11 +100,11 @@ class MarkupUtilities
 	}
 
 	/**
-	* @param array<string, string[]> $keepElements
-	* @param list<string> $generalAttrWhitelist
-	*
-	* @return array<string, scalar|list<scalar>>
-	*/
+	 * @param array<string, string[]> $keepElements
+	 * @param list<string> $generalAttrWhitelist
+	 *
+	 * @return array<string, scalar|list<scalar>>
+	 */
 	public static function ObtainAttributesFromDOMNamedNodeMap(
 		DOMElement $node,
 		DOMNamedNodeMap $attributes,
@@ -112,8 +112,8 @@ class MarkupUtilities
 		array $generalAttrWhitelist = []
 	) : array {
 		/**
-		* @var array<string, scalar>
-		*/
+		 * @var array<string, scalar>
+		 */
 		$out = array_reduce(
 			self::FilteredArrayFromDOMNamedNodeMap(
 				$node,
@@ -143,8 +143,8 @@ class MarkupUtilities
 	}
 
 	/**
-	* @return DOMAttr[]
-	*/
+	 * @return DOMAttr[]
+	 */
 	protected static function FilterDOMNamedNodeMapToAttrs(DOMNamedNodeMap $attributes) : array
 	{
 		return array_filter(iterator_to_array($attributes), static function (DOMNode $attr) : bool {
@@ -153,9 +153,9 @@ class MarkupUtilities
 	}
 
 	/**
-	* @param array<string, string[]> $keepElements
-	* @param list<string> $generalAttrWhitelist
-	*/
+	 * @param array<string, string[]> $keepElements
+	 * @param list<string> $generalAttrWhitelist
+	 */
 	protected static function FilterDOMAttr(
 		DOMElement $element,
 		DOMAttr $attr,
@@ -170,8 +170,8 @@ class MarkupUtilities
 	}
 
 	/**
-	* @param array<string, string[]> $keepElements
-	*/
+	 * @param array<string, string[]> $keepElements
+	 */
 	protected static function FilterDOMAttrKeepElement(
 		DOMElement $node,
 		DOMAttr $attr,

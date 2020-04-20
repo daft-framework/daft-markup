@@ -13,13 +13,13 @@ class DocumentUtilities
 	const INT_ARRAY_FILL_START_AT_ZERO = 0;
 
 	/**
-	* @return list<string>
-	*/
+	 * @return list<string>
+	 */
 	public static function ExcludeUrls(array $existing, string ...$urls) : array
 	{
 		/**
-		* @var list<string>
-		*/
+		 * @var list<string>
+		 */
 		$out = array_filter($existing, static function (string $url) use ($urls) : bool {
 			return ! in_array($url, $urls, self::BOOL_IN_ARRAY_STRICT);
 		});
@@ -28,15 +28,15 @@ class DocumentUtilities
 	}
 
 	/**
-	* @param array<string, string> $existing
-	*
-	* @return array<string, string>
-	*/
+	 * @param array<string, string> $existing
+	 *
+	 * @return array<string, string>
+	 */
 	public static function MergeSetting(array $existing, string $setting, string ...$urls) : array
 	{
 		/**
-		* @var array<string, string>
-		*/
+		 * @var array<string, string>
+		 */
 		$fresh = array_combine(
 			$urls,
 			array_fill(

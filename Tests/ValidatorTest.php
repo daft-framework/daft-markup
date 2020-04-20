@@ -15,8 +15,8 @@ use Throwable;
 class ValidatorTest extends TestCase
 {
 	/**
-	* @return list<array{0:array, 1:class-string<Throwable>, 2:string}>
-	*/
+	 * @return list<array{0:array, 1:class-string<Throwable>, 2:string}>
+	 */
 	public function dataProvider_ValidateMarkup_failure() : array
 	{
 		return [
@@ -39,10 +39,10 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @param class-string<Throwable> $expected_exception
-	*
-	* @dataProvider dataProvider_ValidateMarkup_failure
-	*/
+	 * @param class-string<Throwable> $expected_exception
+	 *
+	 * @dataProvider dataProvider_ValidateMarkup_failure
+	 */
 	public function test_validate_markup_failure(
 		array $content,
 		string $expected_exception,
@@ -55,8 +55,8 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return list<array{0:array, 1:class-string<Throwable>, 2:string}>
-	*/
+	 * @return list<array{0:array, 1:class-string<Throwable>, 2:string}>
+	 */
 	public function dataProvider_MaybeThrowWhenValidatingMarkup_failure() : array
 	{
 		return [
@@ -79,10 +79,10 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @param class-string<Throwable> $expected_exception
-	*
-	* @dataProvider dataProvider_MaybeThrowWhenValidatingMarkup_failure
-	*/
+	 * @param class-string<Throwable> $expected_exception
+	 *
+	 * @dataProvider dataProvider_MaybeThrowWhenValidatingMarkup_failure
+	 */
 	public function test_maybe_throw_when_validating_markup_failure(
 		array $content,
 		string $expected_exception,
@@ -95,8 +95,8 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return list<array{0:mixed, 1:class-string<Throwable>, 2:string}>
-	*/
+	 * @return list<array{0:mixed, 1:class-string<Throwable>, 2:string}>
+	 */
 	public function dataProvider_ValidateMarkupAttributeName_failure() : array
 	{
 		return [
@@ -134,11 +134,11 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @param mixed $attr
-	* @param class-string<Throwable> $expected_exception
-	*
-	* @dataProvider dataProvider_ValidateMarkupAttributeName_failure
-	*/
+	 * @param mixed $attr
+	 * @param class-string<Throwable> $expected_exception
+	 *
+	 * @dataProvider dataProvider_ValidateMarkupAttributeName_failure
+	 */
 	public function test_validate_markup_attribute_name_failure(
 		$attr,
 		string $expected_exception,
@@ -151,8 +151,8 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return list<array{0:string, 1:array, 2:class-string<Throwable>, 3:string}>
-	*/
+	 * @return list<array{0:string, 1:array, 2:class-string<Throwable>, 3:string}>
+	 */
 	public function dataProvider_ValidateMarkupAttributeArrayValue_failure() : array
 	{
 		return [
@@ -178,10 +178,10 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @param class-string<Throwable> $expected_exception
-	*
-	* @dataProvider dataProvider_ValidateMarkupAttributeArrayValue_failure
-	*/
+	 * @param class-string<Throwable> $expected_exception
+	 *
+	 * @dataProvider dataProvider_ValidateMarkupAttributeArrayValue_failure
+	 */
 	public function test_validate_markup_attribute_array_value_failure(
 		string $attr,
 		array $value,
@@ -195,8 +195,8 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return list<array{0:string, 1:mixed, 2:class-string<Throwable>, 3:string}>
-	*/
+	 * @return list<array{0:string, 1:mixed, 2:class-string<Throwable>, 3:string}>
+	 */
 	public function dataProvider_ValidateMarkupAttributeValue_failure() : array
 	{
 		return [
@@ -216,11 +216,11 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @param mixed $value
-	* @param class-string<Throwable> $expected_exception
-	*
-	* @dataProvider dataProvider_ValidateMarkupAttributeValue_failure
-	*/
+	 * @param mixed $value
+	 * @param class-string<Throwable> $expected_exception
+	 *
+	 * @dataProvider dataProvider_ValidateMarkupAttributeValue_failure
+	 */
 	public function test_validate_markup_attribute_value_failure(
 		string $attr,
 		$value,
@@ -234,8 +234,8 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @return list<array{0:mixed, 1:class-string<Throwable>, 2:string}>
-	*/
+	 * @return list<array{0:mixed, 1:class-string<Throwable>, 2:string}>
+	 */
 	public function dataProvider_ValidateContent_failure() : array
 	{
 		return [
@@ -283,11 +283,11 @@ class ValidatorTest extends TestCase
 	}
 
 	/**
-	* @param mixed $markup_content
-	* @param class-string<Throwable> $expected_exception
-	*
-	* @dataProvider dataProvider_ValidateContent_failure
-	*/
+	 * @param mixed $markup_content
+	 * @param class-string<Throwable> $expected_exception
+	 *
+	 * @dataProvider dataProvider_ValidateContent_failure
+	 */
 	public function test_validate_content_failure(
 		$markup_content,
 		string $expected_exception,

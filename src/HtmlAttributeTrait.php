@@ -7,10 +7,10 @@ declare(strict_types=1);
 namespace SignpostMarv\DaftMarkup;
 
 /**
-* @psalm-type AUTOCAPITALIZE = 'off'|'none'|'on'|'sentences'|'words'|'characters'
-* @psalm-type DIR = 'ltr'|'rtl'|'auto'
-* @psalm-type DROPZONE = 'copy'|'move'|'link'
-*/
+ * @psalm-type AUTOCAPITALIZE = 'off'|'none'|'on'|'sentences'|'words'|'characters'
+ * @psalm-type DIR = 'ltr'|'rtl'|'auto'
+ * @psalm-type DROPZONE = 'copy'|'move'|'link'
+ */
 trait HtmlAttributeTrait
 {
 	use HtmlAttributeAbstractsTrait;
@@ -18,8 +18,8 @@ trait HtmlAttributeTrait
 	use TabIndexAttributeTrait;
 
 	/**
-	* @return list<string>
-	*/
+	 * @return list<string>
+	 */
 	public function GetAccessKey() : array
 	{
 		return $this->RetrieveStringArrayAttributeValues('accesskey');
@@ -41,29 +41,29 @@ trait HtmlAttributeTrait
 	}
 
 	/**
-	* @return AUTOCAPITALIZE|null
-	*/
+	 * @return AUTOCAPITALIZE|null
+	 */
 	public function GetAutoCapitalize() : ? string
 	{
 		/**
-		* @var AUTOCAPITALIZE|null
-		*/
+		 * @var AUTOCAPITALIZE|null
+		 */
 		$out = $this->RetrieveNullableStringAttribute('autocapitalize');
 
 		return $out;
 	}
 
 	/**
-	* @param AUTOCAPITALIZE|null $value
-	*/
+	 * @param AUTOCAPITALIZE|null $value
+	 */
 	public function SetAutoCapitalize(? string $value) : void
 	{
 		$this->ApplyValueForNullableStringAttribute('autocapitalize', $value);
 	}
 
 	/**
-	* @return list<string>
-	*/
+	 * @return list<string>
+	 */
 	public function GetClass() : array
 	{
 		return $this->RetrieveStringArrayAttributeValues('class');
@@ -105,21 +105,21 @@ trait HtmlAttributeTrait
 	}
 
 	/**
-	* @return DIR|null
-	*/
+	 * @return DIR|null
+	 */
 	public function GetDir() : ? string
 	{
 		/**
-		* @var DIR|null
-		*/
+		 * @var DIR|null
+		 */
 		$out = $this->RetrieveNullableStringAttribute('dir');
 
 		return $out;
 	}
 
 	/**
-	* @param DIR|null $value
-	*/
+	 * @param DIR|null $value
+	 */
 	public function SetDir(? string $value) : void
 	{
 		$this->ApplyValueForNullableStringAttribute('dir', $value);
@@ -136,21 +136,21 @@ trait HtmlAttributeTrait
 	}
 
 	/**
-	* @return DROPZONE|null
-	*/
+	 * @return DROPZONE|null
+	 */
 	public function GetDropzone() : ? string
 	{
 		/**
-		* @var DROPZONE|null
-		*/
+		 * @var DROPZONE|null
+		 */
 		$out = $this->RetrieveNullableStringAttribute('dropzone');
 
 		return $out;
 	}
 
 	/**
-	* @param DROPZONE|null $value
-	*/
+	 * @param DROPZONE|null $value
+	 */
 	public function SetDropzone(? string $value) : void
 	{
 		$this->ApplyValueForNullableStringAttribute('dropzone', $value);

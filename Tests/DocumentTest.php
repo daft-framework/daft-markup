@@ -18,10 +18,10 @@ use Throwable;
 class DocumentTest extends TestCase
 {
 	/**
-	* @return list<list<string|array>>
-	*
-	* @psalm-return list<array{0:class-string<Document>, 1:mixed[]}>
-	*/
+	 * @return list<list<string|array>>
+	 *
+	 * @psalm-return list<array{0:class-string<Document>, 1:mixed[]}>
+	 */
 	public function dataProviderDocumentInstance() : array
 	{
 		return [
@@ -33,13 +33,13 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @return list<array{0:class-string<Document>, 1:mixed[], 2:list<scalar|array{!element:string}>|null, 3:Closure(Document):void|null, 4:string}>
-	*/
+	 * @return list<array{0:class-string<Document>, 1:mixed[], 2:list<scalar|array{!element:string}>|null, 3:Closure(Document):void|null, 4:string}>
+	 */
 	public function dataProviderDocumentToString() : array
 	{
 		/**
-		* @var list<array{0:class-string<Document>, 1:mixed[], 2:list<scalar|array{!element:string}>|null, 3:Closure(Document):void|null, 4:string}>
-		*/
+		 * @var list<array{0:class-string<Document>, 1:mixed[], 2:list<scalar|array{!element:string}>|null, 3:Closure(Document):void|null, 4:string}>
+		 */
 		return [
 			[
 				Document::class,
@@ -349,10 +349,10 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @return list<array<string|mixed[]|Closure|null>>
-	*
-	* @psalm-return list<array{0:class-string<Document>, 1:mixed[], 2:class-string<Throwable>, 3:string}>
-	*/
+	 * @return list<array<string|mixed[]|Closure|null>>
+	 *
+	 * @psalm-return list<array{0:class-string<Document>, 1:mixed[], 2:class-string<Throwable>, 3:string}>
+	 */
 	public function dataProviderBadDocumentToString() : array
 	{
 		return [
@@ -366,8 +366,8 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @return string[][]
-	*/
+	 * @return string[][]
+	 */
 	public function dataProviderStringArrayMethodNames() : array
 	{
 		return [
@@ -387,8 +387,8 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @return string[][][]
-	*/
+	 * @return string[][][]
+	 */
 	public function dataProviderStringArrayMethodTestingValues() : array
 	{
 		return [
@@ -404,16 +404,16 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @psalm-return Generator<int, array{0:class-string<Document>, 1:mixed[], 2:string, 3:string[], 4:string[], 5:string[], 6:string[], 7:string[], 8:string[]}, mixed, void>
-	*/
+	 * @psalm-return Generator<int, array{0:class-string<Document>, 1:mixed[], 2:string, 3:string[], 4:string[], 5:string[], 6:string[], 7:string[], 8:string[]}, mixed, void>
+	 */
 	public function dataProviderStringArrayMethods() : Generator
 	{
 		foreach ($this->dataProviderDocumentInstance() as $classArgs) {
 			foreach ($this->dataProviderStringArrayMethodNames() as $methodNameArgs) {
 				foreach ($this->dataProviderStringArrayMethodTestingValues() as $testingArgs) {
 					/**
-					* @psalm-var array{0:class-string<Document>, 1:mixed[], 2:string, 3:string[], 4:string[], 5:string[], 6:string[], 7:string[], 8:string[]}
-					*/
+					 * @psalm-var array{0:class-string<Document>, 1:mixed[], 2:string, 3:string[], 4:string[], 5:string[], 6:string[], 7:string[], 8:string[]}
+					 */
 					$out = array_merge($classArgs, $methodNameArgs, $testingArgs);
 
 					yield $out;
@@ -423,8 +423,8 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @return list<list<scalar|array|null>>
-	*/
+	 * @return list<list<scalar|array|null>>
+	 */
 	public function dataProviderDefaultValues() : array
 	{
 		return [
@@ -524,15 +524,15 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @psalm-return Generator<int, array{0:class-string<AbstractHtmlElement>, 1:string, 2:scalar|null}, mixed, void>
-	*/
+	 * @psalm-return Generator<int, array{0:class-string<AbstractHtmlElement>, 1:string, 2:scalar|null}, mixed, void>
+	 */
 	public function dataProviderTestDefaults() : Generator
 	{
 		foreach ($this->dataProviderDocumentInstance() as $classArgs) {
 			foreach ($this->dataProviderDefaultValues() as $valuesArgs) {
 				/**
-				* @psalm-var array{0:class-string<AbstractHtmlElement>, 1:string, 2:scalar|null}
-				*/
+				 * @psalm-var array{0:class-string<AbstractHtmlElement>, 1:string, 2:scalar|null}
+				 */
 				$out = array_merge([$classArgs[0]], $valuesArgs);
 
 				yield $out;
@@ -541,33 +541,33 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @dataProvider dataProviderDocumentInstance
-	*/
+	 * @dataProvider dataProviderDocumentInstance
+	 */
 	public function test_is_abstract_html_element(string $class) : void
 	{
 		static::assertTrue(is_a($class, AbstractHtmlElement::class, true));
 	}
 
 	/**
-	* @dataProvider dataProviderDocumentInstance
-	*
-	* @depends test_is_abstract_html_element
-	*
-	* @param class-string<AbstractHtmlElement> $class
-	*/
+	 * @dataProvider dataProviderDocumentInstance
+	 *
+	 * @depends test_is_abstract_html_element
+	 *
+	 * @param class-string<AbstractHtmlElement> $class
+	 */
 	public function test_valid_element_name(string $class) : void
 	{
 		static::assertRegExp(Markup::REGEX_ELEMENT_NAME, (string) ((new $class())->MarkupElementName()));
 	}
 
 	/**
-	* @param class-string<Document> $class
-	* @param list<scalar|array{!element:string}>|null $content
-	*
-	* @dataProvider dataProviderDocumentToString
-	*
-	* @depends test_is_abstract_html_element
-	*/
+	 * @param class-string<Document> $class
+	 * @param list<scalar|array{!element:string}>|null $content
+	 *
+	 * @dataProvider dataProviderDocumentToString
+	 *
+	 * @depends test_is_abstract_html_element
+	 */
 	public function test_document_to_string(
 		string $class,
 		array $ctorargs,
@@ -597,14 +597,14 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @param class-string<AbstractHtmlElement> $class
-	* @param class-string<Throwable> $expectedExceptionClass
-	* @param list<scalar|array{!element:string}>|null $content
-	*
-	* @dataProvider dataProviderBadDocumentToString
-	*
-	* @depends test_is_abstract_html_element
-	*/
+	 * @param class-string<AbstractHtmlElement> $class
+	 * @param class-string<Throwable> $expectedExceptionClass
+	 * @param list<scalar|array{!element:string}>|null $content
+	 *
+	 * @dataProvider dataProviderBadDocumentToString
+	 *
+	 * @depends test_is_abstract_html_element
+	 */
 	public function test_bad_document_to_string(
 		string $class,
 		array $ctorargs,
@@ -626,18 +626,18 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @param class-string<AbstractHtmlElement> $class
-	* @param string[] $firstSet
-	* @param string[] $assertSameFirstSetExpected
-	* @param string[] $append
-	* @param string[] $assertSameAppendExpected
-	* @param string[] $assertSameSortExpected
-	* @param string[] $assertSameSortSetExpected
-	*
-	* @dataProvider dataProviderStringArrayMethods
-	*
-	* @depends test_is_abstract_html_element
-	*/
+	 * @param class-string<AbstractHtmlElement> $class
+	 * @param string[] $firstSet
+	 * @param string[] $assertSameFirstSetExpected
+	 * @param string[] $append
+	 * @param string[] $assertSameAppendExpected
+	 * @param string[] $assertSameSortExpected
+	 * @param string[] $assertSameSortSetExpected
+	 *
+	 * @dataProvider dataProviderStringArrayMethods
+	 *
+	 * @depends test_is_abstract_html_element
+	 */
 	public function test_string_array_methods(
 		string $class,
 		array $ctorargs,
@@ -670,8 +670,8 @@ class DocumentTest extends TestCase
 		static::assertSame($assertSameAppendExpected, $doc->$getMethod());
 
 		/**
-		* @var string[]
-		*/
+		 * @var string[]
+		 */
 		$val = $doc->$getMethod();
 		sort($val);
 		static::assertSame($assertSameSortExpected, $doc->$getMethod());
@@ -683,13 +683,13 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @param class-string<AbstractHtmlElement> $class
-	* @param scalar|null $expected
-	*
-	* @dataProvider dataProviderTestDefaults
-	*
-	* @depends test_is_abstract_html_element
-	*/
+	 * @param class-string<AbstractHtmlElement> $class
+	 * @param scalar|null $expected
+	 *
+	 * @dataProvider dataProviderTestDefaults
+	 *
+	 * @depends test_is_abstract_html_element
+	 */
 	public function test_translate_default(string $class, string $methodSuffix, $expected) : void
 	{
 		$doc = $this->AbstractHtmlElementFromCtorArgs($class);
@@ -704,17 +704,17 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @param class-string<Document> $class
-	*
-	* @dataProvider dataProviderDocumentInstance
-	*/
+	 * @param class-string<Document> $class
+	 *
+	 * @dataProvider dataProviderDocumentInstance
+	 */
 	public function test_document_defaults(
 		string $class,
 		array $ctorargs
 	) : void {
 		/**
-		* @var Document
-		*/
+		 * @var Document
+		 */
 		$doc = $this->AbstractHtmlElementFromCtorArgs($class, $ctorargs);
 
 		static::assertSame([], $doc->GetAccessKey());
@@ -853,8 +853,8 @@ class DocumentTest extends TestCase
 	}
 
 	/**
-	* @param class-string<AbstractHtmlElement> $class
-	*/
+	 * @param class-string<AbstractHtmlElement> $class
+	 */
 	protected function AbstractHtmlElementFromCtorArgs(
 		string $class,
 		array $ctorargs = []

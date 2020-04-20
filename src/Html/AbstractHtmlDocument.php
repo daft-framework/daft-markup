@@ -12,11 +12,11 @@ use SignpostMarv\DaftMarkup\HtmlAttributeTrait;
 use SignpostMarv\DaftMarkup\MarkupConverterTrait;
 
 /**
-* @template T1 as array<string, scalar|list<scalar>>
-* @template T2 as list<scalar|array{!element:string}>
-*
-* @template-extends AbstractHtmlElement<'html', T1, T2>
-*/
+ * @template T1 as array<string, scalar|list<scalar>>
+ * @template T2 as list<scalar|array{!element:string}>
+ *
+ * @template-extends AbstractHtmlElement<'html', T1, T2>
+ */
 abstract class AbstractHtmlDocument extends AbstractHtmlElement
 {
 	use HtmlAttributeTrait;
@@ -27,64 +27,64 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 	protected ? string $title = null;
 
 	/**
-	* @var array<string, string>
-	*/
+	 * @var array<string, string>
+	 */
 	protected array $preloads = [];
 
 	/**
-	* @var list<string>
-	*/
+	 * @var list<string>
+	 */
 	protected array $stylesheets = [];
 
 	/**
-	* @var list<string>
-	*/
+	 * @var list<string>
+	 */
 	protected array $scripts = [];
 
 	/**
-	* @var list<string>
-	*/
+	 * @var list<string>
+	 */
 	protected array $async = [];
 
 	/**
-	* @var list<string>
-	*/
+	 * @var list<string>
+	 */
 	protected array $defer = [];
 
 	/**
-	* @var list<string>
-	*/
+	 * @var list<string>
+	 */
 	protected array $modules = [];
 
 	/**
-	* @var list<string>
-	*/
+	 * @var list<string>
+	 */
 	protected array $noModules = [];
 
 	/**
-	* @var list<array<string, string>>
-	*/
+	 * @var list<array<string, string>>
+	 */
 	protected array $metas = [];
 
 	protected string $charset = 'utf-8';
 
 	/**
-	* @var array<string, string>
-	*/
+	 * @var array<string, string>
+	 */
 	protected array $crossOrigin = [];
 
 	/**
-	* @var array<string, string>
-	*/
+	 * @var array<string, string>
+	 */
 	protected array $integrity = [];
 
 	protected bool $enableIntegrityOnPreload = false;
 
 	/**
-	* @param T2|null $content
-	*
-	* @return array{!element:'html', !attributes:T1, !content:T2}
-	*/
+	 * @param T2|null $content
+	 *
+	 * @return array{!element:'html', !attributes:T1, !content:T2}
+	 */
 	public function ToMarkupArray(array $content = null) : array
 	{
 		$bodyContent = array_merge(
@@ -93,8 +93,8 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 		);
 
 		/**
-		* @var T2
-		*/
+		 * @var T2
+		 */
 		$content = [['!element' => 'head', '!content' => $this->HeadContentMarkupArray()]];
 
 		if (count($bodyContent) > self::COUNT_NON_EMPTY) {
@@ -102,13 +102,13 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 		}
 
 		/**
-		* @var T2
-		*/
+		 * @var T2
+		 */
 		$content = $content;
 
 		/**
-		* @var array{!element:'html', !attributes:T1, !content:T2}
-		*/
+		 * @var array{!element:'html', !attributes:T1, !content:T2}
+		 */
 		return parent::ToMarkupArray($content);
 	}
 
@@ -216,17 +216,17 @@ abstract class AbstractHtmlDocument extends AbstractHtmlElement
 	}
 
 	/**
-	* @param T2|null $content
-	*/
+	 * @param T2|null $content
+	 */
 	public function MarkupContentToDocumentString(array $content = null) : string
 	{
 		/**
-		* @var array{
-		*	!element:string,
-		*	!attributes:array<string, scalar|list<scalar>>,
-		*	!content?:list<scalar|array{!element:string}>
-		* }
-		*/
+		 * @var array{
+		 *	!element:string,
+		 *	!attributes:array<string, scalar|list<scalar>>,
+		 *	!content?:list<scalar|array{!element:string}>
+		 * }
+		 */
 		$to_convert = $this->ToMarkupArray($content);
 
 		return

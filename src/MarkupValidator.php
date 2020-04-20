@@ -24,18 +24,18 @@ final class MarkupValidator
 	}
 
 	/**
-	* @param array{!element:string, !attributes?:array<string, scalar|list<scalar>>} $markup
-	*
-	* @return array<string, scalar|scalar[]>
-	*/
+	 * @param array{!element:string, !attributes?:array<string, scalar|list<scalar>>} $markup
+	 *
+	 * @return array<string, scalar|scalar[]>
+	 */
 	public static function ValidateMarkupAttributes(array $markup) : array
 	{
 		self::ValidateMarkup($markup);
 
 		if (isset($markup['!attributes'])) {
 			/**
-			* @var array<int|string, mixed>
-			*/
+			 * @var array<int|string, mixed>
+			 */
 			$attributes = $markup['!attributes'];
 
 			foreach (array_keys($attributes) as $attr) {
@@ -44,8 +44,8 @@ final class MarkupValidator
 			}
 
 			/**
-			* @var array<string, scalar|scalar[]>
-			*/
+			 * @var array<string, scalar|scalar[]>
+			 */
 			$attributes = $attributes;
 
 			return $attributes;
@@ -68,8 +68,8 @@ final class MarkupValidator
 	}
 
 	/**
-	* @param mixed $attr
-	*/
+	 * @param mixed $attr
+	 */
 	public static function ValidateMarkupAttributeName($attr) : string
 	{
 		if ( ! is_string($attr)) {
@@ -84,8 +84,8 @@ final class MarkupValidator
 	public static function ValidateMarkupAttributeArrayValue(string $attr, array $value) : void
 	{
 		/**
-		* @var list<int|string>
-		*/
+		 * @var list<int|string>
+		 */
 		$valueKeys = array_keys($value);
 
 		foreach ($valueKeys as $key) {
@@ -99,8 +99,8 @@ final class MarkupValidator
 	}
 
 	/**
-	* @param mixed $value
-	*/
+	 * @param mixed $value
+	 */
 	public static function ValidateMarkupAttributeValue(string $attr, $value) : void
 	{
 		if (is_array($value)) {
@@ -114,8 +114,8 @@ final class MarkupValidator
 	}
 
 	/**
-	* @param mixed $markupContent
-	*/
+	 * @param mixed $markupContent
+	 */
 	public static function ValidateContent($markupContent) : void
 	{
 		if ( ! is_array($markupContent)) {
@@ -123,8 +123,8 @@ final class MarkupValidator
 		}
 
 		/**
-		* @var array<int|string, mixed>
-		*/
+		 * @var array<int|string, mixed>
+		 */
 		$markupContent = $markupContent;
 
 		foreach (array_keys($markupContent) as $key) {

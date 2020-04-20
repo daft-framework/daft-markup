@@ -17,8 +17,8 @@ class ConverterTest extends TestCase
 	const EXPECTED_MARKUP_FACTORY_ARGUMENTS = 2;
 
 	/**
-	* @return list<list<string|mixed[]>>
-	*/
+	 * @return list<list<string|mixed[]>>
+	 */
 	public function dataProviderMarkupFactory() : array
 	{
 		return [
@@ -30,8 +30,8 @@ class ConverterTest extends TestCase
 	}
 
 	/**
-	* @return list<list<mixed|array<int|string, mixed>|string>>
-	*/
+	 * @return list<list<mixed|array<int|string, mixed>|string>>
+	 */
 	public function dataProviderMarkupArrayToMarkupString() : array
 	{
 		return [
@@ -227,8 +227,8 @@ class ConverterTest extends TestCase
 	}
 
 	/**
-	* @return list<string|list<mixed>>
-	*/
+	 * @return list<string|list<mixed>>
+	 */
 	public function dataProviderMarkupStringToMarkupArray() : array
 	{
 		return [
@@ -383,8 +383,8 @@ class ConverterTest extends TestCase
 	}
 
 	/**
-	* @psalm-return Generator<int, array{0:class-string<Markup>, 1:mixed[], 2:string, 3:list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>, 4:bool, 5:int, 6:string, 7:bool}, mixed, void>
-	*/
+	 * @psalm-return Generator<int, array{0:class-string<Markup>, 1:mixed[], 2:string, 3:list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>, 4:bool, 5:int, 6:string, 7:bool}, mixed, void>
+	 */
 	public function dataProviderMarkupFactoryPlusMarkupArrayToMarkupString() : Generator
 	{
 		foreach ($this->dataProviderMarkupFactory() as $k => $markupArgs) {
@@ -415,8 +415,8 @@ class ConverterTest extends TestCase
 
 			foreach ($this->dataProviderMarkupArrayToMarkupString() as $v) {
 				/**
-				* @var array{0:class-string<Markup>, 1:mixed[], 2:string, 3:list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>, 4:bool, 5:int, 6:string, 7:bool}
-				*/
+				 * @var array{0:class-string<Markup>, 1:mixed[], 2:string, 3:list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>, 4:bool, 5:int, 6:string, 7:bool}
+				 */
 				$out = array_merge([$class, $ctorargs], $v);
 
 				yield $out;
@@ -425,8 +425,8 @@ class ConverterTest extends TestCase
 	}
 
 	/**
-	* @return Generator<int, array{0:class-string<Markup>, 1:array<string, string[]>, 2:array, 3:string, 4:array<string, list<string>>, 5:array<string, list<string>>, 6:list<string>}, mixed, void>
-	*/
+	 * @return Generator<int, array{0:class-string<Markup>, 1:array<string, string[]>, 2:array, 3:string, 4:array<string, list<string>>, 5:array<string, list<string>>, 6:list<string>}, mixed, void>
+	 */
 	public function dataProviderMarkupFactoryPlusMarkupStringToMarkupArray() : Generator
 	{
 		foreach ($this->dataProviderMarkupFactory() as $k => $markupArgs) {
@@ -457,8 +457,8 @@ class ConverterTest extends TestCase
 
 			foreach ($this->dataProviderMarkupStringToMarkupArray() as $v) {
 				/**
-				* @var array{0:class-string<Markup>, 1:array<string, string[]>, 2:array, 3:string, 4:array<string, list<string>>, 5:array<string, list<string>>, 6:list<string>}
-				*/
+				 * @var array{0:class-string<Markup>, 1:array<string, string[]>, 2:array, 3:string, 4:array<string, list<string>>, 5:array<string, list<string>>, 6:list<string>}
+				 */
 				$out = array_merge(
 					[$class, $ctorargs],
 					is_array($v) ? $v : [$v]
@@ -470,11 +470,11 @@ class ConverterTest extends TestCase
 	}
 
 	/**
-	* @param class-string<Markup> $class,
-	* @param list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}> $markup
-	*
-	* @dataProvider dataProviderMarkupFactoryPlusMarkupArrayToMarkupString
-	*/
+	 * @param class-string<Markup> $class,
+	 * @param list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}> $markup
+	 *
+	 * @dataProvider dataProviderMarkupFactoryPlusMarkupArrayToMarkupString
+	 */
 	public function test_markup_array_to_markup_string(
 		string $class,
 		array $ctorargs,
@@ -499,13 +499,13 @@ class ConverterTest extends TestCase
 	}
 
 	/**
-	* @param class-string<Markup> $class,
-	* @param array<string, list<string>> $excludeElements
-	* @param array<string, list<string>> $keepElements
-	* @param list<string> $generalAttrWhitelist
-	*
-	* @dataProvider dataProviderMarkupFactoryPlusMarkupStringToMarkupArray
-	*/
+	 * @param class-string<Markup> $class,
+	 * @param array<string, list<string>> $excludeElements
+	 * @param array<string, list<string>> $keepElements
+	 * @param list<string> $generalAttrWhitelist
+	 *
+	 * @dataProvider dataProviderMarkupFactoryPlusMarkupStringToMarkupArray
+	 */
 	public function test_markup_string_to_markup_array(
 		string $class,
 		array $ctorargs,
