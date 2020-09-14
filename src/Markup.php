@@ -57,6 +57,11 @@ class Markup
 	const REGEX_ATTRIBUTE_NAME =
 		'/^(?:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*(?:\:[a-z]+[a-z0-9_]*(?:\-[a-z0-9_]+)*){0,1})$/';
 
+	final public function __construct()
+	{
+		$this->boostrap_constructor();
+	}
+
 	/**
 	 * @param list<scalar|array{!element:string, !attributes:array<string, scalar|list<scalar>>, !content?:array<scalar|array{!element:string}>}> $markupContent
 	 */
@@ -214,6 +219,10 @@ class Markup
 		}
 
 		return [$node->wholeText];
+	}
+
+	protected function boostrap_constructor() : void
+	{
 	}
 
 	/**
