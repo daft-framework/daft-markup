@@ -39,8 +39,9 @@ abstract class AbstractHtmlElement
 		'translate' => true,
 	];
 
-	public function __construct()
+	final public function __construct()
 	{
+		$this->boostrap_constructor();
 	}
 
 	/**
@@ -107,6 +108,10 @@ abstract class AbstractHtmlElement
 		}
 
 		return self::MarkupAttributesPostProcess($out);
+	}
+
+	protected function boostrap_constructor() : void
+	{
 	}
 
 	/**
