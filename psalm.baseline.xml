@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files
-  psalm-version="3.11.2@d470903722cfcbc1cd04744c5491d3e6d13ec3d9"
+  psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30"
   php-version="
     php:7.4.0;
     bcmath:7.4.0;
