@@ -50,7 +50,7 @@
 		"php-coveralls/php-coveralls": "^2.2",
 		"phpunit/phpunit": "^8.5",
 		"povils/phpmnd": "^2.2",
-		"psalm/plugin-phpunit": "^0.10.0",
+		"psalm/plugin-phpunit": "^0.12.1",
 		"roave/security-advisories": "dev-master",
 		"sebastian/phpcpd": "^5.0",
 		"signpostmarv/php-cs-fixer-config": "^0.17.2",
