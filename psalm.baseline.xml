@@ -1,43 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files
-  psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30"
-  php-version="
-    php:7.4.0;
-    bcmath:7.4.0;
-    calendar:7.4.0;
-    Core:7.4.0;
-    ctype:7.4.0;
-    curl:7.4.0;
-    date:7.4.0;
-    dom:20031129;
-    fileinfo:7.4.0;
-    filter:7.4.0;
-    hash:7.4.0;
-    iconv:7.4.0;
-    imap:7.4.0;
-    json:7.4.0;
-    libxml:7.4.0;
-    mbstring:7.4.0;
-    mysqlnd:mysqlnd 7.4.0;
-    openssl:7.4.0;
-    pcre:7.4.0;
-    PDO:7.4.0;
-    pdo_sqlite:7.4.0;
-    Phar:7.4.0;
-    readline:7.4.0;
-    Reflection:7.4.0;
-    session:7.4.0;
-    SimpleXML:7.4.0;
-    SPL:7.4.0;
-    standard:7.4.0;
-    tokenizer:7.4.0;
-    xml:7.4.0;
-    xmlreader:7.4.0;
-    xmlwriter:7.4.0;
-    zip:1.15.5;
-    zlib:7.4.0
-  "
->
+<files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30">
   <file src="src/AbstractHtmlElement.php">
     <PossiblyUnusedMethod occurrences="7">
       <code>__construct</code>
